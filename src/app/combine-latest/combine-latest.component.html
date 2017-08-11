@@ -1,0 +1,130 @@
+
+<div class="container">
+  <h3>combineLatest</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"><a (click)="diffAnalysisService.showDiffInfo('combineAll-combineLatest');$event.stopPropagation()" class="list-group-item">combineAll 与 combineLatest 的区别</a></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">combineLatest 说明</div>
+    <div class="panel-body">
+      <p>签名: combineLatest(observables: ...Observable, project: function): Observable</p>
+      <p>当任意 observable 发出值时，发出每个 observable 的最新值 </p>
+      <p>此操作符既有静态方法，又有实例方法！</p>
+      <p>combineLatest 结合传入的多个 Observables。 通过顺序的订阅每个输入Observable, 在每次任一输入Observables发送的时候收集 每个输入Observables最新的值组成一个数组, 然后要么将这个数组传给可选的投射函数并发送投射函数返回的结果, 或者在没有提供投射函数时仅仅发出该数组。</p><img src="../assets/images/combineLatest.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+  - 操作符上方的两条线, 表示 combineLatest 接收的两个 Observable, 
+    这两个 Observable 是通过参数传递过来的:
+      Observable.combineLatest(字母线$, 数字线$)
+      或
+      字母线$.combineLatest(数字线$)
+  - combineLatest 结合传入的多个 Observables, 表示
+    + 会对通过参数传递过来的当前所有 Observable 进行订阅
+    + 首次向下游操作符发射值, 需要等到当前所有 Observable 都至少有一个值,
+      比如 字母线 发出 `a`, 此时还不会向下游操作符发射值,
+      当 数字线 发出 `1`时, 现在当前所有 Observable 都至少有一个值,
+      则会将当前所有 Observable 的最新值组合成数组, 向下游操作符发射值 `[a,1]`
+    + 当 字母线 发出 `b`时, 现在当前所有 Observable 都至少有一个值,
+      且 数字线 最新值为 `1`, 因此向下游操作符发射值 `[b,1]`
+    + 当 数字线 发出 `2`时, 字母线 的最新值为 `b`,
+      因此向下游操作符发射值 `[b,2]`
+    + 当 数字线 发出 `3`时, 字母线最新值为 `b`, 因此向下游操作符发射值 `[b,3]`
+  - 也就是说,当首次发射值后,之后只要任意一个内部 Observable 有值发出, 
+    则就会向下游操作符发射值, 值为当前所有 Observable 的最新值组合而成的数组</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:映射成内部的 interval observable</div>
+    <div class="panel-body">
+      <pre class="pre-scrollable">Rx.Observable
+  .combineLatest(
+  Rx.Observable.timer(1000, 4000).take(5),
+  Rx.Observable.timer(2000, 4000).take(5),
+  Rx.Observable.timer(3000, 4000).take(5),
+  )
+  .subscribe(latestValues => console.log(latestValues));
+/*
+  输出:
+    [0, 0, 0]
+    [1, 0, 0]
+    [1, 1, 0]
+    [1, 1, 1]
+    [2, 1, 1]
+    [2, 2, 1]
+    [2, 2, 2]
+    [3, 2, 2]
+    [3, 3, 2]
+    [3, 3, 3]
+    [4, 3, 3]
+    [4, 4, 3]
+    [4, 4, 4]
+*/</pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+      <pre class="pre-scrollable">代码解析:
+- timer1 在1秒时发出第一个值，然后每4秒发送一次
+  timer2 在2秒时发出第一个值，然后每4秒发送一次
+  timer3 在3秒时发出第一个值，然后每4秒发送一次
+- 第3秒时, 当前所有 Observable 都已经有值,
+  发出每个 observable 的最新值 : [0, 0, 0]
+- 第5秒时, timer1 发出值: 1,
+  发出每个 observable 的最新值 : [1, 0, 0]
+- 第6秒时, timer2 发出值: 1,
+  发出每个 observable 的最新值 : [1, 1, 0]</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2:使用 projection 函数的 combineLatest</div>
+    <div class="panel-body">
+      <pre class="pre-scrollable">Rx.Observable
+  .combineLatest(
+  Rx.Observable.timer(1000, 4000).take(3),
+  Rx.Observable.timer(2000, 4000).take(3),
+  Rx.Observable.timer(3000, 4000).take(3),
+  (one, two, three) => 
+    `T1: ${{'{'}}one{{'}'}} - T2: ${{'{'}}two{{'}'}} - T3: ${{'{'}}three{{'}'}}`
+  )
+  .subscribe(latestValues => console.log(latestValues));
+  /*
+    输出:
+    T1: 0 - T2: 0 - T3: 0
+    T1: 1 - T2: 0 - T3: 0
+    T1: 1 - T2: 1 - T3: 0
+    T1: 1 - T2: 1 - T3: 1
+    T1: 2 - T2: 1 - T3: 1
+    T1: 2 - T2: 2 - T3: 1
+    T1: 2 - T2: 2 - T3: 2
+  */</pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+      <pre class="pre-scrollable">代码解析:
+- combineLatest 还可以提供 可选的 投射函数 (project: function)
+- 如果存在投射函数, 则在向下游发射值时, 不使用默认的数组形式,
+  而是执行投射函数, 用投射函数的返回值 向下游发射值
+- 在调用投射函数时, 会将当前所有 Observable 的最新值做为
+  投射函数的参数</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3:计算BMI指数</div>
+    <div class="panel-body">
+      <div>
+        <div class="form-group">
+          <label>身高(cm):&nbsp;</label>
+          <input type="number" [formControl]="heightInputCrtl"/>
+        </div>
+        <div class="form-group">
+          <label>体重(市斤):&nbsp;</label>
+          <input type="number" [formControl]="weightInputCrtl"/>
+        </div>
+        <div class="form-group">
+          <label>身体质量指数BMI:&nbsp;</label><span class="form-control-static">{{bmi|number:'1.0-1'}} - {{bmiLevel}}</span>
+        </div>
+      </div>
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+    </div>
+  </div>
+</div>

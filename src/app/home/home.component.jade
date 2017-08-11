@@ -1,0 +1,13 @@
+.container
+  .panel.panel-info
+    .panel-heading 组合
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/combine-all']")
+          h4.list-group-item-heading combineAll
+          p.list-group-item-text 
+            | 通过等待外部 Observable 完成然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。
+        a.list-group-item([routerLink]="['/combine-latest']")
+          h4.list-group-item-heading combineLatest
+          p.list-group-item-text 
+            | 结合传入的多个 Observables, 当任意 observable 发出值时，发出每个 observable 的最新值

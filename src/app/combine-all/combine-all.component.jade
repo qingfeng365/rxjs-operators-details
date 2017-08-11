@@ -1,0 +1,86 @@
+.container
+  h3 combineAll
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+        a.list-group-item((click)="diffAnalysisService.showDiffInfo('combineAll-combineLatest');$event.stopPropagation()")
+          | combineAll 与 combineLatest 的区别
+  .panel.panel-info
+    .panel-heading combineAll 说明
+    .panel-body
+      p 签名: combineAll(project: function): Observable
+      p 当源 observable 完成时，对收集的 observables 使用 combineLatest 
+      p 通过等待外部 Observable 完成然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。
+      img.img-responsive.center-block(src="../assets/images/combineAll.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+          - 等待外部 Observable 完成, 即 灰色的两条线,
+            这两条线表示, 上游操作符已将所有值发射完毕,
+            而上游操作符发射的值 本身又是 `Observable`
+          - 对收集的 observables 使用 combineLatest, 表示
+            + 会对当前所有 Observable 进行订阅,
+              即对上游操作符发射的值对应的 Observable 再进行订阅
+            + 首次向下游操作符发射值, 需要等到当前所有 Observable 都至少有一个值,
+              比如 字母线 发出 `a`, 此时还不会向下游操作符发射值,
+              当 数据线 发出 `1`时, 现在当前所有 Observable 都至少有一个值,
+              则会将当前所有 Observable 的最新值组合成数组, 向下游操作符发射值 `[a,1]`
+            + 当 数据线 发出 `2`时, 现在当前所有 Observable 都至少有一个值,
+              且 字母线 最新值为 `a`, 因此向下游操作符发射值 `[a,2]`
+            + 当 字母线 发出 `b`时, 数据线最新值为 `2`, 因此向下游操作符发射值 `[b,2]`
+          - 也就是说,当首次发射值后,之后只要任意一个内部 Observable 有值发出, 
+            则就会向下游操作符发射值, 值为当前所有 Observable 的最新值组合而成的数组
+  .panel.panel-info
+    .panel-heading 示例1:映射成内部的 interval observable
+    .panel-body
+      pre.pre-scrollable.
+        Rx.Observable.interval(1000).take(2)
+              .map(val =>
+                Rx.Observable.interval(1000)
+                  .map(i => `外部:${{'{'}}val{{'}'}}: - ${{'{'}}i{{'}'}}`)
+                  .take(5))
+              .combineAll()
+              .subscribe(val => console.log(val));
+        /*
+          输出:
+          ["外部:0: - 0 ", "外部:1: - 0 "]
+          ["外部:0: - 1 ", "外部:1: - 0 "]
+          ["外部:0: - 1 ", "外部:1: - 1 "]
+          ["外部:0: - 2 ", "外部:1: - 1 "]
+          ["外部:0: - 2 ", "外部:1: - 2 "]
+          ["外部:0: - 3 ", "外部:1: - 2 "]
+          ["外部:0: - 3 ", "外部:1: - 3 "]
+          ["外部:0: - 4 ", "外部:1: - 3 "]
+          ["外部:0: - 4 ", "外部:1: - 4 "]
+        */
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2:将两个点击事件映射为有限的 interval Observable，然后应用 combineAll
+    .panel-body
+      pre.pre-scrollable.
+        Rx.Observable.fromEvent(document, 'click')
+          .map(ev =>
+            Rx.Observable.interval(Math.random() * 2000)
+              .take(3)
+          )
+          .take(2)
+          .combineAll()
+          .subscribe(x => console.log(x));
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+        | &nbsp;&nbsp;
+        span([hidden]="!isRuning") 运行后,在页面上点击两次鼠标
+      pre.pre-scrollable.
+        代码解析:
+        - 外层 `take(2)`, 表示要有两次点击, 
+          才会向 `combineAll()` 发出 已完成 信号
+        - `map()` 将每次点击事件, 转换成一个 Observable,
+          每个 Observable 定时(时间间隔随机)发出 0 1 2 三个值, 由 `take(3)`决定
+        - `combineAll()` 通过 上游的 `take(2)`,得到第2个 Observable 时,
+          得到外部 Observable 完成的信号, 这是由 `take(2)` 决定的
+        - 此时, `combineAll()` 开始处理 收集到的 两个 Observable
+        - 该示例跟上个示例最后的形式差不多,上个示例更清晰一点
