@@ -1,0 +1,30 @@
+
+<div class="container">
+  <h3>filter</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">filter(过滤) 说明</div>
+    <div class="panel-body">
+      <p>签名: filter(predicate: function(value: T, index: number): boolean, thisArg: any): Observable</p>
+      <p>发出符合给定条件的值</p>
+      <p>通过只发送源 Observable 的中满足指定 predicate 函数的项来进行过滤</p>
+      <p>类似于大家所熟知的 Array.prototype.filter 方法，此操作符从源 Observable 中 接收值，将值传递给 predicate 函数并且只发出返回 true 的这些值</p>
+      <p>如果你希望当不满足条件时完成 observable 的话，请查阅 takeWhile</p>
+      <p>predicate: 评估源 Observable 所发出的每个值的函数。如果它返回 true，就发出值，如果是 false 则不会传给输出 Observable 。index 参数是自订阅开始后发送序列的索引，是从 0 开始的</p><img src="../assets/images/filter.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

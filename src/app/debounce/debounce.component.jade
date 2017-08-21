@@ -1,0 +1,51 @@
+.container
+  h3 debounce
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading debounce(防抖) 说明
+    .panel-body
+      p 签名: debounce(durationSelector: function): Observable
+      p 根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值
+      p 只有在另一个 Observable 决定的一段特定时间经过后并且没有发出另一个源值之后，才从源 Observable 中发出一个值
+      p  尽管没有 debounceTime 使用广泛，但当 debounce 的频率是变量时, debounce 是很重要的
+      p 就像是 debounceTime, 但是静默时间段由第二个 Observable 决定
+      p debounce 延时发送源 Observable 发出的值,但如果源 Observable 发出了新值 的话，它会丢弃掉前一个等待中的延迟发送。这个操作符会追踪源 Observable 的最新值, 并通过调用 durationSelector 函数来生产 duration Observable。只有当 duration Observable 发出值或完成时，才会发出值，如果源 Observable 上没有发 出其他值，那么 duration Observable 就会产生。如果在 duration Observable 发 出前出现了新值，那么前一个值会被丢弃并且不会在输出 Observable 上发出
+      p 就像debounceTime, 这是一个限制发出频率的操作符, 因为输出发送并不一定是 在同一时间发生的，就像它们在源 Observable 上所做的那样
+      p durationSelector: function(value: T): SubscribableOrPromise,该函数接受 源Observable的值, 用于计算每个值的延迟持续时间, 返回一个Observable或者Promise
+      p 源Observable 最后一个值是会马上输出的,不会延迟
+      img.img-responsive.center-block(src="../assets/images/debounce.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 duration Observable, 即起辅助通知作用的 Observable
+        - 当 duration Observable 发出值或发出已完成信号, 就会触发通知
+        - duration Observable 是通过 durationSelector回调函数 返回的
+        - 当 源 Observable 发出值 `a` 时, 不会马上输出值,
+          而是订阅 duration Observable, 等待触发通知
+        - duration Observable 发出已完成信号, 而源 Observable没有新值发出,
+          此时输出值 `a`
+        - 当 源 Observable 发出值 `b` 时,
+          开始订阅 duration Observable, 等待触发通知
+        - duration Observable 还没有触发通知时,
+          源 Observable 又发出值 `c`
+        - 此时,会取消订阅之前的 duration Observable ,
+          重新开始订阅 duration Observable , 等待触发通知
+        - duration Observable 发出已完成信号, 输出值 `c`
+        - 以此类推
+
+        附加说明:
+        - duration Observable 触发通知, 有值发出或
+          发出已完成信号都可以,
+        - 只要触发通知,都会取消订阅 duration Observable
+        - 触发通知后, 要等源 Observable 有值发出时,
+          会再次订阅 duration Observable
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图模拟示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

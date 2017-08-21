@@ -1,0 +1,25 @@
+.container
+  h3 filter
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading filter(过滤) 说明
+    .panel-body
+      p 签名: filter(predicate: function(value: T, index: number): boolean, thisArg: any): Observable
+      p 发出符合给定条件的值
+      p 通过只发送源 Observable 的中满足指定 predicate 函数的项来进行过滤
+      p 类似于大家所熟知的 Array.prototype.filter 方法，此操作符从源 Observable 中 接收值，将值传递给 predicate 函数并且只发出返回 true 的这些值
+      p 如果你希望当不满足条件时完成 observable 的话，请查阅 takeWhile
+      p predicate: 评估源 Observable 所发出的每个值的函数。如果它返回 true，就发出值，如果是 false 则不会传给输出 Observable 。index 参数是自订阅开始后发送序列的索引，是从 0 开始的
+      img.img-responsive.center-block(src="../assets/images/filter.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

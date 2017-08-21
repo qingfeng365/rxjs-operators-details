@@ -1,0 +1,43 @@
+.container
+  h3 startWith
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading startWith(前缀序列) 说明
+    .panel-body
+      p 签名: startWith(an: Values): Observable
+      p 发出给定的第一个值(可以设置多个值)
+      p 返回的 Observable 会先发出作为参数指定的项，然后再发出由源 Observable 所发出的项
+      p 你希望修改过的 Observable 可以先发出的项
+      p BehaviorSubject 也可以从初始值开始！
+      p 注意,如果使用 TS 编写代码, 则会检查输出值的类型是否与源 Observable 的值类型一致
+      img.img-responsive.center-block(src="../assets/images/startWith.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 源 Observable 的序列为 `a` `b` `c`
+        - startWith 操作符, 在订阅源 Observable 前先输出值 `s`
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: startWith 用作 scan 的初始值
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 使用多个值进行 startWith
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

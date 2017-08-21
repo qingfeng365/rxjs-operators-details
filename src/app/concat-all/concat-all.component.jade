@@ -1,0 +1,49 @@
+.container
+  h3 concatAll
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading concatAll(串行拼接) 说明
+    .panel-body
+      p 签名: concatAll(): Observable
+      p 收集 observables，当前一个完成时订阅下一个。
+      p 通过顺序地连接内部 Observable，将高阶 Observable 转化为一阶 Observable
+      p concatAll 等价于 concurrency 参数(最大并发数)为1的 mergeAll
+      p 在很多情况下，你可以使用只使用单个操作符 concatMap 来替代
+      p concatMap === map + concatAll
+      img.img-responsive.center-block(src="../assets/images/concatAll.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 从上游操作符, 接收到的第一个值为 ab$ 的 Observable 
+        - 此时, 将对 ab$ 进行订阅(高亮线表示开始订阅)
+        - ab$ 发出值 `a`, 向下游操作符 发射值 `a`
+        - 现在, 上游操作符又发射第二个值为 cd$ 的 Observable
+        - 由于 ab$ 还没有发出已完成信号, 因此 cd$ 还停在缓冲区,不会处理
+          (灰色线表示收到但暂不处理)
+        - 接着, 上游操作符又发射第三个值为 ef$ 的 Observable, 同样 ef$ 也不处理
+        - ab$ 发出值 `b`, 向下游操作符 发射值 `b`
+        - 上游操作符发出已完成信号
+        - ab$ 发出已完成信号
+        - 从缓冲区取出 cd$ 进行订阅
+        - cd$ 发出 `c` , `d`, 向下游操作符 发射值 `c` , `d`
+        - 最后处理 ef$
+
+        也就是说:
+           串行连接源(高阶 Observable)所发出的每个 Observable，
+           只有当一个内部 Observable 完成的时候,
+           才订阅下一个内部 Observable，
+           并将它们的所有值合并到返回的 Observable 中。
+
+        补充说明:
+        - 警告: 如果源 Observable 很快,并且不停的发送 Observables, 
+          内部 Observables 发送的完成通知,比源 Observable 慢, 
+          你会遇到内存问题，因为传入的 Observables 在无界缓冲区中收集.
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图的模拟示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

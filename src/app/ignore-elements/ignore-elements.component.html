@@ -1,0 +1,27 @@
+
+<div class="container">
+  <h3>ignoreElements</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">ignoreElements(值忽略) 说明</div>
+    <div class="panel-body">
+      <p>签名: ignoreElements(): Observable</p>
+      <p>忽略所有通知，除了 complete 和 error</p>
+      <p>忽略源 Observable 所发送的所有项，只传递 complete 或 error 的调用</p><img src="../assets/images/ignoreElements.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

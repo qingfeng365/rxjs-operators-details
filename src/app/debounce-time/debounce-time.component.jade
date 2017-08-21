@@ -1,0 +1,36 @@
+.container
+  h3 debounceTime
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading debounceTime(防抖) 说明
+    .panel-body
+      p 签名: debounceTime(dueTime: number, scheduler: Scheduler): Observable
+      p 根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值
+      p 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值
+      p 就像是delay, 但是只通过每次大量发送中的最新值
+      p 此操作符在诸如预先知道用户的输入频率的场景下很受欢迎
+      p debounceTime 延时发送源 Observable 发送的值,但是会丢弃正在排队的发送如果源 Observable 又发出新值。 该操作符会追踪源 Observable 的最新值, 并且发出它当且仅当在 dueTime 时间段内 没有发送行为。 如果新的值在dueTime静默时间段出现, 之前的值会被丢弃并且不会在输出 Observable 中发出
+      p 这是一个控制发送频率的操作符，因为不可能在任何时间窗口的持续时间(dueTime)内发出一个以上的值，同样也是一个延时类操作符，因为输出 并不一定发生在同一时间，正如源 Observable 上发生的
+      p dueTime: 在发送最新的源值之前需要等待的以毫秒为单位(或者由可选的scheduler 提供的时间单位)的时间间隔
+      p debounceTime 是 debounce 的语法糖
+      img.img-responsive.center-block(src="../assets/images/debounceTime.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图模拟示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1zip();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2:搜索框
+    .panel-body
+      p
+        input(type="text",[formControl]="searchCrtl",
+          placeholder="请输入搜索内容...")
+      .alert.alert-info 正在搜索: {{searchWord}}
+      pre.pre-scrollable([innerHtml]="demo2Info")

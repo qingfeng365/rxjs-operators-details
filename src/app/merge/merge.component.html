@@ -1,0 +1,53 @@
+
+<div class="container">
+  <h3>merge</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">merge(序列融合) 说明</div>
+    <div class="panel-body">
+      <p>签名: merge(input: Observable): Observable</p>
+      <p>签名: merge(other: ObservableInput, concurrent: number, scheduler: Scheduler): Observable</p>
+      <p>concurrent:可选的, 可以同时订阅的输入 Observables 的最大数量</p>
+      <p>将多个 observables 转换成单个 observable</p>
+      <p>通过把多个 Observables 的值混合到一个 Observable 中 来将其打平</p>
+      <p>此操作符可以既有静态方法，又有实例方法</p>
+      <p>如果要求串行顺序订阅 Observable ,那么试试用 concat 来代替</p><img src="../assets/images/merge.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的两条线, 表示 merge 接收的两个 Observable, 
+  这两个 Observable 是通过参数传递过来的:
+    Observable.merge(abc$, def$)
+    或
+    abc$.merge(def$)
+- 订阅接收到的每个 Observable
+- 任意一个 Observable 发出值, 都会对应输出值
+
+也就是说:
+将所有输入 Observables 的所有值发送(不进行任何转换)到 
+输出 Observable,所有的输入 Observable 都完成了，
+输出 Observable 才能完成。任何由 输入 Observable 发出的错误
+都会立即在输出 Observalbe 上发出。</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 合并三个 Observables ，但只能同时运行两个</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

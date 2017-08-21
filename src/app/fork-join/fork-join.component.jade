@@ -1,0 +1,40 @@
+.container
+  h3 forkJoin
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading forkJoin(尾值组合) 说明
+    .panel-body
+      p 签名: forkJoin(...args, selector : function): Observable
+      p 当所有 observables 完成时发出每个 observable 的最新值
+      p 如果你想要多个 observables 按发出顺序相对应的值的组合，试试 zip
+      p forkJoin 可直接处理 promise, 不需要用 observable 封装 promise
+      p forkJoin 是并行处理 observables
+      p forkJoin 返回数组的元素的顺序,是 observable 在参数中的顺序,不是实际完成时间的顺序
+  .panel.panel-info
+    .panel-heading 示例1: 发起可变数量的请求
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 发起5个 Promise 请求
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+      pre.pre-scrollable([innerHtml]="demo2Desc")
+  .panel.panel-info
+    .panel-heading 示例2_1: 发起5个 Promise 请求的另一种写法
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2_1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2_1zip();$event.stopPropagation()") 运行
+      pre.pre-scrollable([innerHtml]="demo2_1Desc")

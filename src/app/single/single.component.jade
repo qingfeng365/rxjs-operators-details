@@ -1,0 +1,23 @@
+.container
+  h3 single
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading single() 说明
+    .panel-body
+      p 签名: single(a: Function): Observable
+      p 发出通过表达式的单一项
+      p 该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知
+      p 如果 Observable 在发送任何 next 通知之前完成的话，则发送 EmptyError 给观察者的 error 回调函数
+      img.img-responsive.center-block(src="../assets/images/single.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

@@ -1,0 +1,27 @@
+
+<div class="container">
+  <h3>skipUntil</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">skipUntil() 说明</div>
+    <div class="panel-body">
+      <p>签名: skipUntil(the: Observable): Observable</p>
+      <p>跳过源 observable 发出的值，直到提供的 observable 发出值</p>
+      <p>返回一个 Observable，该 Observable 会跳过源 Observable 发出的值直到第二个 Observable 开始发送</p><img src="../assets/images/skipUntil.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.container
+  h3 sample
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading sample() 说明
+    .panel-body
+      p 签名: sample(sampler: Observable): Observable
+      p 当提供的 observable 发出时从源 observable 中取样
+      p 发出源 Observable 最新发出的值当另一个 notifier Observable发送时
+      p 就像是 sampleTime， 但是无论何时notifier Observable 进行了发送都会去取样
+      p 无论何时 notifier Observable 发出一个值或者完成， sample 会去源 Observable 中发送上次 取样后源 Observable 发出的最新值， 除非源在上一次取样后没有发出值。 notifier会被订阅只要输出 Observable 被订阅
+      img.img-responsive.center-block(src="../assets/images/sample.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

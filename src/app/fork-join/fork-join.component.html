@@ -1,0 +1,49 @@
+
+<div class="container">
+  <h3>forkJoin</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">forkJoin(尾值组合) 说明</div>
+    <div class="panel-body">
+      <p>签名: forkJoin(...args, selector : function): Observable</p>
+      <p>当所有 observables 完成时发出每个 observable 的最新值</p>
+      <p>如果你想要多个 observables 按发出顺序相对应的值的组合，试试 zip</p>
+      <p>forkJoin 可直接处理 promise, 不需要用 observable 封装 promise</p>
+      <p>forkJoin 是并行处理 observables</p>
+      <p>forkJoin 返回数组的元素的顺序,是 observable 在参数中的顺序,不是实际完成时间的顺序</p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 发起可变数量的请求</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 发起5个 Promise 请求</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+      <pre [innerHtml]="demo2Desc" class="pre-scrollable"></pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2_1: 发起5个 Promise 请求的另一种写法</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2_1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2_1zip();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+      <pre [innerHtml]="demo2_1Desc" class="pre-scrollable"></pre>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.container
+  h3 take
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading take(按数量截取) 说明
+    .panel-body
+      p 签名: take(count: number): Observable
+      p 只发出源 Observable 最初发出的的N个值 (N = count)
+      p take 返回的 Observable 只发出源 Observable 最初发出的的N个值 (N = count)。 如果源发出值的数量小于 count 的话，那么它的所有值都将发出。然后它便完成，无论源 Observable 是否完成
+      p 如果想基于某个逻辑或另一个 observable 来取任意数量的值，你可以 takeUntil 或 takeWhile
+      p 当使用 take(i) 时，如果 i < 0， 它会发送 ArgumentOutOrRangeError 给观察者的 error 回调函数
+      img.img-responsive.center-block(src="../assets/images/take.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

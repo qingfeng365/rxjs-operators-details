@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">combineAll 说明</div>
+    <div class="panel-heading">combineAll(最新值合并) 说明</div>
     <div class="panel-body">
       <p>签名: combineAll(project: function): Observable</p>
       <p>当源 observable 完成时，对收集的 observables 使用 combineLatest </p>
@@ -80,6 +80,15 @@
   得到外部 Observable 完成的信号, 这是由 `take(2)` 决定的
 - 此时, `combineAll()` 开始处理 收集到的 两个 Observable
 - 该示例跟上个示例最后的形式差不多,上个示例更清晰一点</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例0: 弹珠图模拟示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo0Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo0();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
     </div>
   </div>
 </div>

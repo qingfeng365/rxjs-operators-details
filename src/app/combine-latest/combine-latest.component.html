@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">combineLatest 说明</div>
+    <div class="panel-heading">combineLatest(最新值合并) 说明</div>
     <div class="panel-body">
       <p>签名: combineLatest(observables: ...Observable, project: function): Observable</p>
       <p>当任意 observable 发出值时，发出每个 observable 的最新值 </p>
@@ -125,6 +125,15 @@
         </div>
       </div>
       <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例0: 弹珠图模拟示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo0Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo0();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
     </div>
   </div>
 </div>

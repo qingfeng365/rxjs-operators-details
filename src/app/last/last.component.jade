@@ -1,0 +1,25 @@
+.container
+  h3 last
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading last(查找最后一个) 说明
+    .panel-body
+      p 签名: last(predicate: function): Observable
+      p 根据提供的表达式，在源 observable 完成时发出它的最后一个值
+      p 与 last 对应的操作符是 first
+      p 返回的 Observable 只发出由源 Observable 发出的最后一个值。它可以接收一个可选的 predicate 函数作为 参数，如果传入 predicate 的话则发送的不是源 Observable 的最后一项，而是发出源 Observable 中 满足 predicate 函数的最后一项
+      p 如果 Observale 完成前还没有发出任何 next 通知的话，就会 发送 EmptyError 给观察者的 error 回调函数
+      p 由于要确定是最后一个值, 所以源 observable 要发出已完成信号, 才能输出值.
+      img.img-responsive.center-block(src="../assets/images/last.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

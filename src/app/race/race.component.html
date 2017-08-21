@@ -1,0 +1,30 @@
+
+<div class="container">
+  <h3>race</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">race(竞争) 说明</div>
+    <div class="panel-body">
+      <p>签名: race(...observables): Observable</p>
+      <p>使用首先发出值的 observable</p>
+      <p>返回 Observable，该 Observable 是源 Observable 和提供的 Observables 的组合中 第一个发出项的 Observable 的镜像</p>
+      <p>用于竞争的 Observables 源，以比试哪个 Observable 会首先发出项。</p>
+      <p>有静态方法,也有实例方法</p>
+      <p>在实际运行过程中,只有一个 observable 有值发出,因为一接收到值,就会取消订阅其它observable </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 使用多个 observables 进行 race</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1static();$event.stopPropagation()" class="btn btn-primary">运行静态方法   </button>&nbsp;
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行实例方法</button>
+      </p>
+    </div>
+  </div>
+</div>

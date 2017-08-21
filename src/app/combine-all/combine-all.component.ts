@@ -20,6 +20,34 @@ export class CombineAllComponent implements OnInit,
   demo1subscribe: Subscription = null;
   demo2subscribe: Subscription = null;
 
+  demo0Info =
+  `Rx.Observable
+  .zip(
+    // 数组[ab$, 12$]
+    Rx.Observable.from([
+      // ab$
+      Rx.Observable
+        .zip(
+          Rx.Observable.from(['a', 'b']),
+          Rx.Observable.interval(2000))
+        .map(val => val[0]),
+      // 12$
+      Rx.Observable.interval(500).take(2)
+        .delay(2500)
+        .map(val => val + 1)
+    ]),
+    Rx.Observable.interval(2000))
+  .map(val => val[0])
+  .combineAll()
+  .subscribe(v => console.log(v));
+/*
+  输出:
+    [a,1]
+    [a,2]
+    [b,2]
+*/
+`;
+
   constructor(private dateTool: DateToolService,
     public diffAnalysisService: DiffAnalysisService
   ) {
@@ -29,15 +57,54 @@ export class CombineAllComponent implements OnInit,
   ngOnInit() {
   }
 
-  runDemo1zip() {
-    this.demo1subscribe = Rx.Observable.interval(1000).take(2)
-      .map(val =>
-        Rx.Observable.interval(1000)
-          .map(i => `外部:${val}: - ${i}`)
-          .take(5))
+  runDemo0() {
+    this.isRuning = true;
+    this.demo1subscribe =
+      Rx.Observable
+        .zip(
+        Rx.Observable.from([
+          Rx.Observable
+            .zip(
+            Rx.Observable.from(['a', 'b']),
+            Rx.Observable.interval(2000))
+            .map(val => val[0])
+            .do(v => console.log(this.dateTool.getNowBymmsszz() + ' ab$ 发射值:' + v)),
+          Rx.Observable.interval(500).take(2)
+            .delay(2500)
+            .map(val => val + 1)
+            .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 12$ 发射值:' + v))
+        ]),
+        Rx.Observable.interval(2000))
+        .map(val => val[0])
+        .do(v => {
+          console.log(this.dateTool.getNowBymmsszz() + ' 上游操作符发射值:');
+          console.log(v);
+        })
+        .combineAll()
+        .subscribe(v => console.log('输出:' + v),
+        (err) => { },
+        () => this.isRuning = false);
+  }
+  runDemo0zip() {
+    Rx.Observable
+      .zip(
+      // 数组[ab$, 12$]
+      Rx.Observable.from([
+        // ab$
+        Rx.Observable
+          .zip(
+          Rx.Observable.from(['a', 'b']),
+          Rx.Observable.interval(2000))
+          .map(val => val[0]),
+        // 12$
+        Rx.Observable.interval(500).take(2)
+          .delay(2500)
+          .map(val => val + 1)
+      ]),
+      Rx.Observable.interval(2000))
+      .map(val => val[0])
       .combineAll()
-      .subscribe(val => console.log(val));
-
+      .subscribe(v => console.log(v));
   }
 
   runDemo1() {
@@ -61,34 +128,15 @@ export class CombineAllComponent implements OnInit,
       () => { this.isRuning = false; });
 
   }
-  runDemo1bak() {
-    this.isRuning = true;
-    // 每秒发出值，并只取前2个
-    const source = Rx.Observable.interval(1000).take(2);
-    // 将 source 发出的每个值映射成取前5个值的 interval observable
-    const example = source.map(val => Rx.Observable.interval(1000).map(i => `Result (${val}): ${i}`).take(5));
-    /*
-      soure 中的2个值会被映射成2个(内部的) interval observables，
-      这2个内部 observables 每秒使用 combineLatest 策略来 combineAll，
-      每当任意一个内部 observable 发出值，就会发出每个内部 observable 的最新值。
-    */
-    const combined = example.combineAll();
-    /*
-      输出:
-      ["Result (0): 0", "Result (1): 0"]
-      ["Result (0): 1", "Result (1): 0"]
-      ["Result (0): 1", "Result (1): 1"]
-      ["Result (0): 2", "Result (1): 1"]
-      ["Result (0): 2", "Result (1): 2"]
-      ["Result (0): 3", "Result (1): 2"]
-      ["Result (0): 3", "Result (1): 3"]
-      ["Result (0): 4", "Result (1): 3"]
-      ["Result (0): 4", "Result (1): 4"]
-    */
-    this.demo1subscribe = combined.subscribe(
-      val => console.log(val),
-      (err) => { },
-      () => { this.isRuning = false; });
+  runDemo1zip() {
+    this.demo1subscribe = Rx.Observable.interval(1000).take(2)
+      .map(val =>
+        Rx.Observable.interval(1000)
+          .map(i => `外部:${val}: - ${i}`)
+          .take(5))
+      .combineAll()
+      .subscribe(val => console.log(val));
+
   }
   runDemo2() {
     this.isRuning = true;
@@ -125,14 +173,6 @@ export class CombineAllComponent implements OnInit,
       .take(2)
       .combineAll()
       .subscribe(x => console.log(x));
-  }
-  runDemo2bak() {
-    const clicks = Rx.Observable.fromEvent(document, 'click');
-    const higherOrder = clicks.map(ev =>
-      Rx.Observable.interval(Math.random() * 2000).take(3)
-    ).take(2);
-    const result = higherOrder.combineAll();
-    result.subscribe(x => console.log(x));
   }
 
   ngOnDestroy(): void {

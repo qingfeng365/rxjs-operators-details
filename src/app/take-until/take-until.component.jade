@@ -1,0 +1,23 @@
+.container
+  h3 takeUntil
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading takeUntil(按条件截取) 说明
+    .panel-body
+      p 签名: takeUntil(notifier: Observable): Observable
+      p 发出源 Observable 发出的值，直到 notifier Observable 发出值
+      p 它发出源 Observable 的值，然后直到第二个 Observable (即 notifier )发出项，它便完成
+      p takeUntil 订阅并开始镜像源 Observable 。它还监视另外一个 Observable，即你 提供的 notifier 。如果 notifier 发出值或 complete 通知，那么输出 Observable 停止镜像源 Observable ，然后完成
+      img.img-responsive.center-block(src="../assets/images/takeUntil.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+  .panel.panel-info
+    .panel-heading 示例1:
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

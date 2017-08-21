@@ -1,19 +1,73 @@
 
 <div class="container">
   <div class="panel panel-info">
+    <div class="panel-heading">过滤</div>
+    <div class="panel-body">
+      <div class="list-group"><a [routerLink]="['/debounce']" class="list-group-item">
+          <h4 class="list-group-item-heading">debounce 防抖</h4>
+          <p class="list-group-item-text">根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值</p></a><a [routerLink]="['/debounce-time']" class="list-group-item">
+          <h4 class="list-group-item-heading">debounceTime 防抖</h4>
+          <p class="list-group-item-text">只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值</p></a><a [routerLink]="['/distinct-until-changed']" class="list-group-item">
+          <h4 class="list-group-item-heading">distinctUntilChanged 剔除重复前值</h4>
+          <p class="list-group-item-text">只在当前值与之前最后一个值不同时才将其发出</p></a><a [routerLink]="['/filter']" class="list-group-item">
+          <h4 class="list-group-item-heading">filter 过滤</h4>
+          <p class="list-group-item-text">发出符合给定条件的值</p></a><a [routerLink]="['/first']" class="list-group-item">
+          <h4 class="list-group-item-heading">first 查找第一个</h4>
+          <p class="list-group-item-text">只发出第一个值。或者只发出第一个通过测试的值</p></a><a [routerLink]="['/ignore-elements']" class="list-group-item">
+          <h4 class="list-group-item-heading">ignoreElements 值忽略</h4>
+          <p class="list-group-item-text">忽略源 Observable 所发送的所有项，只传递 complete 或 error 的调用</p></a><a [routerLink]="['/last']" class="list-group-item">
+          <h4 class="list-group-item-heading">last 查找最后一个</h4>
+          <p class="list-group-item-text">根据提供的表达式，在源 observable 完成时发出它的最后一个值</p></a><a [routerLink]="['/sample']" class="list-group-item">
+          <h4 class="list-group-item-heading">sample</h4>
+          <p class="list-group-item-text">发出源 Observable 最新发出的值当另一个 notifier Observable发送时</p></a><a [routerLink]="['/single']" class="list-group-item">
+          <h4 class="list-group-item-heading">single</h4>
+          <p class="list-group-item-text">该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知</p></a><a [routerLink]="['/skip']" class="list-group-item">
+          <h4 class="list-group-item-heading">skip 按数量跳过</h4>
+          <p class="list-group-item-text">跳过N个(由参数提供)发出值</p></a><a [routerLink]="['/skip-until']" class="list-group-item">
+          <h4 class="list-group-item-heading">skipUntil</h4>
+          <p class="list-group-item-text">跳过源 observable 发出的值，直到提供的 observable 发出值</p></a><a [routerLink]="['/skip-while']" class="list-group-item">
+          <h4 class="list-group-item-heading">skipWhile</h4>
+          <p class="list-group-item-text">跳过源 observable 发出的值，直到提供的表达式结果为 false</p></a><a [routerLink]="['/take']" class="list-group-item">
+          <h4 class="list-group-item-heading">take 按数量截取</h4>
+          <p class="list-group-item-text">只发出源 Observable 最初发出的的N个值 (N = count)</p></a><a [routerLink]="['/take-until']" class="list-group-item">
+          <h4 class="list-group-item-heading">takeUntil</h4>
+          <p class="list-group-item-text">发出源 Observable 发出的值，直到 notifier Observable 发出值</p></a><a [routerLink]="['/take-while']" class="list-group-item">
+          <h4 class="list-group-item-heading">takeWhile 按条件截取</h4>
+          <p class="list-group-item-text">发出值，直到提供的表达式结果为 false</p></a><a [routerLink]="['/throttle']" class="list-group-item">
+          <h4 class="list-group-item-heading">throttle</h4>
+          <p class="list-group-item-text">仅当由提供的函数所确定的持续时间已经过去时才发出值</p></a><a [routerLink]="['/throttle-time']" class="list-group-item">
+          <h4 class="list-group-item-heading">throttleTime</h4>
+          <p class="list-group-item-text">当指定的持续时间经过后发出最新值</p></a></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
     <div class="panel-heading">组合</div>
     <div class="panel-body">
       <div class="list-group"><a [routerLink]="['/combine-all']" class="list-group-item">
-          <h4 class="list-group-item-heading">combineAll</h4>
-          <p class="list-group-item-text">
-             
-            通过等待外部 Observable 完成然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。
-          </p></a><a [routerLink]="['/combine-latest']" class="list-group-item">
-          <h4 class="list-group-item-heading">combineLatest</h4>
-          <p class="list-group-item-text">
-             
-            结合传入的多个 Observables, 当任意 observable 发出值时，发出每个 observable 的最新值
-          </p></a></div>
+          <h4 class="list-group-item-heading">combineAll 最新值合并</h4>
+          <p class="list-group-item-text">通过等待外部 Observable 完成,然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。</p></a><a [routerLink]="['/combine-latest']" class="list-group-item">
+          <h4 class="list-group-item-heading">combineLatest 最新值合并</h4>
+          <p class="list-group-item-text">结合传入的多个 Observables, 当任意 observable 发出值时，发出每个 observable 的最新值</p></a><a [routerLink]="['/concat']" class="list-group-item">
+          <h4 class="list-group-item-heading">concat 串行拼接</h4>
+          <p class="list-group-item-text">按串行顺序发出每个给定的输入 Observable 中的所有值</p></a><a [routerLink]="['/concat-all']" class="list-group-item">
+          <h4 class="list-group-item-heading">concatAll 串行拼接</h4>
+          <p class="list-group-item-text">通过顺序地连接内部 Observable，将高阶 Observable 转化为一阶 Observable</p></a><a [routerLink]="['/fork-join']" class="list-group-item">
+          <h4 class="list-group-item-heading">forkJoin 尾值组合</h4>
+          <p class="list-group-item-text">当所有 observables 完成时发出每个 observable 的最新值</p></a><a [routerLink]="['/merge']" class="list-group-item">
+          <h4 class="list-group-item-heading">merge 序列融合</h4>
+          <p class="list-group-item-text">通过把多个 Observables 的值混合到一个 Observable 中来将其打平</p></a><a [routerLink]="['/merge-all']" class="list-group-item">
+          <h4 class="list-group-item-heading">mergeAll 序列融合</h4>
+          <p class="list-group-item-text">将高阶 Observable 转换成一阶 Observable ，一阶 Observable 会同时发出在内部 Observables 上发出的所有值</p></a><a [routerLink]="['/pairwise']" class="list-group-item">
+          <h4 class="list-group-item-heading">pairwise 配对</h4>
+          <p class="list-group-item-text">将当前值和前一个值作为数组放在一起，然后将其发出</p></a><a [routerLink]="['/race']" class="list-group-item">
+          <h4 class="list-group-item-heading">race 竞争</h4>
+          <p class="list-group-item-text">使用首先发出值的 observable</p></a><a [routerLink]="['/start-with']" class="list-group-item">
+          <h4 class="list-group-item-heading">startWith 前缀序列</h4>
+          <p class="list-group-item-text">返回的 Observable 会先发出作为参数指定的项，然后再发出由源 Observable 所发出的项</p></a><a [routerLink]="['/with-latest-from']" class="list-group-item">
+          <h4 class="list-group-item-heading">withLatestFrom 合并最新值</h4>
+          <p class="list-group-item-text">还提供另一个 observable 的最新值</p></a><a [routerLink]="['/zip']" class="list-group-item">
+          <h4 class="list-group-item-heading">zip 按序组合</h4>
+          <p class="list-group-item-text">订阅所有内部 observables，然后等待每个发出一个值。一旦发生这种情况，将发出具有相应索引的所有值</p></a></div>
     </div>
   </div>
 </div>

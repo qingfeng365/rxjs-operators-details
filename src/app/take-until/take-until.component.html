@@ -1,0 +1,28 @@
+
+<div class="container">
+  <h3>takeUntil</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">takeUntil(按条件截取) 说明</div>
+    <div class="panel-body">
+      <p>签名: takeUntil(notifier: Observable): Observable</p>
+      <p>发出源 Observable 发出的值，直到 notifier Observable 发出值</p>
+      <p>它发出源 Observable 的值，然后直到第二个 Observable (即 notifier )发出项，它便完成</p>
+      <p>takeUntil 订阅并开始镜像源 Observable 。它还监视另外一个 Observable，即你 提供的 notifier 。如果 notifier 发出值或 complete 通知，那么输出 Observable 停止镜像源 Observable ，然后完成</p><img src="../assets/images/takeUntil.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

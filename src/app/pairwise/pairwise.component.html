@@ -1,0 +1,34 @@
+
+<div class="container">
+  <h3>pairwise</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">pairwise(配对) 说明</div>
+    <div class="panel-body">
+      <p>签名: pairwise(): Observable Array</p>
+      <p>将当前值和前一个值作为数组放在一起，然后将其发出</p>
+      <p>将一系列连续的发送成对的组合在一起，并将这些分组作为两个值的数组发出</p>
+      <p>pairwise 要等 源 Observable 的 第二个值发出时,才会第一次发送,因为第一个值发出时,还没有前一个值</p><img src="../assets/images/pairwise.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+  - 当源 Observable 发出值 `a` 时, 还不处理
+  - 当源 Observable 发出值 `b` 时, 发出前一个值 `a` 与
+    当前值 `b` 组成的数组 `[a,b]`
+  - 当源 Observable 发出值 `c` 时, 发出前一个值 `b` 与
+    当前值 `c` 组成的数组 `[b,c]`
+  - 以此类推</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+
+<div class="container">
+  <h3>takeWhile</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">takeWhile() 说明</div>
+    <div class="panel-body">
+      <p>签名: takeWhile(predicate: function(value, index): boolean): Observable</p>
+      <p>发出值，直到提供的表达式结果为 false</p>
+      <p>发出在源 Observable 中满足 predicate 函数的每个值，并且一旦出现不满足 predicate 的值就立即完成</p>
+      <p>只要当通过给定的条件时才接收源 Observable 的值。 当第一个不满足条件的值出现时，它便完成</p>
+      <p>takeWhile 订阅并开始镜像源 Observable 。每个源 Observable 发出的值都会传给 predicate 函数，它会返回源值是否满足条件的布尔值。输出 Observable 会发出源值， 直到某个时间点 predicate 返回了 false，此时 takeWhile 会停止镜像源 Observable 并且完成输出 Observable</p><img src="../assets/images/takeWhile.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

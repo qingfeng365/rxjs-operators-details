@@ -1,0 +1,54 @@
+
+<div class="container">
+  <h3>mergeAll</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">mergeAll(序列融合) 说明</div>
+    <div class="panel-body">
+      <p>签名: mergeAll(concurrent: number): Observable</p>
+      <p>收集并订阅所有的 observables </p>
+      <p>将高阶 Observable 转换成一阶 Observable ，一阶 Observable 会同时发出在内部 Observables 上发出的所有值</p>
+      <p>在很多情况下，你可以使用只使用单个操作符 mergeMap 来替代</p>
+      <p>mergeMap === map + mergeAll</p><img src="../assets/images/mergeAll.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 上游操作符发射的值, 本身又是 Observable
+- 每次上游操作符有值发射, 都马上订阅该值,即内部 Observable
+- 当上游操作符发射值 abcd$ 时, 就马上订阅 abcd$
+- 当上游操作符接着发射值 efg$ 时, 也马上订阅 efg$, 
+  而不会等待 abcd$ 有没有完成, 此时 abcd$ 与 efg$,
+  是并行运行的
+- 当任意一个内部 Observable 有值发出时, 都会向
+  下游操作符输出对应值
+- 时间顺序:
+  + 上游操作符发射值 abcd$, 订阅 abcd$
+  + abcd$ 依次发射值 `a` `b`, 依次输出 `a` `b`
+  + 上游操作符发射值 efg$, 订阅 efg$
+  + abcd$ 发射值 `c`, 输出 `c`
+  + efg$ 发射值 `e`, 输出 `e`
+  + abcd$ 发射值 `d`, 输出 `d`
+  + efg$ 依次发射值 `f` `g`, 依次输出 `f` `g`</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图的模拟示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 使用 promise 来进行 mergeAll</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

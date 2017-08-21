@@ -1,0 +1,57 @@
+.container
+  h3 withLatestFrom
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading withLatestFrom(合并最新值) 说明
+    .panel-body
+      p 签名: withLatestFrom(other: Observable, project: Function): Observable
+      p 还提供另一个 observable 的最新值
+      p 结合源 Observable 和另外的 Observables 以创建新的 Observable， 该 Observable 的值由每 个 Observable 最新的值计算得出，当且仅当源发出的时候
+      p 如果你希望每当任意 observable 发出值时各个 observable 的最新值，请尝试 combinelatest
+      p 如果源 Observable 发出 已完成 信号, 则也向下游 输出 已完成 信号
+      img.img-responsive.center-block(src="../assets/images/withLatestFrom.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+          - 操作符上方的两条线, 字母线为源 Observable, 数字线是要结合的 Observable
+          - 当 字母线$ 发出值 `a` 时, 因为 数字线$ 还没有值, 因此不会输出值
+          - 当 数字线$ 发出值 `1` 时, 因为 字母线$ 此时没有值发出, 因此也不会输出值
+          - 当 字母线$ 发出值 `b` 时, 数字线$的最新值为 `1` , 输出 `['b', 1]`
+          - 当 数字线$ 发出值 `2` `3` `4` 时, 因为 字母线$ 此时没有值发出, 因此也不会输出值
+          - 当 字母线$ 发出值 `c` 时, 数字线$的最新值为 `4` , 输出 `['c', 4]`
+          - 以此类推
+
+        也就是说:
+          首次输出值有两个条件必须均满足:
+            - 源 Observable 有值发出
+            - 其它 Observable 均有值
+
+          当首次输出值之后,源 Observable 只要有值发出,则都会输出值
+
+        注意: 如果在没有满足首次输出值的条件之前, 源 Observable 发出的值是没有机会输出的
+            如源 Observable 的值 `a`
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 发出频率更快的第二个 source 的最新值
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 第二个 source 发出频率更慢一些
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

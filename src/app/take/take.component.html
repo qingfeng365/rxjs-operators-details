@@ -1,0 +1,29 @@
+
+<div class="container">
+  <h3>take</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">take(按数量截取) 说明</div>
+    <div class="panel-body">
+      <p>签名: take(count: number): Observable</p>
+      <p>只发出源 Observable 最初发出的的N个值 (N = count)</p>
+      <p>take 返回的 Observable 只发出源 Observable 最初发出的的N个值 (N = count)。 如果源发出值的数量小于 count 的话，那么它的所有值都将发出。然后它便完成，无论源 Observable 是否完成</p>
+      <p>如果想基于某个逻辑或另一个 observable 来取任意数量的值，你可以 takeUntil 或 takeWhile</p>
+      <p>当使用 take(i) 时，如果 i < 0， 它会发送 ArgumentOutOrRangeError 给观察者的 error 回调函数</p><img src="../assets/images/take.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

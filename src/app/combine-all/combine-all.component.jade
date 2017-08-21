@@ -6,7 +6,7 @@
         a.list-group-item((click)="diffAnalysisService.showDiffInfo('combineAll-combineLatest');$event.stopPropagation()")
           | combineAll 与 combineLatest 的区别
   .panel.panel-info
-    .panel-heading combineAll 说明
+    .panel-heading combineAll(最新值合并) 说明
     .panel-body
       p 签名: combineAll(project: function): Observable
       p 当源 observable 完成时，对收集的 observables 使用 combineLatest 
@@ -84,3 +84,11 @@
           得到外部 Observable 完成的信号, 这是由 `take(2)` 决定的
         - 此时, `combineAll()` 开始处理 收集到的 两个 Observable
         - 该示例跟上个示例最后的形式差不多,上个示例更清晰一点
+  .panel.panel-info
+    .panel-heading 示例0: 弹珠图模拟示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo0Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo0();$event.stopPropagation()") 运行

@@ -1,0 +1,29 @@
+
+<div class="container">
+  <h3>sample</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">sample() 说明</div>
+    <div class="panel-body">
+      <p>签名: sample(sampler: Observable): Observable</p>
+      <p>当提供的 observable 发出时从源 observable 中取样</p>
+      <p>发出源 Observable 最新发出的值当另一个 notifier Observable发送时</p>
+      <p>就像是 sampleTime， 但是无论何时notifier Observable 进行了发送都会去取样</p>
+      <p>无论何时 notifier Observable 发出一个值或者完成， sample 会去源 Observable 中发送上次 取样后源 Observable 发出的最新值， 除非源在上一次取样后没有发出值。 notifier会被订阅只要输出 Observable 被订阅</p><img src="../assets/images/sample.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

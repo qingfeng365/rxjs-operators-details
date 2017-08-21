@@ -6,7 +6,7 @@
         a.list-group-item((click)="diffAnalysisService.showDiffInfo('combineAll-combineLatest');$event.stopPropagation()")
           | combineAll 与 combineLatest 的区别
   .panel.panel-info
-    .panel-heading combineLatest 说明
+    .panel-heading combineLatest(最新值合并) 说明
     .panel-body
       p 签名: combineLatest(observables: ...Observable, project: function): Observable
       p 当任意 observable 发出值时，发出每个 observable 的最新值 
@@ -123,3 +123,11 @@
           label 身体质量指数BMI:&nbsp;
           span.form-control-static {{bmi|number:'1.0-1'}} - {{bmiLevel}}
       pre.pre-scrollable([innerHtml]="demo3Info")
+  .panel.panel-info
+    .panel-heading 示例0: 弹珠图模拟示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo0Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo0();$event.stopPropagation()") 运行

@@ -23,6 +23,39 @@ export class CombineLatestComponent implements OnInit, OnDestroy {
   bmi: number;
   bmiLevel: string;
 
+  demo0Info =
+`const order1 = [1, 0, 1, 0, 0, 0, 0, 1, 1, 1];
+const order2 = [0, 1, 0, 1, 1, 1, 0, 0, 0, 0];
+Rx.Observable.combineLatest(
+  Rx.Observable
+    .zip(
+      Rx.Observable.from(['a', 'b', 'c', 'd', 'e']),
+      Rx.Observable.interval(1000)
+        .filter(index => order1[index] === 1)
+        .take(5))
+    .map(val => val[0]),
+  Rx.Observable
+    .zip(
+      Rx.Observable.from([1, 2, 3, 4]),
+      Rx.Observable.interval(1000)
+        .filter(index => order2[index] === 1)
+        .take(4))
+    .map(val => val[0])
+)
+.subscribe(latestValues => console.log(latestValues));
+/*
+  输出:
+  [a,1]
+  [b,1]
+  [b,2]
+  [b,3]
+  [b,4]
+  [c,4]
+  [d,4]
+  [e,4]
+*/
+  `;
+
 
   demo3Info =
   `
@@ -88,6 +121,56 @@ Rx.Observable.combineLatest(
       subscribe.unsubscribe();
     }
   }
+
+  runDemo0() {
+    const order1 = [1, 0, 1, 0, 0, 0, 0, 1, 1, 1];
+    const order2 = [0, 1, 0, 1, 1, 1, 0, 0, 0, 0];
+    Rx.Observable.combineLatest(
+      Rx.Observable
+        .zip(
+        Rx.Observable.from(['a', 'b', 'c', 'd', 'e']),
+        Rx.Observable.interval(1000)
+          .filter(index => order1[index] === 1)
+          .take(5))
+        .map(val => val[0])
+        .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 字母$ 发射值:' + v)),
+      Rx.Observable
+        .zip(
+        Rx.Observable.from([1, 2, 3, 4]),
+        Rx.Observable.interval(1000)
+          .filter(index => order2[index] === 1)
+          .take(4))
+        .map(val => val[0])
+        .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 数字$ 发射值:' + v)),
+    )
+      .subscribe(latestValues => console.log(latestValues),
+      (err) => { },
+      () => { this.isRuning = false; });
+  }
+
+  runDemo0zip() {
+    const order1 = [1, 0, 1, 0, 0, 0, 0, 1, 1, 1];
+    const order2 = [0, 1, 0, 1, 1, 1, 0, 0, 0, 0];
+    Rx.Observable.combineLatest(
+      Rx.Observable
+        .zip(
+        Rx.Observable.from(['a', 'b', 'c', 'd', 'e']),
+        Rx.Observable.interval(1000)
+          .filter(index => order1[index] === 1)
+          .take(5))
+        .map(val => val[0]),
+      Rx.Observable
+        .zip(
+        Rx.Observable.from([1, 2, 3, 4]),
+        Rx.Observable.interval(1000)
+          .filter(index => order2[index] === 1)
+          .take(4))
+        .map(val => val[0])
+    )
+    .subscribe(latestValues => console.log(latestValues));
+  }
+
+
   runDemo3() {
     // 第一种写法
     // this.weightInputCrtl.valueChanges

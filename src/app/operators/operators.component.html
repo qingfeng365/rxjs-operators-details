@@ -4,16 +4,30 @@
     <div class="panel-heading">按字母顺序</div>
     <div class="panel-body">
       <div class="list-group"><a [routerLink]="['/combine-all']" class="list-group-item">
-          <h4 class="list-group-item-heading">combineAll</h4>
-          <p class="list-group-item-text">
-             
-            通过等待外部 Observable 完成然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。
-          </p></a><a [routerLink]="['/combine-latest']" class="list-group-item">
-          <h4 class="list-group-item-heading">combineLatest</h4>
-          <p class="list-group-item-text">
-             
-            结合传入的多个 Observables, 当任意 observable 发出值时，发出每个 observable 的最新值
-          </p></a></div>
+          <h4 class="list-group-item-heading">combineAll 最新值合并</h4>
+          <p class="list-group-item-text">通过等待外部 Observable 完成,然后应用 combineLatest ，将高阶 Observable 转化为一阶 Observable。</p></a><a [routerLink]="['/combine-latest']" class="list-group-item">
+          <h4 class="list-group-item-heading">combineLatest 最新值合并</h4>
+          <p class="list-group-item-text">结合传入的多个 Observables, 当任意 observable 发出值时，发出每个 observable 的最新值</p></a><a [routerLink]="['/concat']" class="list-group-item">
+          <h4 class="list-group-item-heading">concat 串行拼接</h4>
+          <p class="list-group-item-text">按串行顺序发出每个给定的输入 Observable 中的所有值</p></a><a [routerLink]="['/concat-all']" class="list-group-item">
+          <h4 class="list-group-item-heading">concatAll 串行拼接</h4>
+          <p class="list-group-item-text">通过顺序地连接内部 Observable，将高阶 Observable 转化为一阶 Observable</p></a><a [routerLink]="['/fork-join']" class="list-group-item">
+          <h4 class="list-group-item-heading">forkJoin 尾值组合</h4>
+          <p class="list-group-item-text">当所有 observables 完成时发出每个 observable 的最新值</p></a><a [routerLink]="['/merge']" class="list-group-item">
+          <h4 class="list-group-item-heading">merge 序列融合</h4>
+          <p class="list-group-item-text">通过把多个 Observables 的值混合到一个 Observable 中来将其打平</p></a><a [routerLink]="['/merge-all']" class="list-group-item">
+          <h4 class="list-group-item-heading">mergeAll 序列融合</h4>
+          <p class="list-group-item-text">将高阶 Observable 转换成一阶 Observable ，一阶 Observable 会同时发出在内部 Observables 上发出的所有值</p></a><a [routerLink]="['/pairwise']" class="list-group-item">
+          <h4 class="list-group-item-heading">pairwise 配对</h4>
+          <p class="list-group-item-text">将当前值和前一个值作为数组放在一起，然后将其发出</p></a><a [routerLink]="['/race']" class="list-group-item">
+          <h4 class="list-group-item-heading">race 竞争</h4>
+          <p class="list-group-item-text">使用首先发出值的 observable</p></a><a [routerLink]="['/start-with']" class="list-group-item">
+          <h4 class="list-group-item-heading">startWith 前缀序列</h4>
+          <p class="list-group-item-text">返回的 Observable 会先发出作为参数指定的项，然后再发出由源 Observable 所发出的项</p></a><a [routerLink]="['/with-latest-from']" class="list-group-item">
+          <h4 class="list-group-item-heading">withLatestFrom 合并最新值</h4>
+          <p class="list-group-item-text">还提供另一个 observable 的最新值</p></a><a [routerLink]="['/zip']" class="list-group-item">
+          <h4 class="list-group-item-heading">zip 按序组合</h4>
+          <p class="list-group-item-text">订阅所有内部 observables，然后等待每个发出一个值。一旦发生这种情况，将发出具有相应索引的所有值</p></a></div>
     </div>
   </div>
 </div>
