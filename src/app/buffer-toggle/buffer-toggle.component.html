@@ -1,0 +1,97 @@
+
+<div class="container">
+  <h3>bufferToggle</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">bufferToggle(缓冲开关) 说明</div>
+    <div class="panel-body">
+      <p>签名: bufferToggle(openings: SubscribableOrPromise, closingSelector: function(value: O): SubscribableOrPromise): Observable</p>
+      <p>开启开关以捕获源 observable 所发出的值，关闭开关以将缓冲的值作为数组发出</p>
+      <p>缓冲源 Observable 的值，openings 发送的时候开始缓冲，closingSelector 发送的时候结束缓冲</p>
+      <p>将过往数据收集到数组中. 当 opening 发送的时候开始收集, 然后调用 closingSelector 函数获取 Observable ，该Observable 告知什么时候关闭缓冲</p>
+      <p>缓冲源Observable的值，当 openingsObservable 发出信号的时候开始缓冲数据, 当closingSelector 返回的 Subscribable 或者 Promise 发送的时候结束并且发送缓冲区</p>
+      <p>openings: SubscribableOrPromise, 开启新缓冲区的通知，可以是 Subscribable 或 Promise</p>
+      <p>closingSelector: function(value: O): SubscribableOrPromise, 接受openingsobservable 发出的数据返回一个可以被订阅的对象或者Promise的函数,当它发出时，会发信号给相关的缓冲区以通知它们应该发出并清理</p>
+      <p>该操作符比较复杂, 需要仔细阅读 弹珠图解析 !!!</p><img src="../assets/images/bufferToggle.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 opening Observable, 为辅助通知作用的 Observable,
+  当该 Observable 触发通知时, 会创建一个新的缓冲区并处于打开状态
+- 第三条线为 closing Observable, 为辅助通知作用的 Observable,
+  当该 Observable 触发通知时, 发出缓冲区并关闭
+- 注意: 第二条线的 Observable, 是通过 bufferToggle 的第1个参数传入,
+  一开始就订阅
+- 第三条线的 Observable, 是每当第二条线触发通知时, 都会重新创建,
+  在创建时,可获得 opening Observable 传入的值,
+  closing Observable 只要触发通知,就会被取消订阅
+- opening Observable 发出值 'o', 创建一个新的缓冲区1:[],
+  并创建和订阅 closing Observable
+- 源 Observable 发出值 'a', 缓冲区1处于打开状态:[a]
+- 源 Observable 发出值 'b', 缓冲区1处于打开状态:[a,b]
+- closing Observable 发出值 'c', 发出缓冲区1并关闭,
+  closing Observable 只要触发通知,就会被取消订阅
+  输出: [a,b]
+- 此时已没有缓冲区被打开
+- 源 Observable 发出值 'c' 'd' 'e', 没有缓冲
+- opening Observable 发出值 'o', 创建一个新的缓冲区2:[],
+  并创建和订阅 closing Observable
+- 源 Observable 发出值 'f', 缓冲区2处于打开状态:[f]
+- closing Observable 发出值 'c', 发出缓冲区2并关闭
+  输出: [f]
+- 此时已没有缓冲区被打开
+- 源 Observable 发出值 'g' 没有缓冲
+- 源 Observable 发出已完成信号, 发出尚未关闭的缓冲区,
+  当前没有尚未关闭的缓冲区, 没有输出
+附加说明:
+注意,如果 closing Observable 发出通知的时间,
+比 opening Observable 发出下一个值的时间还要晚时,
+就会产生多个打开的缓冲区, 形成有重叠的缓冲区</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2:</div>
+    <div class="panel-body">
+      <form>
+        <div class="form-group">
+          <label>源定时发射时间 ms</label>
+          <input type="number" [(ngModel)]="source_interval" name="source_interval" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>输出数量</label>
+          <input type="number" [(ngModel)]="takeNum" min="1" name="takeNum" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>opening Observable 间隔时间 ms</label>
+          <input type="number" [(ngModel)]="opening_interval" name="opening_interval" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>closing Observable 间隔时间 ms</label>
+          <input type="number" [(ngModel)]="closing_interval" name="closing_interval" class="form-control"/>
+        </div>
+      </form>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+      <pre class="pre-scrollable">Rx.Observable
+  .interval({{this.source_interval}})
+  .take({{this.takeNum}})
+  .bufferToggle(
+  Rx.Observable.interval({{this.opening_interval}}),
+  (i) => Rx.Observable.interval({{this.closing_interval}}))
+  .subscribe(v => console.log(v));</pre>
+    </div>
+  </div>
+</div>

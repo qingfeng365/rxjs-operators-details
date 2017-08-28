@@ -7,17 +7,27 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">takeUntil(按条件截取) 说明</div>
+    <div class="panel-heading">takeUntil(截取至触发) 说明</div>
     <div class="panel-body">
       <p>签名: takeUntil(notifier: Observable): Observable</p>
       <p>发出源 Observable 发出的值，直到 notifier Observable 发出值</p>
       <p>它发出源 Observable 的值，然后直到第二个 Observable (即 notifier )发出项，它便完成</p>
       <p>takeUntil 订阅并开始镜像源 Observable 。它还监视另外一个 Observable，即你 提供的 notifier 。如果 notifier 发出值或 complete 通知，那么输出 Observable 停止镜像源 Observable ，然后完成</p><img src="../assets/images/takeUntil.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 notifier Observable, 即起辅助通知作用的 Observable
+- 只要 notifier Observable 还没有触发通知, 就可以输出
+  即 notifier Observable 没有值发出或发出已完成信号
+- 也就是说, 源 observable 发出的值, 如果触发了 notifier Observable 通知, 就不再输出了
+- 源 Observable 发出 'a' 'b' 'c' 'd',
+  notifier Observable 还没有触发通知, 可以输出
+- notifier Observable 发出 'z',
+  则源 Observable 不再输出</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>

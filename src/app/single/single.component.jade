@@ -4,20 +4,47 @@
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading single() 说明
+    .panel-heading single(唯一) 说明
     .panel-body
       p 签名: single(a: Function): Observable
-      p 发出通过表达式的单一项
+      p 发出通过表达式的唯一项
       p 该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知
       p 如果 Observable 在发送任何 next 通知之前完成的话，则发送 EmptyError 给观察者的 error 回调函数
       img.img-responsive.center-block(src="../assets/images/single.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 该弹珠图意义不明确,因没有写明断言条件
+        - 在源 Observable 发出值 'b' 时, 发生错误
+        - 见示例1: 符合条件不是唯一项时,会报错
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图模拟示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 发出唯一能通过断言的数字
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 没有符合条件的项
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4: 没有数据的情况
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo4();$event.stopPropagation()") 运行

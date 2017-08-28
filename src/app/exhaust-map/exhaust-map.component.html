@@ -1,0 +1,63 @@
+
+<div class="container">
+  <h3>exhaustMap</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">exhaustMap(空闲映射) 说明</div>
+    <div class="panel-body">
+      <p>签名: exhaustMap(project: function(value: T, ?index: number): ObservableInput, resultSelector: function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any): Observable</p>
+      <p>映射成内部 observable，忽略其他值直到该 observable 完成</p>
+      <p>将每个源值投射成 Observable，只有当前一个投射的 Observable 已经完成， 这个 Observable 才会被合并到输出 Observable 中</p>
+      <p>把每个值映射成 Observable，然后使用 exhaust 操作符打平所有的内部 Observables</p>
+      <p>返回的 Observable 基于应用一个函数来发送项，该函数提供给源 Observable 发出的每个项， 并返回一个(所谓的“内部”) Observable 。当它将源值投射成 Observable 时，输出 Observable 开始发出由投射的 Observable 发出的项。然而，如果前一个投射的 Observable 还未完成的话， 那么 exhaustMap 会忽略每个新投射的 Observable 。一旦完成，它将接受并打平下一个 内部 Observable ，然后重复此过程</p>
+      <p>project: function(value: T, ?index: number): ObservableInput, 函数， 当应用于源 Observable 发出的项时，返回一个 Observable</p>
+      <p>resultSelector: 函数，它用于产生基于值的输出 Observable 和源(外部)发送和内部 Observable 发送的索引</p>
+      <p>传递给这个函数参数有：</p>
+      <p>- outerValue: 来自源的值</p>
+      <p>- innerValue: 来自投射的 Observable 的值</p>
+      <p>- outerIndex: 来自源的值的 "index"</p>
+      <p>- innerIndex: 来自投射的 Observable 的值的 "index"</p><img src="../assets/images/exhaustMap.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+
+附加说明:
+与 concatMap 的区别就是 来不及映射的源值会被丢掉,
+因此也就没有背压问题
+
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 内部 Observable
+- 当源 Observable 发出值 1 时,
+  映射成内部 Observable1,
+  并订阅该内部 Observable1
+- 内部 Observable1 发出值 10 时,
+  输出 10
+- 此时,实际有两个 Observable 都处于订阅中,
+  即源 Observable 和 值1 映射的 内部 Observable1
+- 只有 内部 Observable 发出值,才会输出
+- 源 Observable 目前没有值发出
+- 内部 Observable1 继续发出值 10 10, 输出 10 10
+- 内部 Observable1 发出已完成信号
+- 源 Observable 发出值 3,因内部 Observable1 已完成
+  因此可以映射成内部 Observable2,并订阅
+- 内部 Observable2 发出值 30 30, 输出 30 30
+- 源 Observable 发出值 5,
+  因为内部 Observable2 还没有完成
+  因此值 5 会被忽略掉, 不会完成映射
+- 内部 Observable2 发出值 30, 输出 30
+- 内部 Observable2 发出已完成信号
+- 源 Observable 发出 已完成信号</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例 (其它示例见 concatMap)</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

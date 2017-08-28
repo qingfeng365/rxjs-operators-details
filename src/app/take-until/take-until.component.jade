@@ -4,7 +4,7 @@
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading takeUntil(按条件截取) 说明
+    .panel-heading takeUntil(截取至触发) 说明
     .panel-body
       p 签名: takeUntil(notifier: Observable): Observable
       p 发出源 Observable 发出的值，直到 notifier Observable 发出值
@@ -13,8 +13,18 @@
       img.img-responsive.center-block(src="../assets/images/takeUntil.png")
       pre.pre-scrollable.
         弹珠图解析:
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 notifier Observable, 即起辅助通知作用的 Observable
+        - 只要 notifier Observable 还没有触发通知, 就可以输出
+          即 notifier Observable 没有值发出或发出已完成信号
+        - 也就是说, 源 observable 发出的值, 如果触发了 notifier Observable 通知, 就不再输出了
+        - 源 Observable 发出 'a' 'b' 'c' 'd',
+          notifier Observable 还没有触发通知, 可以输出
+        - notifier Observable 发出 'z',
+          则源 Observable 不再输出
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p

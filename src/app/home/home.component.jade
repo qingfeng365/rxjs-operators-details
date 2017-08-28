@@ -1,5 +1,97 @@
 .container
   .panel.panel-info
+    .panel-heading 转换
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/buffer']")
+          h4.list-group-item-heading buffer 缓冲
+          p.list-group-item-text
+            | 收集输出值，直到提供的 observable 发出才将收集到的值作为数组发出
+        a.list-group-item([routerLink]="['/buffer-count']")
+          h4.list-group-item-heading bufferCount 按数量缓冲
+          p.list-group-item-text
+            | 收集发出的值，直到收集完提供的数量的值才将其作为数组发出。
+        a.list-group-item([routerLink]="['/buffer-time']")
+          h4.list-group-item-heading bufferTime 按时间缓冲
+          p.list-group-item-text
+            | 收集发出的值，直到经过了提供的时间才将其作为数组发出。
+        a.list-group-item([routerLink]="['/buffer-toggle']")
+          h4.list-group-item-heading bufferToggle 缓冲开关
+          p.list-group-item-text
+            | 开启开关以捕获源 observable 所发出的值，关闭开关以将缓冲的值作为数组发出
+        a.list-group-item([routerLink]="['/buffer-when']")
+          h4.list-group-item-heading bufferWhen 触发缓冲
+          p.list-group-item-text
+            | 收集值，直到关闭选择器发出值才发出缓冲的值。
+        a.list-group-item([routerLink]="['/concat-map']")
+          h4.list-group-item-heading concatMap 拼接映射
+          p.list-group-item-text
+            | 将值映射成内部 observable，并按顺序订阅和发出。
+        a.list-group-item([routerLink]="['/concat-map-to']")
+          h4.list-group-item-heading concatMapTo 拼接映射为
+          p.list-group-item-text
+            | 当前一个 observable 完成时订阅提供的 observable 并发出值。
+        a.list-group-item([routerLink]="['/exhaust-map']")
+          h4.list-group-item-heading exhaustMap 空闲映射
+          p.list-group-item-text
+            | 映射成内部 observable，忽略其他值直到该 observable 完成。
+        a.list-group-item([routerLink]="['/expand']")
+          h4.list-group-item-heading expand 递归映射
+          p.list-group-item-text
+            | 递归调用提供的函数
+        a.list-group-item([routerLink]="['/group-by']")
+          h4.list-group-item-heading groupBy 分组
+          p.list-group-item-text
+            | 基于提供的值分组成多个 observables
+        a.list-group-item([routerLink]="['/map']")
+          h4.list-group-item-heading map 映射
+          p.list-group-item-text
+            | 对源 observable 的每个值应用投射函数。
+        a.list-group-item([routerLink]="['/map-to']")
+          h4.list-group-item-heading mapTo 映射为
+          p.list-group-item-text
+            | 将每个发出值映射成常量。
+        a.list-group-item([routerLink]="['/merge-map']")
+          h4.list-group-item-heading mergeMap 融合映射
+          p.list-group-item-text
+            | 映射成 observable 并发出值。
+        a.list-group-item([routerLink]="['/partition']")
+          h4.list-group-item-heading partition
+          p.list-group-item-text
+            | Split one observable into two based on provided predicate.
+        a.list-group-item([routerLink]="['/pluck']")
+          h4.list-group-item-heading pluck 属性映射
+          p.list-group-item-text
+            | 选择属性来发出。
+        a.list-group-item([routerLink]="['/scan']")
+          h4.list-group-item-heading scan
+          p.list-group-item-text
+            | 随着时间的推移进行归并。
+        a.list-group-item([routerLink]="['/switch-map']")
+          h4.list-group-item-heading switchMap
+          p.list-group-item-text
+            | 映射成 observable，完成前一个内部 observable，发出值。
+        a.list-group-item([routerLink]="['/window']")
+          h4.list-group-item-heading window 开窗
+          p.list-group-item-text
+            | 时间窗口值的 observable 。
+        a.list-group-item([routerLink]="['/window-count']")
+          h4.list-group-item-heading windowCount 按数量开窗
+          p.list-group-item-text
+            | 源 observable 中的值的 observable，每次发出N个值(N由参数决定)
+        a.list-group-item([routerLink]="['/window-time']")
+          h4.list-group-item-heading windowTime 按时间开窗
+          p.list-group-item-text
+            | 在每个提供的时间跨度内，收集源 obsercvable 中的值的 observable 。
+        a.list-group-item([routerLink]="['/window-toggle']")
+          h4.list-group-item-heading windowToggle
+          p.list-group-item-text
+            | 以 openings 发出为起始，以 closingSelector 发出为结束，收集并发出源 observable 中的值的 observable 。
+        a.list-group-item([routerLink]="['/window-when']")
+          h4.list-group-item-heading windowWhen
+          p.list-group-item-text
+            | 在提供的时间帧处关闭窗口，并发出从源 observable 中收集的值的 observable 。
+  .panel.panel-info
     .panel-heading 过滤
     .panel-body
       .list-group
@@ -8,7 +100,7 @@
           p.list-group-item-text
             | 根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值
         a.list-group-item([routerLink]="['/debounce-time']")
-          h4.list-group-item-heading debounceTime 防抖
+          h4.list-group-item-heading debounceTime 按时防抖
           p.list-group-item-text
             | 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值
         a.list-group-item([routerLink]="['/distinct-until-changed']")
@@ -32,11 +124,11 @@
           p.list-group-item-text
             | 根据提供的表达式，在源 observable 完成时发出它的最后一个值
         a.list-group-item([routerLink]="['/sample']")
-          h4.list-group-item-heading sample
+          h4.list-group-item-heading sample 采集新样
           p.list-group-item-text
             | 发出源 Observable 最新发出的值当另一个 notifier Observable发送时
         a.list-group-item([routerLink]="['/single']")
-          h4.list-group-item-heading single
+          h4.list-group-item-heading single 唯一
           p.list-group-item-text
             | 该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知
         a.list-group-item([routerLink]="['/skip']")
@@ -44,11 +136,11 @@
           p.list-group-item-text
             | 跳过N个(由参数提供)发出值
         a.list-group-item([routerLink]="['/skip-until']")
-          h4.list-group-item-heading skipUntil
+          h4.list-group-item-heading skipUntil 触发前跳过
           p.list-group-item-text
             | 跳过源 observable 发出的值，直到提供的 observable 发出值
         a.list-group-item([routerLink]="['/skip-while']")
-          h4.list-group-item-heading skipWhile
+          h4.list-group-item-heading skipWhile 按条件跳过
           p.list-group-item-text
             | 跳过源 observable 发出的值，直到提供的表达式结果为 false
         a.list-group-item([routerLink]="['/take']")
@@ -56,7 +148,7 @@
           p.list-group-item-text
             | 只发出源 Observable 最初发出的的N个值 (N = count)
         a.list-group-item([routerLink]="['/take-until']")
-          h4.list-group-item-heading takeUntil
+          h4.list-group-item-heading takeUntil 截取至触发
           p.list-group-item-text
             | 发出源 Observable 发出的值，直到 notifier Observable 发出值
         a.list-group-item([routerLink]="['/take-while']")
@@ -64,11 +156,11 @@
           p.list-group-item-text
             | 发出值，直到提供的表达式结果为 false
         a.list-group-item([routerLink]="['/throttle']")
-          h4.list-group-item-heading throttle
+          h4.list-group-item-heading throttle 节流阀
           p.list-group-item-text
             | 仅当由提供的函数所确定的持续时间已经过去时才发出值
         a.list-group-item([routerLink]="['/throttle-time']")
-          h4.list-group-item-heading throttleTime
+          h4.list-group-item-heading throttleTime 按时节流阀
           p.list-group-item-text
             | 当指定的持续时间经过后发出最新值
   .panel.panel-info

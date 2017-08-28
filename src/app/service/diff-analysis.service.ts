@@ -14,7 +14,7 @@ export class DiffAnalysisService {
   constructor(private router: Router) { }
 
   showDiffInfo(diffInfoTag: string) {
-    this.lastInfo$ = Observable.of(diffInfoData['combineAll-combineLatest']);
+    this.lastInfo$ = Observable.of(diffInfoData[diffInfoTag]);
     this.router.navigate(
       [{
         outlets: { diffdialog: 'diffdialog' }
@@ -31,6 +31,10 @@ export class DiffAnalysisService {
     return this.lastInfo$;
   }
 
+  getHeader(diffInfoTag: string) {
+    return diffInfoData[diffInfoTag] && diffInfoData[diffInfoTag].header;
+  }
+
 }
 // export class DiffInfoDataItem {
 //   header: string;
@@ -38,6 +42,28 @@ export class DiffAnalysisService {
 // }
 
 export const diffInfoData = {
+  'buffer-bufferWhen': {
+    header: `buffer 与 bufferWhen 的对比分析`,
+    info:
+    `
+相同点:
+
+不同点:
+`
+  },
+  'concatMap-concatMapTo': {
+    header: `concatMap 与 concatMapTo 的对比分析`,
+    info:
+`
+相同点:
+   - 功能基本相同
+不同点:
+  - concatMap 的内部 Observable 是通过工厂函数生成的,
+    因此可以根据源 Observables 的值生成不同的 Observable
+  - concatMapTo 的内部 Observable 是通过参数传入的,
+    即内部 Observable 跟源 Observables 的值是无关的
+`
+  },
   'combineAll-combineLatest': {
     header:
     `combineAll 与 combineLatest 的对比分析`,

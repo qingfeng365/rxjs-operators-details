@@ -1,0 +1,33 @@
+
+<div class="container">
+  <h3>mapTo</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">mapTo(映射为) 说明</div>
+    <div class="panel-body">
+      <p>签名:  mapTo(value: any): Observable</p>
+      <p>将每个发出值映射成常量</p>
+      <p>每次源 Observble 发出值时，都在输出 Observable 上发出给定的常量值</p>
+      <p>类似于 map，但它每一次都把源值映射成同一个输出值</p>
+      <p>接收常量 value 作为参数，并每当源 Observable 发出值时都发出这个值。换句话说， 就是忽略实际的源值，然后简单地使用这个发送时间点以知道何时发出给定的 value</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 源 Observble 发出 值1 时, 输出 'a'
+- 源 Observble 发出 值2 时, 输出 'a'
+- 源 Observble 发出 值3 时, 输出 'a'
+- 只要 源 Observble 有值发出,不管是什么值, 均输出 'a'</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

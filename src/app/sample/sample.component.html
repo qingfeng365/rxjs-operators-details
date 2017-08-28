@@ -7,18 +7,36 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">sample() 说明</div>
+    <div class="panel-heading">sample(采集新样) 说明</div>
     <div class="panel-body">
       <p>签名: sample(sampler: Observable): Observable</p>
       <p>当提供的 observable 发出时从源 observable 中取样</p>
       <p>发出源 Observable 最新发出的值当另一个 notifier Observable发送时</p>
       <p>就像是 sampleTime， 但是无论何时notifier Observable 进行了发送都会去取样</p>
       <p>无论何时 notifier Observable 发出一个值或者完成， sample 会去源 Observable 中发送上次 取样后源 Observable 发出的最新值， 除非源在上一次取样后没有发出值。 notifier会被订阅只要输出 Observable 被订阅</p><img src="../assets/images/sample.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 notifier Observable, 即起辅助通知作用的 Observable
+- 要输出值需要满足两个条件:
+  1) notifier Observable 触发通知, 即 notifier Observable
+     有值发出或发出已完成信号
+  2) 源 Observable 在上次采样后,有值发出
+  3) 也就是说, 不能是同一个样本被采集两次x
+- 当 源 Observable 发出值 `a` 时, 不会输出值
+- 当 notifier Observable 发出值 `x`(1) 时,首次采样,输出值 `a`
+- 当 源 Observable 发出值 `b` 时, 不会输出值
+- 当 源 Observable 发出值 `c` 时, 不会输出值
+- 当 notifier Observable 发出值 `x`(2) 时,
+  上次采样值 `a`后, 源 Observable 有新值发出, 输出最新值 `c`
+- 当 notifier Observable 发出值 `x`(3) 时,
+  因上次采样值 `c`后, 源 Observable 没有新值发出,
+  不输出值
+- 当 源 Observable 发出值 `d` 时, 不会输出值
+- 当 notifier Observable 发出值 `x`(4) 时, 输出最新值 `d`</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图模拟示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>

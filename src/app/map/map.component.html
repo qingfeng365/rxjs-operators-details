@@ -1,0 +1,38 @@
+
+<div class="container">
+  <h3>map</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">map(映射) 说明</div>
+    <div class="panel-body">
+      <p>签名: map(project: function(value: T, index: number): R, thisArg: any): Observable</p>
+      <p>对源 observable 的每个值应用投射函数</p>
+      <p>将给定的 project 函数应用于源 Observable 发出的每个值，并将结果值作为 Observable 发出</p>
+      <p>类似于大家所熟知的 Array.prototype.map 方法，此操作符将投射函数应用于每个值 并且在输出 Observable 中发出投射后的结果。</p>
+      <p>project: function(value: T, index: number): R,应用于由源 Observable 所发出的每个值的函数。index 参数是自订阅开始后发送序列的索引，是从 0 开始的</p>
+      <p>thisArg,可选参数，定义在 project 函数中的 this 是什么</p><img src="../assets/images/map.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 源 Observable 发出值 1,
+  经 project 函数计算出 值10, 然后输出 值10
+- 以此类推
+附加说明:
+  如果 project 函数 返回的不是普通值,
+  而是 Observable 或 Promise,
+  那么意味着下游操作符应为, 可处理高阶 Observable 的操作符
+  或者不使用 map , 而改用带 map 后缀的操作符</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

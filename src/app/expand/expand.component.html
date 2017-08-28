@@ -1,0 +1,67 @@
+
+<div class="container">
+  <h3>expand</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">expand(递归映射) 说明</div>
+    <div class="panel-body">
+      <p>签名: expand(project: function(value: T, index: number), concurrent: number): Observable</p>
+      <p>递归调用提供的函数</p>
+      <p>递归地将每个源值投射成 Observable，这个 Observable 会被合并到输出 Observable 中</p>
+      <p>返回的 Observable 基于应用一个函数来发送项，该函数提供给源 Observable 发出的每个项， 并返回一个 Observable，然后合并这些作为结果的 Observable，并发出本次合并的结果。 expand 会重新发出在输出 Observable 上的每个源值。然后，将每个输出值传给投射函数， 该函数返回要合并到输出 Observable 上的内部 Observable 。由投影产生的那些输出值也会 被传给投射函数以产生新的输出值。这就是 expand 如何进行递归的</p>
+      <p>project: function(value: T, index: number),函数， 当应用于源 Observable 或输出 Observable 发出的项时，返回一个 Observable</p>
+      <p>concurrent: 可选的,同时订阅输入 Observables 的最大数量</p><img src="../assets/images/expand.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 expand Observable (递归映射用)
+- 源 Observable 发出值 1,
+- expand 操作符收到 源 Observable 发出的值 1, 先输出 1
+  然后再把值 1 映射 expand Observable1,
+  并订阅 expand Observable1
+- 此时, expand 操作符就有两个 Observable 在订阅中,
+  源 Observable 和 expand Observable1,
+  这两个 Observable 只要任意一个有值发出, 都会先输出值,
+  然后再将 这个值 重新 映射新的 expand Observable,
+  并订阅.
+- expand Observable1 发出值 2 (2= 源值 1 x 2),
+  先输出 值 2,
+  然后再将 值 2 映射为新的 expand Observable2,
+  并订阅 expand Observable2,
+  此时, 有三个 Observable 在订阅中
+- expand Observable2 发出值 4 (4= (ex ob1)值 2 x 2),
+  先输出 值 4,
+  然后再将 值 4 映射为新的 expand Observable3,
+  并订阅 expand Observable3,
+  此时, 有四个 Observable 在订阅中
+- expand Observable3 发出值 8 (8= (ex ob2)值 4 x 2),
+  先输出 值 8,
+  然后再将 值 8 映射为新的 expand Observable4,
+  并订阅 expand Observable4,
+  此时, 有五个 Observable 在订阅中
+- 由于 映射条件 x === 8 , 会映射为 empty, 即立即完成
+  因此 expand Observable4 会立即完成,
+  此时, 还有四个 Observable 在订阅中
+- expand Observable3 没有值,也完成,
+  此时, 还有三个 Observable 在订阅中
+- 以此类推,直到所有 Observable 完成
+
+附加说明:
+使用 expand 要小心资源被迅速耗尽, 因为会产生大量的 Observable,
+要注意 expand Observable 的结束条件,
+或者在之后使用 take ,限制输出数量</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

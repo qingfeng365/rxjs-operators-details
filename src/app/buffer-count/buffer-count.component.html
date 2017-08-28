@@ -1,0 +1,66 @@
+
+<div class="container">
+  <h3>bufferCount</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">bufferCount(按数量缓冲) 说明</div>
+    <div class="panel-body">
+      <p>签名: bufferCount(bufferSize: number, startBufferEvery: number = null): Observable</p>
+      <p>收集发出的值，直到收集完提供的数量的值才将其作为数组发出。</p>
+      <p>缓冲源 Observable 的值直到缓冲数量到达设定的 bufferSize</p>
+      <p>将过往的值收集到一个数组中，当数组数量到达设定的 bufferSize 时发出该数组</p>
+      <p>bufferSize: 缓存区的最大长度</p>
+      <p>startBufferEvery: 确定何时启用新的缓冲区, startBufferEvery 只允许小于bufferSize,且不为0, 不合法的值不会启用.</p>
+      <p>当有设置 startBufferEvery 时, 可理解为是有重叠的缓冲, 重叠数量 = bufferSize - startBufferEvery</p><img src="../assets/images/bufferCount.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 可以存在多个缓冲区, 只要缓冲区没有被关闭,
+  则当源 Observable 有值发出时, 会向每个缓冲区都进行缓存
+- 当某个缓冲区达到最大长度时, 就会发出该缓冲区并进行清理(关闭)
+- 最初有一个缓冲区 - buff1:[]
+- 源 Observable 发出值 'a' 时, 缓冲区buff1:[a],
+  没有达到最大长度,不发出缓冲区 buff1
+- 源 Observable 发出值 'b' 时, 缓冲区buff1:[a,b],
+  没有达到最大长度,不发出缓冲区 buff1,
+  此时, 源 Observable 已发出2个值, 满足 startBufferEvery 的条件,
+  因此, 又开启新的缓冲区 - buff2:[]
+- 源 Observable 发出值 'c' 时, 此时有多个缓冲区, 向每个缓冲区都进行缓存,
+  缓冲区 buff1:[a,b,c], 缓冲区 buff2:[c],
+  此时, 缓冲区 buff1 已达到最大长度, 发出该缓冲区并关闭
+- 源 Observable 发出值 'd' 时, 此时只有缓冲区 buff2: [c,d],
+  没有达到最大长度,不发出缓冲区 buff2,
+  此时, 源 Observable 已发出4个值, 满足 startBufferEvery 的条件,
+  因此, 又开启新的缓冲区 - buff3:[]
+- ...
+- 源 Observable 发出值 'h' 时, 此时只有缓冲区 buff(n-1): [g,h],
+  同时满足 startBufferEvery 的条件,
+  因此, 又开启新的缓冲区 - buff(n):[]
+- 源 Observable 发出值 'i' 时, 缓冲区 buff(n-1): [g,h,i],
+  buff(n):[i], buff(n-1) 已达到最大长度, 发出该缓冲区并关闭
+- 源 Observable 发出已完成信号, 则将还没有关闭的缓冲区依次发出
+- 如果有设置 startBufferEvery,
+  则最后还没有关闭的缓冲区个数为 bufferSize - startBufferEvery</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1:弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2:收集缓冲区并在指定数量的值后发出</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

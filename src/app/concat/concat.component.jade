@@ -14,7 +14,7 @@
       img.img-responsive.center-block(src="../assets/images/concat.png")
       pre.pre-scrollable.
         弹珠图解析:
-          - 操作符上方的两条线, 表示 concat 接收的两个 Observable, 
+          - 操作符上方的两条线, 表示 concat 接收的两个 Observable,
             这两个 Observable 是通过参数传递过来的:
               Observable.concat(ab$, xy$)
               或
@@ -38,7 +38,7 @@
         | &nbsp;
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
-          (click)="runDemo1static();$event.stopPropagation()") 运行静态方法      
+          (click)="runDemo1static();$event.stopPropagation()") 运行静态方法
   .panel.panel-info
     .panel-heading 示例2: 使用延迟的 souce observable 进行 concat
     .panel-body

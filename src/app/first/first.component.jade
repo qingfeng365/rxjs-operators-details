@@ -6,7 +6,8 @@
   .panel.panel-info
     .panel-heading first(查找第一个) 说明
     .panel-body
-      p 签名: first(predicate: function, select: function)
+      p.
+        签名: first(predicate: function(value: T, index: number, source: Observable): boolean, resultSelector: function(value: T, index: number): R, defaultValue: R): Observable
       p 发出第一个值或第一个通过给定表达式的值
       p 只发出第一个值。或者只发出第一个通过测试的值
       p 与 first 对应的操作符是 last
@@ -14,11 +15,36 @@
       img.img-responsive.center-block(src="../assets/images/first.png")
       pre.pre-scrollable.
         弹珠图解析:
+        略
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图模拟示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 第一个通过 predicate 函数的值
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 使用可选的 resultSelector 函数
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4: 利用默认值
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo4();$event.stopPropagation()") 运行

@@ -84,16 +84,17 @@ Rx.Observable
         (err) => { },
         () => { this.isRuning = false; });
   }
+
   runDemo1zip() {
     const order = [1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0];
     Rx.Observable
       .zip(
-        Rx.Observable
-          .from(['a', 'b', 'c', 'd', 'e']),
-        Rx.Observable
-          .interval(1000)
-          .take(12)
-          .filter(index => order[index] === 1)
+      Rx.Observable
+        .from(['a', 'b', 'c', 'd', 'e']),
+      Rx.Observable
+        .interval(1000)
+        .take(12)
+        .filter(index => order[index] === 1)
       )
       .map(val => val[0])
       .debounce(v => Rx.Observable.interval(2000))

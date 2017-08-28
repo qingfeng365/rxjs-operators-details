@@ -1,0 +1,89 @@
+.container
+  h3 concatMap
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+        a.list-group-item((click)="diffAnalysisService.showDiffInfo('concatMap-concatMapTo');$event.stopPropagation()",
+        routerLink="")
+          | {{diffAnalysisService.getHeader('concatMap-concatMapTo')}}
+  .panel.panel-info
+    .panel-heading concatMap(拼接映射) 说明
+    .panel-body
+      p 签名: concatMap(project: function(value: T, ?index: number): ObservableInput, resultSelector: function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any): Observable
+      p 将值映射成内部 observable，并按顺序订阅和发出
+      p 将源值投射为一个合并到输出 Observable 的 Observable,以串行的方式等待前一个完成再合并下一个 Observable
+      p 将每个值映射为 Observable, 然后使用 concatAll 将所有的 内部 Observables 打平
+      p 返回一个 Observable，该 Observable 发出基于对源 Observable 发出的值调用提供的函数, 该函数返回所谓的内部 Observable。 每个新的内部 Observable 和前一个内部 Observable 连接在一起
+      p 警告: 如果源值不断的到达并且速度快于内部 Observables 完成的速度, 它会导致内存问题， 因为内部的 Observable 在无限制的缓冲区中聚集，以等待轮流订阅
+      p project: 用在源 Observable 发出的每个值上,返回 Observable
+      p resultSelector: 函数，它用于产生基于值的输出 Observable 和源(外部)发送和内部 Observable 发送的索引
+      p 传递给这个函数参数有：
+      p - outerValue: 来自源的值
+      p - innerValue: 来自投射的 Observable 的值
+      p - outerIndex: 来自源的值的 "index"
+      p - innerIndex: 来自投射的 Observable 的值的 "index"
+      p 注意: 可以直接映射成 promise
+      p 警告: 使用 concatMap 要注意是否存在 背压 问题, 如果源值不断的到达并且速度快于内部Observables完成的速度, 它会导致内存问题 因为内部的 Observable 在无限制的缓冲区中聚集，以等待轮流订阅
+      img.img-responsive.center-block(src="../assets/images/concatMap.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 内部 Observable
+        - 当源 Observable 发出值 1 时,
+          映射成内部 Observable1,
+          并订阅该内部 Observable1
+        - 内部 Observable1 发出值 10 时,
+          输出 10
+        - 此时,实际有两个 Observable 都处于订阅中,
+          即源 Observable 和 值1 映射的 内部 Observable1
+        - 只有 内部 Observable 发出值,才会输出
+        - 源 Observable 目前没有值发出
+        - 内部 Observable1 继续发出值 10 10, 输出 10 10
+        - 内部 Observable1 发出已完成信号
+        - 源 Observable 发出值 3,因内部 Observable1 已完成
+          因此可以映射成内部 Observable2,并订阅
+        - 内部 Observable2 发出值 30 30, 输出 30 30
+        - 源 Observable 发出值 5,
+          因为内部 Observable2 还没有完成
+          还不能映射为内部 Observable3
+        - 内部 Observable2 发出值 30, 输出 30
+        - 内部 Observable2 发出已完成信号
+        - 将值 5 映射为内部 Observable3,并订阅
+        - 内部 Observable3 发出值 50 50 50, 输出 50 50 50
+
+        附加说明:
+
+        - 内部 Observable 指的是被映射出来的 Observable,
+          相对应的外部 Observable, 就是指 源 Observable,
+          因为是由源 Observable 内部的值 映射出来的 Observable,
+          故称 内部 Observable
+        - 外部 Observable, 又称为 高阶 Observable,
+          内部 Observable, 又称为 低价 Observable,
+          因为 Observable 的 值本身 又是 Observable,
+          形成嵌套的 Observable, 故称为高阶,
+          而普通的 Observable ,又称为 一阶 Observable
+        - 高阶 Observable 输出成 普通的 Observable, 又称为 打平
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 映射成 promise
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 应用投射函数 resultSelector
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

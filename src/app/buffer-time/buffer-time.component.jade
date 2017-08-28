@@ -1,0 +1,120 @@
+.container
+  h3 bufferTime
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading bufferTime(按时间缓冲) 说明
+    .panel-body
+      p 签名: bufferTime(bufferTimeSpan: number, bufferCreationInterval: number, maxBufferSize: number, scheduler: Scheduler): Observable
+      p 收集发出的值，直到经过了提供的时间才将其作为数组发出
+      p 在特定时间周期内缓冲源 Observable 的值
+      p 在一个特定的持续时间bufferTimeSpan内缓存源 Observable 的值。 除非指定了可选参数bufferCreationInterval , 它会发出数组并且重置缓冲区每个bufferTimeSpan毫秒。这个操作符会在每个 bufferCreationInterval 毫秒时开启缓冲区， 并在每个 bufferTimeSpan 毫秒时关闭(发出并重置)缓冲区。如果可选参数maxBufferSize被指定, 缓冲区会在bufferTimeSpan毫秒 之后或者缓冲区元素个数达到maxBufferSize时发出
+      p bufferTimeSpan: 填满每个缓冲数组的时间
+      p bufferCreationInterval: 开启新缓冲区的时间间隔
+      p maxBufferSize: 缓冲区的最大容量
+      p 如果源 Observable 是定时发送, 则第一次输出的元素数量总是会少于后面输出的元素数量,原因是第0秒还没有值,而后面输出时,首秒是有值的
+      p bufferCreationInterval 的时间可以大于,也可以小于 bufferTimeSpan,
+      p   当小于 bufferTimeSpan 时, 呈现为 有重叠的缓冲区
+      p   当等于 bufferTimeSpan 时, 呈现为 连续的缓冲区
+      p   当大于 bufferTimeSpan 时, 呈现为 有疏漏的缓冲区
+      p 如果设置了 maxBufferSize, 则 bufferTimeSpan 与 maxBufferSize 任意一个条件满足,均发出缓冲区
+      img.img-responsive.center-block(src="../assets/images/bufferTime.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        为了行文方便, 设定源 Observable 发出值的间隔为1秒,
+        bufferTime 的时间间隔为3秒
+        - 第0秒, 缓冲区1 计时开始
+        - 第1秒, 缓冲区1还没有到关闭时间,
+          源 Observable 发出值 'a', 缓冲区1 - [a]
+        - 第2秒, 缓冲区1还没有到关闭时间,
+          源 Observable 发出值 'b', 缓冲区1 - [a,b]
+        - 第3秒, 缓冲区1已到关闭时间,(缓冲区1 从第0秒到第3秒)
+          发出缓冲区1-[a,b]并关闭, 开启新的缓冲区2 - [],
+          源 Observable 发出值 'c', 缓冲区2 - [c]
+        - 第4秒, 缓冲区2还没有到关闭时间
+          源 Observable 发出值 'd', 缓冲区2 - [c,d]
+        - 第5秒, 缓冲区2还没有到关闭时间
+          源 Observable 发出值 'e', 缓冲区2 - [c,d,e]
+        - 第6秒, 缓冲区2已到关闭时间,(缓冲区2 从第3秒到第6秒)
+          发出缓冲区2-[c,d,e]并关闭, 开启新的缓冲区3 - [],
+          源 Observable 发出值 'f', 缓冲区3 - [f]
+        - 第7秒, 缓冲区3还没有到关闭时间
+          源 Observable 发出值 'g', 缓冲区3 - [f,g]
+        - 第8秒, 缓冲区3还没有到关闭时间
+          源 Observable 没有值发出, 缓冲区3 - [f,g]
+        - 第9秒, 缓冲区3已到关闭时间,(缓冲区3 从第6秒到第9秒)
+          发出缓冲区3-[f,g]并关闭, 开启新的缓冲区4 - [],
+          源 Observable 没有值发出
+        - 第9秒后, 源 Observable 发出已完成信号,
+          依次发出尚未关闭的缓冲区, 发出缓冲区4 - []
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2:缓冲2秒
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 有重叠的缓冲区
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4: 有疏漏的缓冲区
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo4();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例5:
+    .panel-body
+      form
+        .form-group
+          label 定时发射时间 ms
+          input.form-control(type="number", [(ngModel)]="interval",
+            name="interval")
+        .form-group
+          label 输出数量
+          input.form-control(type="number", [(ngModel)]="takeNum", min="1",
+            name="takeNum")
+        .form-group
+          label bufferTimeSpan 填满每个缓冲数组的时间 ms
+          input.form-control(type="number", [(ngModel)]="bufferTimeSpan",
+            name="bufferTimeSpan")
+        .form-group
+          label bufferCreationInterval 开启新缓冲区的时间间隔 ms
+          input.form-control(type="number",
+            [(ngModel)]="bufferCreationInterval",
+            name="bufferCreationInterval")
+        .form-group
+          label maxBufferSize 缓冲区的最大容量
+          input.form-control(type="number", [(ngModel)]="maxBufferSize",
+            name="maxBufferSize")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo5();$event.stopPropagation()") 运行
+      pre.pre-scrollable.
+        Rx.Observable
+          .interval({{interval}})
+          .take({{takeNum}})
+          .bufferTime(
+            {{bufferTimeSpan}},
+            {{bufferCreationInterval}},
+            {{maxBufferSize}})
+          .subscribe(v => console.log(v));

@@ -1,7 +1,7 @@
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -40,6 +40,28 @@ import { TakeUntilComponent } from './take-until/take-until.component';
 import { TakeWhileComponent } from './take-while/take-while.component';
 import { ThrottleComponent } from './throttle/throttle.component';
 import { ThrottleTimeComponent } from './throttle-time/throttle-time.component';
+import { BufferComponent } from './buffer/buffer.component';
+import { BufferCountComponent } from './buffer-count/buffer-count.component';
+import { BufferTimeComponent } from './buffer-time/buffer-time.component';
+import { BufferToggleComponent } from './buffer-toggle/buffer-toggle.component';
+import { BufferWhenComponent } from './buffer-when/buffer-when.component';
+import { ConcatMapComponent } from './concat-map/concat-map.component';
+import { ConcatMapToComponent } from './concat-map-to/concat-map-to.component';
+import { ExhaustMapComponent } from './exhaust-map/exhaust-map.component';
+import { ExpandComponent } from './expand/expand.component';
+import { GroupByComponent } from './group-by/group-by.component';
+import { MapComponent } from './map/map.component';
+import { MapToComponent } from './map-to/map-to.component';
+import { MergeMapComponent } from './merge-map/merge-map.component';
+import { PartitionComponent } from './partition/partition.component';
+import { PluckComponent } from './pluck/pluck.component';
+import { ScanComponent } from './scan/scan.component';
+import { SwitchMapComponent } from './switch-map/switch-map.component';
+import { WindowComponent } from './window/window.component';
+import { WindowCountComponent } from './window-count/window-count.component';
+import { WindowTimeComponent } from './window-time/window-time.component';
+import { WindowToggleComponent } from './window-toggle/window-toggle.component';
+import { WindowWhenComponent } from './window-when/window-when.component';
 
 
 @NgModule({
@@ -77,13 +99,36 @@ import { ThrottleTimeComponent } from './throttle-time/throttle-time.component';
     TakeUntilComponent,
     TakeWhileComponent,
     ThrottleComponent,
-    ThrottleTimeComponent
+    ThrottleTimeComponent,
+    BufferComponent,
+    BufferCountComponent,
+    BufferTimeComponent,
+    BufferToggleComponent,
+    BufferWhenComponent,
+    ConcatMapComponent,
+    ConcatMapToComponent,
+    ExhaustMapComponent,
+    ExpandComponent,
+    GroupByComponent,
+    MapComponent,
+    MapToComponent,
+    MergeMapComponent,
+    PartitionComponent,
+    PluckComponent,
+    ScanComponent,
+    SwitchMapComponent,
+    WindowComponent,
+    WindowCountComponent,
+    WindowTimeComponent,
+    WindowToggleComponent,
+    WindowWhenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DialogModule,
     BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [DateToolService, DiffAnalysisService],

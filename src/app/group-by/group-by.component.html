@@ -1,0 +1,78 @@
+
+<div class="container">
+  <h3>groupBy</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">groupBy(分组) 说明</div>
+    <div class="panel-body">
+      <p>签名:  groupBy(keySelector: function(value: T): K, elementSelector: function(value: T): R, durationSelector: function(grouped: GroupedObservable): Observable): Observable</p>
+      <p>基于提供的值分组成多个 observables</p>
+      <p>根据指定条件将源 Observable 发出的值进行分组，并将这些分组作为 GroupedObservables 发出，每一个分组都是一个 GroupedObservable 。</p>
+      <p>keySelector: function(value: T): K, 提取每项的键的函数</p>
+      <p>elementSelector: function(value: T): R,可选的,提取每项返回元素的函数,</p>
+      <p>durationSelector: function(grouped: GroupedObservable): Observable,可选的,返回一个 Observable 来确定每个组应该存在多长时间的函数</p>
+      <p>发出 GroupedObservables 的 Observable， 每个 GroupedObservable 对应唯一的键值，并且会发出源 Observable 中共享该键值的项</p><img src="../assets/images/groupBy.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 根据 计算 key 函数返回的值, 是否是一个新值,即新 key,
+  来决定是否输出, 输出的是 Observable，
+- 下游接收到的值是 Observable，不是源 Observable 发出的值，
+  需要再次订阅, 才能获取实际的值
+- 源 Observable 发出 '1' 时,
+  先根据 keySelector 计算 key, key = 1,
+  是新 key, 创建 key 为1的 GroupedObservable1,
+  并将这个 GroupedObservable1 做为值输出,
+  同时使用 GroupedObservable1 发射值 '1'
+- 源 Observable 发出 '2' 时,
+  先根据 keySelector 计算 key, key = 0,
+  是新 key, 创建 key 为0的 GroupedObservable0,
+  并将这个 GroupedObservable0 做为值输出,
+  同时使用 GroupedObservable1 发射值 '2'
+- 源 Observable 发出 '3' 时,
+  先根据 keySelector 计算 key, key = 1,
+  查找到 key = 1 的 GroupedObservable1,
+  不输出,
+  但用 GroupedObservable1 发射值 '3'
+- 源 Observable 发出 '4' 时,
+  先根据 keySelector 计算 key, key = 0,
+  查找到 key = 0 的 GroupedObservable1,
+  不输出,
+  但用 GroupedObservable0 发射值 '4'
+- 以此类推
+附加说明:
+   - 有多少个分组,就会输出多少次,即输出多少个 Observable
+   - 由于输出的值本身又是 Observable, 因此需要再次订阅,
+   - 或者使用有打平功能的操作符, 如 mergeMap</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 弹珠图示例输出数组</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 使用 elementSelector</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

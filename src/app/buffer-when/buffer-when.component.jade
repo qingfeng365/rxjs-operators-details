@@ -1,0 +1,58 @@
+.container
+  h3 bufferWhen
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+        a.list-group-item((click)="diffAnalysisService.showDiffInfo('buffer-bufferWhen');$event.stopPropagation()",
+        routerLink="")
+          | {{diffAnalysisService.getHeader('buffer-bufferWhen')}}
+  .panel.panel-info
+    .panel-heading bufferWhen(触发缓冲) 说明
+    .panel-body
+      p 签名: bufferWhen(closingSelector: function(): Observable): Observable
+      p 收集值，直到关闭选择器发出值才发出缓冲的值
+      p 缓冲源 Observable 的值, 使用关闭 Observable 的工厂函数来决定何时关闭、发出和重置缓冲区
+      p 将过往的值收集到数组中， 当开始收集数据的时候, 调用函数返回 Observable, 该 Observable 告知何时关闭缓冲区并重新开始收集
+      p 立马开启缓冲区, 然后当closingSelector函数返回的 observable 发出数据的时候关闭缓冲区. 当关闭缓冲区的时候, 会立马开启新的缓冲区，并不断重复此过程
+      p closingSelector: 该函数不接受参数，并返回通知缓冲区关闭的 Observable
+      img.img-responsive.center-block(src="../assets/images/bufferWhen.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 closingNotifier Observable, 即起辅助通知作用的 Observable
+        - 当 closingNotifier Observable 发出值或发出已完成信号, 就会触发通知
+          当 closingNotifier Observable 一触发通知,
+          closingNotifier Observable 就已完成
+        - 一开始就存在缓冲区, closingNotifier Observable 触发通知,
+          会发出并关闭缓冲区, 然后重新创建新的缓冲区,
+          同时也会重新创建新的 closingNotifier Observable
+        - 刚开始缓冲区1为 [], closingNotifier Observable1 被订阅
+        - 源 Observable 发出值 'b' 时, 缓冲区1为 [b],
+          closingNotifier Observable1 还没有值发出, 此时不输出值
+        - 源 Observable 发出值 'c' 时, 缓冲区1为 [b,c],
+          closingNotifier Observable1 还没有值发出, 此时不输出值
+        - 源 Observable 发出值 'd' 时, 缓冲区为 [b,c,d],
+          closingNotifier Observable1 还没有值发出, 此时不输出值
+        - closingNotifier Observable1 发出 's', 触发通知
+          发出缓冲区1并关闭, 输出: [b,c,d]
+          创建新的缓冲区2: []
+          closingNotifier Observable1 取消订阅
+          创建新的 closingNotifier Observable2
+        - 源 Observable 发出值 'e' 'f' 'g' 时, 缓冲区2为 [e,f,g],
+          closingNotifier Observable2 还没有值发出, 此时不输出值
+        - closingNotifier Observable2 发出 's', 触发通知
+          发出缓冲区2并关闭, 输出: [e,f,g]
+          创建新的缓冲区3: []
+          closingNotifier Observable2 取消订阅
+          创建新的 closingNotifier Observable3
+        - 源 Observable 发出 已完成信号,
+          将还没有关闭的缓冲区依次发出,
+          发出缓冲区3, 输出: []
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行

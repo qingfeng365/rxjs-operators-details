@@ -7,16 +7,18 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">skipWhile() 说明</div>
+    <div class="panel-heading">skipWhile(按条件跳过) 说明</div>
     <div class="panel-body">
       <p>签名: skipWhile(predicate: Function): Observable</p>
       <p>跳过源 observable 发出的值，直到提供的表达式结果为 false</p>
       <p>返回一个 Observable， 该 Observable 会跳过由源 Observable 发出的所有满足指定条件的数据项， 但是一旦出现了不满足条件的项，则发出在此之后的所有项</p><img src="../assets/images/skipWhile.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+- 2,3 均满足条件,因此会跳过
+- 4 不满足条件,则从 4 开始不再跳过, 也不再检查</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>

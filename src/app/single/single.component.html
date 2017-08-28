@@ -7,21 +7,51 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">single() 说明</div>
+    <div class="panel-heading">single(唯一) 说明</div>
     <div class="panel-body">
       <p>签名: single(a: Function): Observable</p>
-      <p>发出通过表达式的单一项</p>
+      <p>发出通过表达式的唯一项</p>
       <p>该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知</p>
       <p>如果 Observable 在发送任何 next 通知之前完成的话，则发送 EmptyError 给观察者的 error 回调函数</p><img src="../assets/images/single.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+- 该弹珠图意义不明确,因没有写明断言条件
+- 在源 Observable 发出值 'b' 时, 发生错误
+- 见示例1: 符合条件不是唯一项时,会报错</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图模拟示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 发出唯一能通过断言的数字</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 没有符合条件的项</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例4: 没有数据的情况</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo4Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo4();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

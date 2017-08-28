@@ -32,6 +32,28 @@ import { TakeUntilComponent } from './take-until/take-until.component';
 import { TakeWhileComponent } from './take-while/take-while.component';
 import { ThrottleComponent } from './throttle/throttle.component';
 import { ThrottleTimeComponent } from './throttle-time/throttle-time.component';
+import { BufferComponent } from './buffer/buffer.component';
+import { BufferCountComponent } from './buffer-count/buffer-count.component';
+import { BufferTimeComponent } from './buffer-time/buffer-time.component';
+import { BufferToggleComponent } from './buffer-toggle/buffer-toggle.component';
+import { BufferWhenComponent } from './buffer-when/buffer-when.component';
+import { ConcatMapComponent } from './concat-map/concat-map.component';
+import { ConcatMapToComponent } from './concat-map-to/concat-map-to.component';
+import { ExhaustMapComponent } from './exhaust-map/exhaust-map.component';
+import { ExpandComponent } from './expand/expand.component';
+import { GroupByComponent } from './group-by/group-by.component';
+import { MapComponent } from './map/map.component';
+import { MapToComponent } from './map-to/map-to.component';
+import { MergeMapComponent } from './merge-map/merge-map.component';
+import { PartitionComponent } from './partition/partition.component';
+import { PluckComponent } from './pluck/pluck.component';
+import { ScanComponent } from './scan/scan.component';
+import { SwitchMapComponent } from './switch-map/switch-map.component';
+import { WindowComponent } from './window/window.component';
+import { WindowCountComponent } from './window-count/window-count.component';
+import { WindowTimeComponent } from './window-time/window-time.component';
+import { WindowToggleComponent } from './window-toggle/window-toggle.component';
+import { WindowWhenComponent } from './window-when/window-when.component';
 
 const routes: Routes = [
   {
@@ -53,6 +75,26 @@ const routes: Routes = [
     component: OperatorsComponent,
   },
   {
+    path: 'buffer',
+    component: BufferComponent
+  },
+  {
+    path: 'buffer-count',
+    component: BufferCountComponent
+  },
+  {
+    path: 'buffer-time',
+    component: BufferTimeComponent
+  },
+  {
+    path: 'buffer-toggle',
+    component: BufferToggleComponent
+  },
+  {
+    path: 'buffer-when',
+    component: BufferWhenComponent
+  },
+  {
     path: 'combine-all',
     component: CombineAllComponent
   },
@@ -69,6 +111,14 @@ const routes: Routes = [
     component: ConcatAllComponent
   },
   {
+    path: 'concat-map',
+    component: ConcatMapComponent
+  },
+  {
+    path: 'concat-map-to',
+    component: ConcatMapToComponent
+  },
+  {
     path: 'debounce',
     component: DebounceComponent
   },
@@ -79,6 +129,14 @@ const routes: Routes = [
   {
     path: 'distinct-until-changed',
     component: DistinctUntilChangedComponent
+  },
+  {
+    path: 'exhaust-map',
+    component: ExhaustMapComponent
+  },
+  {
+    path: 'expand',
+    component: ExpandComponent
   },
   {
     path: 'filter',
@@ -93,12 +151,24 @@ const routes: Routes = [
     component: ForkJoinComponent
   },
   {
+    path: 'group-by',
+    component: GroupByComponent
+  },
+  {
     path: 'ignore-elements',
     component: IgnoreElementsComponent
   },
   {
     path: 'last',
     component: LastComponent
+  },
+  {
+    path: 'map',
+    component: MapComponent
+  },
+  {
+    path: 'map-to',
+    component: MapToComponent
   },
   {
     path: 'merge',
@@ -109,8 +179,20 @@ const routes: Routes = [
     component: MergeAllComponent
   },
   {
+    path: 'merge-map',
+    component: MergeMapComponent
+  },
+  {
     path: 'pairwise',
     component: PairwiseComponent
+  },
+  {
+    path: 'partition',
+    component: PartitionComponent
+  },
+  {
+    path: 'pluck',
+    component: PluckComponent
   },
   {
     path: 'race',
@@ -119,6 +201,10 @@ const routes: Routes = [
   {
     path: 'sample',
     component: SampleComponent
+  },
+  {
+    path: 'scan',
+    component: ScanComponent
   },
   {
     path: 'single',
@@ -141,6 +227,10 @@ const routes: Routes = [
     component: StartWithComponent
   },
   {
+    path: 'switch-map',
+    component: SwitchMapComponent
+  },
+  {
     path: 'take',
     component: TakeComponent
   },
@@ -159,6 +249,26 @@ const routes: Routes = [
   {
     path: 'throttle-time',
     component: ThrottleTimeComponent
+  },
+  {
+    path: 'window',
+    component: WindowComponent
+  },
+  {
+    path: 'window-count',
+    component: WindowCountComponent
+  },
+  {
+    path: 'window-time',
+    component: WindowTimeComponent
+  },
+  {
+    path: 'window-toggle',
+    component: WindowToggleComponent
+  },
+  {
+    path: 'window-when',
+    component: WindowWhenComponent
   },
   {
     path: 'with-latest-from',

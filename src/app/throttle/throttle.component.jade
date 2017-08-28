@@ -4,7 +4,7 @@
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading throttle() 说明
+    .panel-heading throttle(节流阀) 说明
     .panel-body
       p 签名: throttle(durationSelector: function(value): Observable | Promise): Observable
       p 仅当由提供的函数所确定的持续时间已经过去时才发出值
@@ -16,8 +16,31 @@
       img.img-responsive.center-block(src="../assets/images/throttle.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 duration Observable, 即起辅助通知作用的     Observable
+        - throttle 相当于是个阀门,阀门一开始是打开状态,
+          当有值输出后,就会关闭阀门,
+          并开始订阅 duration Observable, 等待触发通知
+        - 阀门下次允许打开的时机是由 duration Observable 决定的,
+        - 当 duration Observable 发出值或发出已完成信号, 就会触   发通知, duration Observable 触发通知后,
+          就会取消订阅 duration Observable
+        - 此时阀门会再次打开, 阀门会一直开启,
+          直到源 Observable 有值输出
+        - 当源 Observable 有值输出后, 阀门将再次关闭, 并重新开始
+          开始订阅 duration Observable, 等待下次打开的触发通知
+        - 源 Observable 发出 'a' 时, 阀门处于打开状态,
+          输出 'a', 并关闭阀门, 开始订阅 duration Observable
+        - 源 Observable 发出 'x' 'y' 时,
+          duration Observable 还没有触发通知, 阀门仍处于关闭状态,
+          没有值输出
+        - duration Observable 发出已完成信号, 阀门打开,
+          但此时源 Observable 没有值发出,因此也没有值输出
+        - 因源 Observable 没有值发出, 阀门一直打开
+        - 源 Observable 发出 'b' 时, 阀门处于打开状态,
+          输出 'b', 并关闭阀门, 重新开始订阅 duration Observable
+        - 以此类推
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p

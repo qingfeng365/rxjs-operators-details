@@ -16,11 +16,20 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图模拟示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 显示错误</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

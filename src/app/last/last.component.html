@@ -15,15 +15,43 @@
       <p>返回的 Observable 只发出由源 Observable 发出的最后一个值。它可以接收一个可选的 predicate 函数作为 参数，如果传入 predicate 的话则发送的不是源 Observable 的最后一项，而是发出源 Observable 中 满足 predicate 函数的最后一项</p>
       <p>如果 Observale 完成前还没有发出任何 next 通知的话，就会 发送 EmptyError 给观察者的 error 回调函数</p>
       <p>由于要确定是最后一个值, 所以源 observable 要发出已完成信号, 才能输出值.</p><img src="../assets/images/last.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+略</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图模拟示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 最后一个通过 predicate 函数的值</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 使用结果选择器的 last</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例4: 使用默认值的 last</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo4Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo4();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

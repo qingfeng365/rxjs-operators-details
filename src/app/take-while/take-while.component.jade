@@ -4,7 +4,7 @@
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading takeWhile() 说明
+    .panel-heading takeWhile(按条件截取) 说明
     .panel-body
       p 签名: takeWhile(predicate: function(value, index): boolean): Observable
       p 发出值，直到提供的表达式结果为 false
@@ -14,6 +14,8 @@
       img.img-responsive.center-block(src="../assets/images/takeWhile.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 2,3 均满足条件,因此会输出
+        - 4 不满足条件,则从 4 开始输出已完成信号
   .panel.panel-info
     .panel-heading 示例1:
     .panel-body

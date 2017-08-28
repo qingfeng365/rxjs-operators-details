@@ -15,7 +15,7 @@
       <p>此操作符可以既有静态方法，又有实例方法！</p>
       <p>如果产生值的顺序不是首要考虑的，那么试试用 merge 来代替！</p><img src="../assets/images/concat.png" class="img-responsive center-block"/>
       <pre class="pre-scrollable">弹珠图解析:
-  - 操作符上方的两条线, 表示 concat 接收的两个 Observable, 
+  - 操作符上方的两条线, 表示 concat 接收的两个 Observable,
     这两个 Observable 是通过参数传递过来的:
       Observable.concat(ab$, xy$)
       或
@@ -36,7 +36,7 @@
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行实例方法</button>&nbsp;
-        <button type="button" [disabled]="isRuning" (click)="runDemo1static();$event.stopPropagation()" class="btn btn-primary">运行静态方法      </button>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1static();$event.stopPropagation()" class="btn btn-primary">运行静态方法</button>
       </p>
     </div>
   </div>

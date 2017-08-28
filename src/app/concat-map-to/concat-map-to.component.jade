@@ -1,0 +1,46 @@
+.container
+  h3 concatMapTo
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+        a.list-group-item((click)="diffAnalysisService.showDiffInfo('concatMap-concatMapTo');$event.stopPropagation()",
+        routerLink="")
+          | {{diffAnalysisService.getHeader('concatMap-concatMapTo')}}
+  .panel.panel-info
+    .panel-heading concatMapTo(拼接映射为) 说明
+    .panel-body
+      p 签名: concatMapTo(innerObservable: ObservableInput, resultSelector: function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any): Observable
+      p 当前一个 observable 完成时订阅提供的 observable 并发出值
+      p 将每个源值投射成同一个 Observable ，该 Observable 会以串行的方式多次合并到输出 Observable 中
+      p 就像是concatMap, 但是将每个值总是映射为同一个内部 Observable
+      p 不管源值是多少都将其映射为给定的innerObservable, 然后将其打平为单个 Observable,也就 是所谓的输出 Observable。 在输出 Observable 上发出的每个新的 innerObservable 实例与 先前的 innerObservable 实例相连接
+      p innerObservable: Observable，替换源Observable的每个值
+      p resultSelector: 函数，它用于产生基于值的输出 Observable 和源(外部)发送和内部 Observable 发送的索引
+      p 传递给这个函数参数有：
+      p - outerValue: 来自源的值
+      p - innerValue: 来自投射的 Observable 的值
+      p - outerIndex: 来自源的值的 "index"
+      p - innerIndex: 来自投射的 Observable 的值的 "index"
+      p 注意: 可以直接映射成 promise
+      p 警告: 使用 concatMap 要注意是否存在 背压 问题, 如果源值不断的到达并且速度快于内部Observables完成的速度, 它会导致内存问题 因为内部的 Observable 在无限制的缓冲区中聚集，以等待轮流订阅
+      img.img-responsive.center-block(src="../assets/images/concatMapTo.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        见 concatMap 的 弹珠图解析,
+        区别在于 内部 Observable 的定义与源 Observable 的值无关
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 应用投射函数 resultSelector
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

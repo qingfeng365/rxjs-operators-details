@@ -7,16 +7,24 @@
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">skipUntil() 说明</div>
+    <div class="panel-heading">skipUntil(触发前跳过) 说明</div>
     <div class="panel-body">
       <p>签名: skipUntil(the: Observable): Observable</p>
       <p>跳过源 observable 发出的值，直到提供的 observable 发出值</p>
       <p>返回一个 Observable，该 Observable 会跳过源 Observable 发出的值直到第二个 Observable 开始发送</p><img src="../assets/images/skipUntil.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 notifier Observable, 即起辅助通知作用的 Observable
+- 要输出值需要notifier Observable 触发通知:
+  即 notifier Observable 有值发出或发出已完成信号
+- 也就是说, 源 observable 发出的值, 在没有触发 notifier Observable 之前都会跳过
+- 注意: notifier Observable 如果没有发出已完成信号,
+  仅 源 Observable 完成, 也不会结束,这一点文档没有说明
+  可能是个bug</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>

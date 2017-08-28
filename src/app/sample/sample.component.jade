@@ -4,7 +4,7 @@
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading sample() 说明
+    .panel-heading sample(采集新样) 说明
     .panel-body
       p 签名: sample(sampler: Observable): Observable
       p 当提供的 observable 发出时从源 observable 中取样
@@ -14,8 +14,26 @@
       img.img-responsive.center-block(src="../assets/images/sample.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 notifier Observable, 即起辅助通知作用的 Observable
+        - 要输出值需要满足两个条件:
+          1) notifier Observable 触发通知, 即 notifier Observable
+             有值发出或发出已完成信号
+          2) 源 Observable 在上次采样后,有值发出
+          3) 也就是说, 不能是同一个样本被采集两次x
+        - 当 源 Observable 发出值 `a` 时, 不会输出值
+        - 当 notifier Observable 发出值 `x`(1) 时,首次采样,输出值 `a`
+        - 当 源 Observable 发出值 `b` 时, 不会输出值
+        - 当 源 Observable 发出值 `c` 时, 不会输出值
+        - 当 notifier Observable 发出值 `x`(2) 时,
+          上次采样值 `a`后, 源 Observable 有新值发出, 输出最新值 `c`
+        - 当 notifier Observable 发出值 `x`(3) 时,
+          因上次采样值 `c`后, 源 Observable 没有新值发出,
+          不输出值
+        - 当 源 Observable 发出值 `d` 时, 不会输出值
+        - 当 notifier Observable 发出值 `x`(4) 时, 输出最新值 `d`
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图模拟示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p

@@ -1,0 +1,58 @@
+.container
+  h3 mergeMap
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading mergeMap() 说明
+    .panel-body
+      p 签名: mergeMap(project: function(value: T, ?index: number): ObservableInput, resultSelector: function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any, concurrent: number): Observable
+      p 映射成 observable 并发出值
+      p 将每个源值投射成 Observable ，该 Observable 会合并到输出 Observable 中
+      p 将每个值映射成 Observable ，然后使用 mergeAll 打平所有的内部 Observables
+      p 注意: 可以直接映射成 promise
+      p flatMap 是 mergeMap 的别名 (flatMap 是旧版操作符,已废弃)
+      p project: function(value: T, ?index: number): ObservableInput,当应用于源 Observable 发出的项时，返回一个 Observable
+      p resultSelector:function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any,可选的,它用于产生基于值的输出 Observable 和源(外部)发送和内部 Observable 发送的索引
+      p 传递给这个函数参数有：
+      p - outerValue: 来自源的值
+      p - innerValue: 来自投射的 Observable 的值
+      p - outerIndex: 来自源的值的 "index"
+      p - innerIndex: 来自投射的 Observable 的值的 "index"
+      p concurrent,可选的,可以同时订阅的输入 Observables 的最大数量
+      p 如果定义 concurrent = 1, 则等同于 concatMap
+      img.img-responsive.center-block(src="../assets/images/mergeMap.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 内部 Observable
+        - 每当 源 Observable 有值发出时, 都将该值映射成内部 Observable,
+          并同时订阅 内部 Observable
+        - 当源 Observable 发出值 1 时,
+          映射成内部 Observable1,
+          并订阅该内部 Observable1
+        - 内部 Observable1 发出值 10 时,
+          输出 10
+        - 此时,实际有两个 Observable 都处于订阅中,
+          即源 Observable 和 值1 映射的 内部 Observable1
+        - 只有 内部 Observable 发出值,才会输出
+        - 源 Observable 目前没有值发出
+        - 内部 Observable1 继续发出值 10 10, 输出 10 10
+        - 内部 Observable1 发出已完成信号
+        - 源 Observable 发出值 3,映射成内部 Observable2,并订阅
+        - 内部 Observable2 发出值 30 30, 输出 30 30
+        - 源 Observable 发出值 5,映射为内部 Observable3,并订阅
+          此时共有三个 Observable 在订阅中,
+          即 源 Observable , 内部 Observable2, 内部 Observable3
+        - 内部 Observable3 发出值 50, 输出 50
+        - 内部 Observable2 发出值 30, 输出 30
+        - 内部 Observable2 发出已完成信号
+        - 内部 Observable3 发出值 50 50, 输出 50 50
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1zip();$event.stopPropagation()") 运行

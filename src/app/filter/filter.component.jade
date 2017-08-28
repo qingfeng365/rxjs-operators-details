@@ -15,11 +15,20 @@
       img.img-responsive.center-block(src="../assets/images/filter.png")
       pre.pre-scrollable.
         弹珠图解析:
+        略
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图模拟示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 使用 index 过滤
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

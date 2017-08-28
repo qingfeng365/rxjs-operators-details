@@ -1,0 +1,47 @@
+.container
+  h3 buffer
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+        a.list-group-item((click)="diffAnalysisService.showDiffInfo('buffer-bufferWhen');$event.stopPropagation()",
+        routerLink="")
+          | {{diffAnalysisService.getHeader('buffer-bufferWhen')}}
+  .panel.panel-info
+    .panel-heading buffer(缓冲) 说明
+    .panel-body
+      p 签名: buffer(closingNotifier: Observable): Observable
+      p 收集输出值，直到提供的 observable 发出才将收集到的值作为数组发出
+      p 缓冲源 Observable 的值直到 closingNotifier 发出
+      p 将过往的值收集到一个数组中，并且仅当另一个 Observable 发出通知时才发出此数组
+      p 将 Observable 发出的值缓冲起来直到 closingNotifier 发出数据, 在这个时候在输出 Observable 上发出该缓冲区的值并且内部开启一个新的缓冲区, 等待下一个closingNotifier的发送
+      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 closingNotifier Observable, 即起辅助通知作用的 Observable
+        - 当 closingNotifier Observable 发出值或发出已完成信号, 就会触发通知
+        - 源 Observable 发出值 'a' 时, 缓冲区为 [a],
+          closingNotifier Observable 还没有值发出, 此时不输出值
+        - 源 Observable 发出值 'b' 时, 缓冲区为 [a,b],
+          closingNotifier Observable 还没有值发出, 此时不输出值
+        - 源 Observable 发出值 'c' 时, 缓冲区为 [a,b,c],
+          closingNotifier Observable 发出通知, 以数组形式输出缓冲区的值 [a,b,c]
+        - 然后开启新的缓冲区,以此类推
+        附加说明:
+        - buffer 只适用于无限 Observable, 因为如果是有限 Observable, 如弹珠图所示,
+          最后一次缓冲的值是很难输出的.
+        - 因为 源 Observable 一发出已完成信号,就会完成订阅,
+          由于 closingNotifier Observable 不可能刚好能触发通知,
+          因此就无法输出最后一次缓冲区的值
+
+        注意:
+        如果 closingNotifier Observable 在 源 Observable 之前结束,
+        则整个 Observable 也会结束, 发出已完成信号
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
