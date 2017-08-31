@@ -1,25 +1,64 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>scan</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">scan(逐项累加) 说明</div>
     <div class="panel-body">
-      <p>签名:</p>
-      <p></p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: scan(accumulator: function(acc: R, value: T, index: number): R, seed: T | R): Observable</p>
+      <p>对源 Observable 使用累加器函数， 返回生成的中间值， 可选的初始值</p>
+      <p>就象是 reduce, 但是发出目前的累计数当源发出数据的时候</p>
+      <p>将所有源发出的数据结合起来， 使用一个累加器函数，该函数知道如何将新的值加入到累加器中。 这就像是reduce， 但是会发出中间的累加值</p>
+      <p>返回一个 Observable， 该 Observable 对每个源 Observable 发出的值使用特定的累加器。 如果seed值提供了， 这个值会被累加器用作初始值。 如果seed值没有被提供， 源数据的第一项会被当做初始值</p>
+      <p>accumulator: function(acc: R, value: T, index: number): R,对每个源数据调用的累加器函数</p>
+      <p>seed, 可选的,初始值</p><img src="../assets/images/scan.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 注意,操作符有定义初始值为 0
+- 源 Observable 发出 值1,
+  accumulator 函数的参数 acc = 0, curr = 1,
+  函数返回值为 1, 输出 1
+- 源 Observable 发出 值3,
+  accumulator 函数的参数 acc = 1, curr = 3,
+  函数返回值为 4, 输出 4
+  也就是说 acc 的值, 除了第1次为初始值,
+  以后就为上次输出的值,
+  或者说是上次 accumulator 函数的返回值
+- 以此类推
+
+附加说明:
+如果没有定义初始值,在本图中输出结果是一样的,但执行过程会有不同,
+比始, scan((acc,curr) => acc + curr ), 执行过程如下:
+- 源 Observable 发出 值1,
+  由于没有定义初始值,
+  accumulator 函数要求有两个参数,
+  因此不会执行accumulator 函数, 直接输出 1
+- 源 Observable 发出 值3,
+  accumulator 函数的参数 acc = 1, curr = 3,
+  函数返回值为 4, 输出 4
+- 以后的过程是一样的
+
+差别在于 accumulator 函数 首次执行的时机和次数</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 数组</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2zip();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

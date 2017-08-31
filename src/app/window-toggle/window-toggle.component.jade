@@ -1,21 +1,64 @@
 .container
-  h3
+  h3 windowToggle
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading windowToggle(窗口开关) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名:  windowToggle(openings: Observable, closingSelector: function(value: O): Observable): Observable&lt;Observable&gt;
+      p 将源 Observable 的值分支成嵌套的 Observable，分支策略是以 openings 发出项为起始，以 closingSelector 发出为结束
+      p 就像是 bufferToggle, 但是发出的是嵌套 Observable 而不是数组
+      p 返回的 Observable 发出从源 Observable 收集到的项的窗口。输出 Observable 发出窗口 ，每一个窗口 包括当 openings 发出时开始收集源 Observable 的数据项并且 closingSelector 返回的 Observable 发出项时结束收集
+      p openings: Observable,通知开启新窗口的 observable
+      p closingSelector: function(value: O): Observable,是一个接受openings observable 发出的值作为参数，并且返回 Observable 的函数, 当该 observable 发出 next 或者 complete时，会发信号给相关的窗口以通知它们应该完成。
+      img.img-responsive.center-block(src="../assets/images/windowToggle.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 下游接收到的值是 Observable，不是源 Observable 发出的值，
+          需要再次订阅, 才能获取实际的值
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 opening Observable, 为辅助通知作用的 Observable,
+          当该 Observable 触发通知时, 会创建一个新的窗口 window Observable
+        - 第三条线为 closing Observable, 为辅助通知作用的 Observable,
+          当该 Observable 触发通知时, 会触发 window Observable 的已完成信号
+        - 注意: 第二条线的 Observable, 是通过 windowToggle 的第1个参数传入,
+          一开始就订阅
+        - 第三条线的 closing Observable, 是每当第二条线触发通知时, 都会重新创建,
+          在创建时,可获得 opening Observable 传入的值,
+          closing Observable 只要触发通知,就会关闭窗口 windowObservable
+        - 注意: 首个 windowObservable 是要等 opening Observable
+          发出第一次通知后, 才会创建,不是一开始就创建
+        - 源 Observable 发出 值 'a', 由于 opening Observable 还没有值发出,
+          因此当前没有窗口 windowObservable 存在, 忽略不处理
+        - opening Observable 发出值 'w',
+          创建窗口 window Observable1,
+          同时创建 closing Observable1,
+          并向下游输出 window Observable1,
+        - 源 Observable 发出 值 'b', 当前存在窗口 windowObservable1
+          将值 'b' 转为从 windowObservable1 发出,
+          此时向外发射值的 是 windowObservable1, 而不是 windowToggle 操作符,
+          windowObservable1 输出值 'b'
+        - 源 Observable 发出 值 'c',windowObservable1 输出值 'c'
+        - closing Observable 触发通知(已完成),
+          窗口 windowObservable1 将被关d闭(已完成)
+          此时已没有窗口 windowObservable 存在
+        - 源 Observable 发出 值 'd', 忽略不处理
+        - opening Observable 发出值 'w',
+          创建窗口 window Observable2,
+          同时创建 closing Observable2,
+          并向下游输出 window Observable2,
+        - 以此类推
+
+        附加说明:
+        注意,如果 closing Observable 发出通知的时间,
+        比 opening Observable 发出下一个值的时间还要晚时,
+        就会产生多个窗口 window Observable, 形成重叠
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
-          (click)="runDemo1();$event.stopPropagation()") 运行
+          (click)="runDemo1zip();$event.stopPropagation()") 运行

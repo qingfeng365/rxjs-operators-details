@@ -1,21 +1,38 @@
 .container
-  h3
+  h3 pluck
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading pluck(属性映射) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: pluck(properties: ...string): Observable
+      p 将每个源值(对象)映射成它指定的嵌套属性
+      p 类似于 map，但仅用于选择每个发出对象的某个嵌套属性
+      p 给定描述对象属性路径的字符串的列表，然后从源 Observable 中的所有值中检索指定嵌套 属性的值。如果属性无法解析，它会返回 undefined 。
+      p 注意: pluck 是 map 用于映射对象属性时的语法糖
+      img.img-responsive.center-block(src="../assets/images/pluck.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 源 Observable 发出的值是对象: {{'{'}}v:1{{'}'}},
+        - pluck 操作符 相当于执行 map(x => x.v),
+          现在只需要写成 pluck('v'), 即可输出 1
+        - 以此类推
+        - 当对象嵌套很多层时, 使用该操作符就比较方便,
+          或者属性名是动态时
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 提取嵌套的属性
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

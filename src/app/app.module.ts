@@ -62,6 +62,16 @@ import { WindowCountComponent } from './window-count/window-count.component';
 import { WindowTimeComponent } from './window-time/window-time.component';
 import { WindowToggleComponent } from './window-toggle/window-toggle.component';
 import { WindowWhenComponent } from './window-when/window-when.component';
+import { CreateComponent } from './create/create.component';
+import { EmptyComponent } from './empty/empty.component';
+import { FromComponent } from './from/from.component';
+import { FromEventComponent } from './from-event/from-event.component';
+import { FromPromiseComponent } from './from-promise/from-promise.component';
+import { IntervalComponent } from './interval/interval.component';
+import { OfComponent } from './of/of.component';
+import { RangeComponent } from './range/range.component';
+import { ThrowComponent } from './throw/throw.component';
+import { TimerComponent } from './timer/timer.component';
 
 
 @NgModule({
@@ -121,7 +131,17 @@ import { WindowWhenComponent } from './window-when/window-when.component';
     WindowCountComponent,
     WindowTimeComponent,
     WindowToggleComponent,
-    WindowWhenComponent
+    WindowWhenComponent,
+    CreateComponent,
+    EmptyComponent,
+    FromComponent,
+    FromEventComponent,
+    FromPromiseComponent,
+    IntervalComponent,
+    OfComponent,
+    RangeComponent,
+    ThrowComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

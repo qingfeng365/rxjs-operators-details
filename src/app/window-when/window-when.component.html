@@ -1,25 +1,60 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>windowWhen</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">windowWhen(触发窗口) 说明</div>
     <div class="panel-body">
-      <p>签名:</p>
-      <p></p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: windowWhen(closingSelector: function(): Observable): Observable&lt;Observable&lt;T>></p>
+      <p>将源 Observable 的值分支成嵌套的 Observable ，通过使用关闭 Observable 的工厂函数来决定何时开启新的窗口</p>
+      <p>就像是 bufferWhen, 但是发出的是嵌套的 Observable 而不是数组</p>
+      <p>返回的 Observable 发出从源 Observable 收集到的项的窗口。 输出 Observable 发出连接的，非重叠的窗口。 每当由指定的 closingSelector 函数产生的 Observable 发出项，它会发出当前窗口并开启一个新窗口。 当输出 Observable 被订阅的时候立马开启第一个窗口</p>
+      <p>closingSelector: function(): Observable,函数，不接受参数并且返回 Observable， 该 Observable 发出信号(next 或者 complete)以决定何时关闭前一个窗口，开启新一个窗口</p><img src="../assets/images/windowWhen.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 下游接收到的值是 windowObservable，不是源 Observable 发出的值，
+  需要再次订阅, 才能获取实际的值
+- 操作符上方的第一条线为 源 Observable,
+- 第二条线为 closingNotifier Observable, 即起辅助通知作用的 Observable
+- 当 closingNotifier Observable 发出值或发出已完成信号, 就会触发通知
+  当 closingNotifier Observable 一触发通知,
+  closingNotifier Observable 就已完成
+- 一开始就存在窗口 windowObservable,
+  当 closingNotifier Observable 触发通知,
+  会关闭 windowObservable, 然后重新创建新的 windowObservable,
+  同时也会重新创建新的 closingNotifier Observable
+- 一开始, windowWhen 操作符就创建首个 windowObservable,
+  并下游输出, 即 windowObservable1,
+  并同时创建 closingNotifier Observable1
+- 源 Observable 发出 值 'b'
+- windowWhen 操作符 将值 'b' 转为从 windowObservable1 发出,
+  此时向外发射值的 是 windowObservable1, 而不是 window 操作符,
+  windowObservable1 输出值 'b'
+- 源 Observable 发出 值 'c' 'd', windowObservable1 输出 值 'c' 'd'
+- closingNotifier Observable1 触发通知(已完成),
+  windowObservable1 被关闭,
+  并创建新的 windowObservable2, 向下游输出 windowObservable2,
+  同时, closingNotifier Observable1 也被关闭,
+  创建新的 closingNotifier Observable2
+- 源 Observable 发出 值 'e' 'f' 'g' 'h',
+  windowObservable2 输出 'e' 'f' 'g' 'h'
+- closingNotifier Observable2 触发通知(已完成),
+  windowObservable2 被关闭,
+  并创建新的 windowObservable3, 向下游输出 windowObservable3,
+  同时, closingNotifier Observable2 也被关闭,
+  创建新的 closingNotifier Observable3
+- 以此类推</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1:</div>
+    <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
-        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1zip();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

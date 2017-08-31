@@ -1,21 +1,84 @@
 .container
-  h3
+  h3 switchMap
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading switchMap(切到最新映射) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名:  switchMap(project: function(value: T, ?index: number): ObservableInput, resultSelector: function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any): Observable
+      p 将每个源值投射成 Observable，该 Observable 会合并到输出 Observable 中， 并且只发出最新投射的 Observable 中的值
+      p 将每个值映射成 Observable ，然后使用 switch 打平所有的内部 Observables
+      p 返回的 Observable 基于应用一个函数来发送项，该函数提供给源 Observable 发出的每个项， 并返回一个(所谓的“内部”) Observable 。每次观察到这些内部 Observables 的其中一个时， 输出 Observable 将开始发出该内部 Observable 所发出的项。当发出一个新的内部 Observable 时，switchMap 会停止发出先前发出的内部 Observable 并开始发出新的内部 Observable 的值。后续的内部 Observables 也是如此
+      p project:function(value: T, ?index: number): ObservableInput,函数， 当应用于源 Observable 发出的项时，返回一个 Observable
+      p resultSelector:function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any,函数，它用于产生基于值的输出 Observable 和源(外部)发送和内部 Observable 发送的索引
+      p 传递给这个函数参数有：
+      p - outerValue: 来自源的值
+      p - innerValue: 来自投射的 Observable 的值
+      p - outerIndex: 来自源的值的 "index"
+      p - innerIndex: 来自投射的 Observable 的值的 "index"
+      img.img-responsive.center-block(src="../assets/images/switchMap.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 内部 Observable
+        - 每当 源 Observable 有值发出时, 都将该值映射成内部 Observable,
+          并同时订阅 内部 Observable,
+          且取消订阅 上一次值映射的 内部 Observable,
+          即总是只有一个 内部 Observable 在订阅中
+        - 当源 Observable 发出值 1 时,
+          映射成内部 Observable1,
+          并订阅该内部 Observable1
+        - 内部 Observable1 发出值 10 时,
+          输出 10
+        - 此时,实际有两个 Observable 都处于订阅中,
+          即源 Observable 和 值1 映射的 内部 Observable1
+        - 只有 内部 Observable 发出值,才会输出
+        - 源 Observable 目前没有值发出
+        - 内部 Observable1 继续发出值 10 10, 输出 10 10
+        - 内部 Observable1 发出已完成信号
+        - 源 Observable 发出值 3,映射成内部 Observable2,并订阅
+        - 内部 Observable2 发出值 30 30, 输出 30 30
+        - 源 Observable 发出值 5,映射为内部 Observable3,并订阅,
+          并同时取消订阅 内部 Observable2,
+          此时仍然只有两个 Observable 在订阅中,
+          即 源 Observable , 内部 Observable3,
+          内部 Observable2 还没有完成,但被取消订阅
+        - 内部 Observable3 发出值 50 50 50, 输出 50 50 50
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 每隔4秒重置计数器
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 使用 promise 和 resultSelector
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4:
+    .panel-body
+      p 计时器:
+        span.label.label-danger {{countdownSeconds}}
+      p
+        button.btn.btn-primary(type="button",(click)="onStart()") 开始计时
+        | &nbsp;
+        button.btn.btn-danger(type="button",(click)="onPause()") 暂停
+        | &nbsp;
+        button.btn.btn-success(type="button",(click)="onResum()") 继续
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      pre.pre-scrollable([innerHtml]="demo4Desc")

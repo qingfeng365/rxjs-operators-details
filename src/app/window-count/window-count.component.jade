@@ -1,21 +1,66 @@
 .container
-  h3
+  h3 windowCount
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading windowCount(按数量开窗) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: windowCount(windowSize: number, startWindowEvery: number): Observable&lt;Observable&gt;
+      p 将源 Observable 的值分支成多个嵌套的 Observable ，每个嵌套的 Observable 最多发出 windowSize 个值
+      p 就像是 bufferCount, 但是返回嵌套的 Observable 而不是数组
+      p 返回的 Observable 发出从源 Observable 收集到的项的窗口。 输出 Observable 每M(M = startWindowEvery)个项发出新窗口，每个窗口包含的项数不得超过N个(N = windowSize)。 当源 Observable 完成或者遇到错误,输出 Observable 发出当前窗口并且传播从源 Observable 收到的通知。 如果没有提供 startWindowEvery ，那么在源 Observable 的起始处立即开启新窗口，并且当每个窗口的大小达到 windowSize 时完成
+      p windowSize: 每个窗口最多可以发送的个数
+      p startWindowEvery: 开启新窗口的间隔。 比如，如果 startWindowEvery 是 2, 新窗口会在源中每个第二个值开启。默认情况下，新窗口是在源 Observable 的起始处开启的
+      img.img-responsive.center-block(src="../assets/images/windowCount.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 注意: 弹珠图 没有设置 startWindowEvery, 默认新窗口在上一个窗口完成时开启
+        - 下游接收到的值是 Observable，不是源 Observable 发出的值，
+          需要再次订阅, 才能获取实际的值
+        - 一开始, window 操作符就向下游输出首个 Observable, 即 windowObservable1
+        - 源 Observable 输出 值 'a'
+        - windowCount 操作符 将值 'a' 转为从 windowObservable1 发出,
+          此时向外发射值的 是 windowObservable1, 而不是 window 操作符,
+          windowObservable1 输出值 'a'
+        - 源 Observable 输出 值 'b' 'c', windowObservable1 输出值 'b' 'c'
+        - windowObservable1 已包含 3 项, 达到 windowSize 设置,
+          windowObservable1 触发 已完成信号,
+          同时, 创建新的 windowObservable2, 向下游发射 windowObservable2
+        - 源 Observable 输出 值 'd'
+        - windowCount 操作符 将值 'd' 转为从 windowObservable2 发出,
+        - 以此类推
+
+        附加说明:
+        与 window 不同的是, windowCount 根据 startWindowEvery 的设置,
+        是有可能同时存在多个 windowObservable 的, 当有多个 windowObservable
+        处于未完成状态时, 源 Observable 发出的值, 会同时转往多个 windowObservable
+        输出.
+
+        如果 startWindowEvery <　windowSize, 则会形成重叠.
+        如果 startWindowEvery >　windowSize, 则会形成疏漏,
+        即源 Observable 有些值被忽略了
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 形成重叠
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2zip();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 形成疏漏
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3zip();$event.stopPropagation()") 运行

@@ -55,4 +55,28 @@
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
-          (click)="runDemo1zip();$event.stopPropagation()") 运行
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 将每个字母映射为自增数列 ，每1秒钟一次
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 使用 promise 和 resultSelector
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4: 使用 concurrent 进行 mergeMap
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo4();$event.stopPropagation()") 运行

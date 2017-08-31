@@ -1,21 +1,60 @@
 .container
-  h3
+  h3 partition
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading partition(分割) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      .alert.alert-info
+        | 注意: 该操作符返回的是数组, 不能直接在后面接操作符
+      p 签名:  partition(predicate: function(value: T, index: number): boolean, thisArg: any): [Observable, Observable]
+      p 将源 Observable 一分为二，一个是所有满足 predicate 函数的值，另一个是所有 不满足 predicate 的值
+      p 它很像 filter，但是返回两个 Observables ： 一个像 filter 的输出， 而另一个是所有不符合条件的值
+      p 注意: 其实更像 groupBy, key 是 true 和 false
+      p partition 输出有两个 Observables 的数组，这两个 Observables 是通过给定的 predicate 函数将源 Observable 的值进行划分得到的。该数组的第一个 Observable 发出 predicate 参数 返回 true 的源值。第二个 Observable 发出 predicate 参数返回 false 的源值。第一个像是 filter ，而第二个像是 predicate 取反的 filter
+      p predicate: function(value: T, index: number): boolean, 评估源 Observable 所发出的每个值的函数。如果它返回 true ，那么发出的值就在返回的数组中的第一个 Observable 中，如果返回的是 false ，那么发出的值就在返回的数组的第二个 Observable 中。index 参数是自订阅开始后发送序列的索引，是从 0 开始的
+      p thisArg,可选参数，用来决定 predicate 函数中的 this 的值
+      img.img-responsive.center-block(src="../assets/images/partition.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - partition 会预先创建两个 Observable: Observable true, Observable false,
+        并形成数组返回
+        - 当分别订阅 Observable true, Observable false 时, 实际上对源 Observable 订阅了两次, 因为 Observable true 会订阅 源 Observable,
+        Observable false 也独立的订阅 源 Observable
+        - Observable true 和 Observable false 内部实际是用 filter 来处理 源 Observable 的.
+        - 一个弹珠图很难准确说明, 实际应该是两个弹珠图, 即 Observable true 的弹珠图,
+          Observable false 的弹珠图分开,才符合操作符的行为
+        - Observable true 的弹珠图:
+          只包含操作符下方的第一条线, 并把 partition 换成 filter
+        - Observable false 的弹珠图:
+          只包含操作符下方的第二条线, 并把 partition 换成 filter ,
+          表达式换成 x % 2 === 0
+        附加说明:
+          大多数情况,需要用到 partition 时, 其实可以用 groupBy 取代,见示例3
+          实际上如果用 filter , 要写两个 filter, 现在只需要写一个 partition,
+          但仍要写两次订阅, 除非如示例2写法
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 弹珠图示例另一种写法
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: groupBy 写法
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

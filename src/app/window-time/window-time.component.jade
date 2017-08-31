@@ -1,21 +1,35 @@
 .container
-  h3
+  h3 windowTime
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading windowTime(按时间开窗) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
-      pre.pre-scrollable.
-        弹珠图解析:
+      p 签名: windowTime(windowTimeSpan: number, windowCreationInterval: number, scheduler: Scheduler): Observable
+      p 在每个提供的时间跨度内，收集源 obsercvable 中的值的 observable
+      p 官网没有提供 windowTime 操作符的说明
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 普通示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 形成重叠
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 形成疏漏
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

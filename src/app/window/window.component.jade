@@ -1,21 +1,46 @@
 .container
-  h3
+  h3 window
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading window(开窗) 说明
     .panel-body
-      p 签名:
-      p
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: window(windowBoundaries: Observable): Observable&lt;Observable&lt;T&gt;&gt;
+      p 每当 windowBoundaries 发出项时，将源 Observable 的值分支成嵌套的 Observable
+      p 就像是 buffer, 但发出的是嵌套的 Observable ，而不是数组
+      p 返回的 Observable 发出从源 Observable 收集到的项的窗口。 输出 Observable 发出连接的，不重叠的 窗口. 当windowBoundaries Observable 开始发出数据，它会发出目前的窗口并且会打开一个新的。 因为每个窗口都是 Observable， 所以输出 Observable 是高阶 Observable
+      p windowBoundaries:Observable, 通知完成上一个窗口并且开启新窗口的 Observable
+      img.img-responsive.center-block(src="../assets/images/window.png")
       pre.pre-scrollable.
         弹珠图解析:
+        window 可以视为 concatAll 的反向操作符
+        - 操作符上方的第一条线为 源 Observable,
+        - 第二条线为 windowBoundaries Observable(分界), 即起辅助通知作用的 Observable
+        - 当 windowBoundaries Observable 发出值或发出已完成信号, 就会触发通知
+        - 下游接收到的值是 windowObservable，不是源 Observable 发出的值，
+          需要再次订阅, 才能获取实际的值
+        - 一开始, window 操作符就向下游输出首个 Observable, 即 windowObservable1
+        - 源 Observable 输出 值 'a'
+        - window 操作符 将值 'a' 转为从 windowObservable1 发出,
+          此时向外发射值的 是 windowObservable1, 而不是 window 操作符,
+          windowObservable1 输出值 'a'
+        - 源 Observable 输出 值 'b' 'c', windowObservable1 输出值 'b' 'c'
+        - windowBoundaries Observable 触发通知,
+          window 操作符 触发 windowObservable1 的已完成信号,
+          同时, 创建新的 windowObservable2, 向下游发射 windowObservable2
+        - 也就是说,在任意时刻,只有一个 windowObservable 是有效的
+        - 以此类推
+
+        附加说明:
+        window 操作符的意义在于, 不是对全部源值,进行一系列后续操作,
+        比如过滤,转换等处理, 而是需要按局部分开处理
   .panel.panel-info
-    .panel-heading 示例1:
+    .panel-heading 示例1: 弹珠图示例
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+

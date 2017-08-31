@@ -1,6 +1,32 @@
 
 <div class="container">
   <div class="panel panel-info">
+    <div class="panel-heading">创建</div>
+    <div class="panel-body">
+      <div class="list-group"><a [routerLink]="['/create']" class="list-group-item">
+          <h4 class="list-group-item-heading">create</h4>
+          <p class="list-group-item-text">使用给定的订阅函数来创建 observable</p></a><a [routerLink]="['/empty']" class="list-group-item">
+          <h4 class="list-group-item-heading">empty</h4>
+          <p class="list-group-item-text">立即完成的 observable</p></a><a [routerLink]="['/from']" class="list-group-item">
+          <h4 class="list-group-item-heading">from</h4>
+          <p class="list-group-item-text">将数组、promise 或迭代器转换成 observable</p></a><a [routerLink]="['/from-event']" class="list-group-item">
+          <h4 class="list-group-item-heading">fromEvent</h4>
+          <p class="list-group-item-text">将事件转换成 observable 序列</p></a><a [routerLink]="['/from-promise']" class="list-group-item">
+          <h4 class="list-group-item-heading">fromPromise</h4>
+          <p class="list-group-item-text">创建由 promise 转换而来的 observable，并发出 promise 的结果</p></a><a [routerLink]="['/interval']" class="list-group-item">
+          <h4 class="list-group-item-heading">interval</h4>
+          <p class="list-group-item-text">基于给定时间间隔发出数字序列</p></a><a [routerLink]="['/of']" class="list-group-item">
+          <h4 class="list-group-item-heading">of</h4>
+          <p class="list-group-item-text">按顺序发出任意数量的值</p></a><a [routerLink]="['/range']" class="list-group-item">
+          <h4 class="list-group-item-heading">range</h4>
+          <p class="list-group-item-text">依次发出给定区间内的数字</p></a><a [routerLink]="['/throw']" class="list-group-item">
+          <h4 class="list-group-item-heading">throw</h4>
+          <p class="list-group-item-text">在订阅上发出错误</p></a><a [routerLink]="['/timer']" class="list-group-item">
+          <h4 class="list-group-item-heading">timer</h4>
+          <p class="list-group-item-text">给定持续时间后，再按照指定间隔时间依次发出数字</p></a></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
     <div class="panel-heading">转换</div>
     <div class="panel-body">
       <div class="list-group"><a [routerLink]="['/buffer']" class="list-group-item">
@@ -30,24 +56,24 @@
           <p class="list-group-item-text">将每个发出值映射成常量。</p></a><a [routerLink]="['/merge-map']" class="list-group-item">
           <h4 class="list-group-item-heading">mergeMap 融合映射</h4>
           <p class="list-group-item-text">映射成 observable 并发出值。</p></a><a [routerLink]="['/partition']" class="list-group-item">
-          <h4 class="list-group-item-heading">partition</h4>
-          <p class="list-group-item-text">Split one observable into two based on provided predicate.</p></a><a [routerLink]="['/pluck']" class="list-group-item">
+          <h4 class="list-group-item-heading">partition 分割</h4>
+          <p class="list-group-item-text">将源 Observable 一分为二，一个是所有满足 predicate 函数的值，另一个是所有 不满足 predicate 的值</p></a><a [routerLink]="['/pluck']" class="list-group-item">
           <h4 class="list-group-item-heading">pluck 属性映射</h4>
           <p class="list-group-item-text">选择属性来发出。</p></a><a [routerLink]="['/scan']" class="list-group-item">
-          <h4 class="list-group-item-heading">scan</h4>
-          <p class="list-group-item-text">随着时间的推移进行归并。</p></a><a [routerLink]="['/switch-map']" class="list-group-item">
-          <h4 class="list-group-item-heading">switchMap</h4>
-          <p class="list-group-item-text">映射成 observable，完成前一个内部 observable，发出值。</p></a><a [routerLink]="['/window']" class="list-group-item">
+          <h4 class="list-group-item-heading">scan 逐项累加</h4>
+          <p class="list-group-item-text">对源 Observable 使用累加器函数， 返回生成的中间值， 可选的初始值</p></a><a [routerLink]="['/switch-map']" class="list-group-item">
+          <h4 class="list-group-item-heading">switchMap 切到最新映射</h4>
+          <p class="list-group-item-text">将每个源值投射成 Observable，该 Observable 会合并到输出 Observable 中， 并且只发出最新投射的 Observable 中的值。</p></a><a [routerLink]="['/window']" class="list-group-item">
           <h4 class="list-group-item-heading">window 开窗</h4>
-          <p class="list-group-item-text">时间窗口值的 observable 。</p></a><a [routerLink]="['/window-count']" class="list-group-item">
+          <p class="list-group-item-text">每当 windowBoundaries 发出项时，将源 Observable 的值分支成嵌套的 Observable 。</p></a><a [routerLink]="['/window-count']" class="list-group-item">
           <h4 class="list-group-item-heading">windowCount 按数量开窗</h4>
-          <p class="list-group-item-text">源 observable 中的值的 observable，每次发出N个值(N由参数决定)</p></a><a [routerLink]="['/window-time']" class="list-group-item">
+          <p class="list-group-item-text">将源 Observable 的值分支成多个嵌套的 Observable ，每个嵌套的 Observable 最多发出 windowSize 个值</p></a><a [routerLink]="['/window-time']" class="list-group-item">
           <h4 class="list-group-item-heading">windowTime 按时间开窗</h4>
           <p class="list-group-item-text">在每个提供的时间跨度内，收集源 obsercvable 中的值的 observable 。</p></a><a [routerLink]="['/window-toggle']" class="list-group-item">
-          <h4 class="list-group-item-heading">windowToggle</h4>
-          <p class="list-group-item-text">以 openings 发出为起始，以 closingSelector 发出为结束，收集并发出源 observable 中的值的 observable 。</p></a><a [routerLink]="['/window-when']" class="list-group-item">
-          <h4 class="list-group-item-heading">windowWhen</h4>
-          <p class="list-group-item-text">在提供的时间帧处关闭窗口，并发出从源 observable 中收集的值的 observable 。</p></a></div>
+          <h4 class="list-group-item-heading">windowToggle 窗口开关</h4>
+          <p class="list-group-item-text">将源 Observable 的值分支成嵌套的 Observable，分支策略是以 openings 发出项为起始，以 closingSelector 发出为结束 。</p></a><a [routerLink]="['/window-when']" class="list-group-item">
+          <h4 class="list-group-item-heading">windowWhen 触发窗口</h4>
+          <p class="list-group-item-text">将源 Observable 的值分支成嵌套的 Observable ，通过使用关闭 Observable 的工厂函数来决定何时开启新的窗口</p></a></div>
     </div>
   </div>
   <div class="panel panel-info">

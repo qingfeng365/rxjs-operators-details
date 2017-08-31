@@ -54,6 +54,16 @@ import { WindowCountComponent } from './window-count/window-count.component';
 import { WindowTimeComponent } from './window-time/window-time.component';
 import { WindowToggleComponent } from './window-toggle/window-toggle.component';
 import { WindowWhenComponent } from './window-when/window-when.component';
+import { CreateComponent } from './create/create.component';
+import { EmptyComponent } from './empty/empty.component';
+import { FromComponent } from './from/from.component';
+import { FromEventComponent } from './from-event/from-event.component';
+import { FromPromiseComponent } from './from-promise/from-promise.component';
+import { IntervalComponent } from './interval/interval.component';
+import { OfComponent } from './of/of.component';
+import { RangeComponent } from './range/range.component';
+import { ThrowComponent } from './throw/throw.component';
+import { TimerComponent } from './timer/timer.component';
 
 const routes: Routes = [
   {
@@ -119,6 +129,10 @@ const routes: Routes = [
     component: ConcatMapToComponent
   },
   {
+    path: 'create',
+    component: CreateComponent
+  },
+  {
     path: 'debounce',
     component: DebounceComponent
   },
@@ -129,6 +143,10 @@ const routes: Routes = [
   {
     path: 'distinct-until-changed',
     component: DistinctUntilChangedComponent
+  },
+  {
+    path: 'empty',
+    component: EmptyComponent
   },
   {
     path: 'exhaust-map',
@@ -151,12 +169,28 @@ const routes: Routes = [
     component: ForkJoinComponent
   },
   {
+    path: 'from',
+    component: FromComponent
+  },
+  {
+    path: 'from-event',
+    component: FromEventComponent
+  },
+  {
+    path: 'from-promise',
+    component: FromPromiseComponent
+  },
+  {
     path: 'group-by',
     component: GroupByComponent
   },
   {
     path: 'ignore-elements',
     component: IgnoreElementsComponent
+  },
+  {
+    path: 'interval',
+    component: IntervalComponent
   },
   {
     path: 'last',
@@ -183,6 +217,10 @@ const routes: Routes = [
     component: MergeMapComponent
   },
   {
+    path: 'of',
+    component: OfComponent
+  },
+  {
     path: 'pairwise',
     component: PairwiseComponent
   },
@@ -197,6 +235,10 @@ const routes: Routes = [
   {
     path: 'race',
     component: RaceComponent
+  },
+  {
+    path: 'range',
+    component: RangeComponent
   },
   {
     path: 'sample',
@@ -249,6 +291,14 @@ const routes: Routes = [
   {
     path: 'throttle-time',
     component: ThrottleTimeComponent
+  },
+  {
+    path: 'throw',
+    component: ThrowComponent
+  },
+  {
+    path: 'timer',
+    component: TimerComponent
   },
   {
     path: 'window',

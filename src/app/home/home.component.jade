@@ -1,5 +1,49 @@
 .container
   .panel.panel-info
+    .panel-heading 创建
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/create']")
+          h4.list-group-item-heading create
+          p.list-group-item-text
+            | 使用给定的订阅函数来创建 observable
+        a.list-group-item([routerLink]="['/empty']")
+          h4.list-group-item-heading empty
+          p.list-group-item-text
+            | 立即完成的 observable
+        a.list-group-item([routerLink]="['/from']")
+          h4.list-group-item-heading from
+          p.list-group-item-text
+            | 将数组、promise 或迭代器转换成 observable
+        a.list-group-item([routerLink]="['/from-event']")
+          h4.list-group-item-heading fromEvent
+          p.list-group-item-text
+            | 将事件转换成 observable 序列
+        a.list-group-item([routerLink]="['/from-promise']")
+          h4.list-group-item-heading fromPromise
+          p.list-group-item-text
+            | 创建由 promise 转换而来的 observable，并发出 promise 的结果
+        a.list-group-item([routerLink]="['/interval']")
+          h4.list-group-item-heading interval
+          p.list-group-item-text
+            | 基于给定时间间隔发出数字序列
+        a.list-group-item([routerLink]="['/of']")
+          h4.list-group-item-heading of
+          p.list-group-item-text
+            | 按顺序发出任意数量的值
+        a.list-group-item([routerLink]="['/range']")
+          h4.list-group-item-heading range
+          p.list-group-item-text
+            | 依次发出给定区间内的数字
+        a.list-group-item([routerLink]="['/throw']")
+          h4.list-group-item-heading throw
+          p.list-group-item-text
+            | 在订阅上发出错误
+        a.list-group-item([routerLink]="['/timer']")
+          h4.list-group-item-heading timer
+          p.list-group-item-text
+            | 给定持续时间后，再按照指定间隔时间依次发出数字
+  .panel.panel-info
     .panel-heading 转换
     .panel-body
       .list-group
@@ -56,41 +100,41 @@
           p.list-group-item-text
             | 映射成 observable 并发出值。
         a.list-group-item([routerLink]="['/partition']")
-          h4.list-group-item-heading partition
+          h4.list-group-item-heading partition 分割
           p.list-group-item-text
-            | Split one observable into two based on provided predicate.
+            | 将源 Observable 一分为二，一个是所有满足 predicate 函数的值，另一个是所有 不满足 predicate 的值
         a.list-group-item([routerLink]="['/pluck']")
           h4.list-group-item-heading pluck 属性映射
           p.list-group-item-text
             | 选择属性来发出。
         a.list-group-item([routerLink]="['/scan']")
-          h4.list-group-item-heading scan
+          h4.list-group-item-heading scan 逐项累加
           p.list-group-item-text
-            | 随着时间的推移进行归并。
+            | 对源 Observable 使用累加器函数， 返回生成的中间值， 可选的初始值
         a.list-group-item([routerLink]="['/switch-map']")
-          h4.list-group-item-heading switchMap
+          h4.list-group-item-heading switchMap 切到最新映射
           p.list-group-item-text
-            | 映射成 observable，完成前一个内部 observable，发出值。
+            | 将每个源值投射成 Observable，该 Observable 会合并到输出 Observable 中， 并且只发出最新投射的 Observable 中的值。
         a.list-group-item([routerLink]="['/window']")
           h4.list-group-item-heading window 开窗
           p.list-group-item-text
-            | 时间窗口值的 observable 。
+            | 每当 windowBoundaries 发出项时，将源 Observable 的值分支成嵌套的 Observable 。
         a.list-group-item([routerLink]="['/window-count']")
           h4.list-group-item-heading windowCount 按数量开窗
           p.list-group-item-text
-            | 源 observable 中的值的 observable，每次发出N个值(N由参数决定)
+            | 将源 Observable 的值分支成多个嵌套的 Observable ，每个嵌套的 Observable 最多发出 windowSize 个值
         a.list-group-item([routerLink]="['/window-time']")
           h4.list-group-item-heading windowTime 按时间开窗
           p.list-group-item-text
             | 在每个提供的时间跨度内，收集源 obsercvable 中的值的 observable 。
         a.list-group-item([routerLink]="['/window-toggle']")
-          h4.list-group-item-heading windowToggle
+          h4.list-group-item-heading windowToggle 窗口开关
           p.list-group-item-text
-            | 以 openings 发出为起始，以 closingSelector 发出为结束，收集并发出源 observable 中的值的 observable 。
+            | 将源 Observable 的值分支成嵌套的 Observable，分支策略是以 openings 发出项为起始，以 closingSelector 发出为结束 。
         a.list-group-item([routerLink]="['/window-when']")
-          h4.list-group-item-heading windowWhen
+          h4.list-group-item-heading windowWhen 触发窗口
           p.list-group-item-text
-            | 在提供的时间帧处关闭窗口，并发出从源 observable 中收集的值的 observable 。
+            | 将源 Observable 的值分支成嵌套的 Observable ，通过使用关闭 Observable 的工厂函数来决定何时开启新的窗口
   .panel.panel-info
     .panel-heading 过滤
     .panel-body
