@@ -1,25 +1,25 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>fromEvent</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">fromEvent(转化事件) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static fromEvent(target: EventTargetLike, eventName: string, options: EventListenerOptions, selector: SelectorMethodSignature): Observable</p><img src="../assets/images/fromEvent.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 每次点击后, 输出事件对象 event
+- 注意 fromEvent 是不会结束的, 不会发出已完成信号</pre>
     </div>
   </div>
   <div class="panel panel-info">
     <div class="panel-heading">示例1: 弹珠图示例</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
-      <p>
-        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
-      </p>
+      <div #demo1ref="" class="alert alert-success">点我</div>
     </div>
   </div>
 </div>

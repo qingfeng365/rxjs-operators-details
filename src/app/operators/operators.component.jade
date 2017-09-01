@@ -3,6 +3,26 @@
     .panel-heading 按字母顺序
     .panel-body
       .list-group
+        a.list-group-item([routerLink]="['/buffer']")
+          h4.list-group-item-heading buffer 缓冲
+          p.list-group-item-text
+            | 收集输出值，直到提供的 observable 发出才将收集到的值作为数组发出
+        a.list-group-item([routerLink]="['/buffer-count']")
+          h4.list-group-item-heading bufferCount 按数量缓冲
+          p.list-group-item-text
+            | 收集发出的值，直到收集完提供的数量的值才将其作为数组发出。
+        a.list-group-item([routerLink]="['/buffer-time']")
+          h4.list-group-item-heading bufferTime 按时间缓冲
+          p.list-group-item-text
+            | 收集发出的值，直到经过了提供的时间才将其作为数组发出。
+        a.list-group-item([routerLink]="['/buffer-toggle']")
+          h4.list-group-item-heading bufferToggle 缓冲开关
+          p.list-group-item-text
+            | 开启开关以捕获源 observable 所发出的值，关闭开关以将缓冲的值作为数组发出
+        a.list-group-item([routerLink]="['/buffer-when']")
+          h4.list-group-item-heading bufferWhen 触发缓冲
+          p.list-group-item-text
+            | 收集值，直到关闭选择器发出值才发出缓冲的值。
         a.list-group-item([routerLink]="['/combine-all']")
           h4.list-group-item-heading combineAll 最新值合并
           p.list-group-item-text
@@ -19,6 +39,18 @@
           h4.list-group-item-heading concatAll 串行拼接
           p.list-group-item-text
             | 通过顺序地连接内部 Observable，将高阶 Observable 转化为一阶 Observable
+        a.list-group-item([routerLink]="['/concat-map']")
+          h4.list-group-item-heading concatMap 拼接映射
+          p.list-group-item-text
+            | 将值映射成内部 observable，并按顺序订阅和发出。
+        a.list-group-item([routerLink]="['/concat-map-to']")
+          h4.list-group-item-heading concatMapTo 拼接映射为
+          p.list-group-item-text
+            | 当前一个 observable 完成时订阅提供的 observable 并发出值。
+        a.list-group-item([routerLink]="['/create']")
+          h4.list-group-item-heading create 创建
+          p.list-group-item-text
+            | 创建一个新的 Observable ，当观察者( Observer )订阅该 Observable 时，它会执行指定的函数
         a.list-group-item([routerLink]="['/debounce']")
           h4.list-group-item-heading debounce 防抖
           p.list-group-item-text
@@ -31,6 +63,18 @@
           h4.list-group-item-heading distinctUntilChanged 剔除重复前值
           p.list-group-item-text
             | 只在当前值与之前最后一个值不同时才将其发出
+        a.list-group-item([routerLink]="['/empty']")
+          h4.list-group-item-heading empty 空序列立即完成
+          p.list-group-item-text
+            | 创建一个什么数据都不发出并且立马完成的 Observable
+        a.list-group-item([routerLink]="['/exhaust-map']")
+          h4.list-group-item-heading exhaustMap 空闲映射
+          p.list-group-item-text
+            | 映射成内部 observable，忽略其他值直到该 observable 完成。
+        a.list-group-item([routerLink]="['/expand']")
+          h4.list-group-item-heading expand 递归映射
+          p.list-group-item-text
+            | 递归调用提供的函数
         a.list-group-item([routerLink]="['/filter']")
           h4.list-group-item-heading filter 过滤
           p.list-group-item-text
@@ -43,14 +87,42 @@
           h4.list-group-item-heading forkJoin 尾值组合
           p.list-group-item-text
             | 当所有 observables 完成时发出每个 observable 的最新值
+        a.list-group-item([routerLink]="['/from']")
+          h4.list-group-item-heading from 转化集合
+          p.list-group-item-text
+            | 从一个数组、类数组对象、Promise、或者类 Observable 对象创建一个 Observable
+        a.list-group-item([routerLink]="['/from-event']")
+          h4.list-group-item-heading fromEvent 转化事件
+          p.list-group-item-text
+            | 将事件转换成 observable 序列
+        a.list-group-item([routerLink]="['/from-promise']")
+          h4.list-group-item-heading fromPromise 转化Promise
+          p.list-group-item-text
+            | 创建由 promise 转换而来的 observable，并发出 promise 的结果
+        a.list-group-item([routerLink]="['/group-by']")
+          h4.list-group-item-heading groupBy 分组
+          p.list-group-item-text
+            | 基于提供的值分组成多个 observables
         a.list-group-item([routerLink]="['/ignore-elements']")
           h4.list-group-item-heading ignoreElements 值忽略
           p.list-group-item-text
             | 忽略源 Observable 所发送的所有项，只传递 complete 或 error 的调用
+        a.list-group-item([routerLink]="['/interval']")
+          h4.list-group-item-heading interval 周期序列
+          p.list-group-item-text
+            | 基于给定时间间隔发出数字序列
         a.list-group-item([routerLink]="['/last']")
           h4.list-group-item-heading last 查找最后一个
           p.list-group-item-text
             | 根据提供的表达式，在源 observable 完成时发出它的最后一个值
+        a.list-group-item([routerLink]="['/map']")
+          h4.list-group-item-heading map 映射
+          p.list-group-item-text
+            | 对源 observable 的每个值应用投射函数。
+        a.list-group-item([routerLink]="['/map-to']")
+          h4.list-group-item-heading mapTo 映射为
+          p.list-group-item-text
+            | 将每个发出值映射成常量。
         a.list-group-item([routerLink]="['/merge']")
           h4.list-group-item-heading merge 序列融合
           p.list-group-item-text
@@ -59,18 +131,42 @@
           h4.list-group-item-heading mergeAll 序列融合
           p.list-group-item-text
             | 将高阶 Observable 转换成一阶 Observable ，一阶 Observable 会同时发出在内部 Observables 上发出的所有值
+        a.list-group-item([routerLink]="['/merge-map']")
+          h4.list-group-item-heading mergeMap 融合映射
+          p.list-group-item-text
+            | 映射成 observable 并发出值。
+        a.list-group-item([routerLink]="['/of']")
+          h4.list-group-item-heading of 参数转化
+          p.list-group-item-text
+            | 按顺序发出任意数量的值
         a.list-group-item([routerLink]="['/pairwise']")
           h4.list-group-item-heading pairwise 配对
           p.list-group-item-text
             | 将当前值和前一个值作为数组放在一起，然后将其发出
+        a.list-group-item([routerLink]="['/partition']")
+          h4.list-group-item-heading partition 分割
+          p.list-group-item-text
+            | 将源 Observable 一分为二，一个是所有满足 predicate 函数的值，另一个是所有 不满足 predicate 的值
+        a.list-group-item([routerLink]="['/pluck']")
+          h4.list-group-item-heading pluck 属性映射
+          p.list-group-item-text
+            | 选择属性来发出。
         a.list-group-item([routerLink]="['/race']")
           h4.list-group-item-heading race 竞争
           p.list-group-item-text
             | 使用首先发出值的 observable
+        a.list-group-item([routerLink]="['/range']")
+          h4.list-group-item-heading range 整数序列
+          p.list-group-item-text
+            | 依次发出给定区间内的数字
         a.list-group-item([routerLink]="['/sample']")
           h4.list-group-item-heading sample 采集新样
           p.list-group-item-text
             | 发出源 Observable 最新发出的值当另一个 notifier Observable发送时
+        a.list-group-item([routerLink]="['/scan']")
+          h4.list-group-item-heading scan 逐项累加
+          p.list-group-item-text
+            | 对源 Observable 使用累加器函数， 返回生成的中间值， 可选的初始值
         a.list-group-item([routerLink]="['/single']")
           h4.list-group-item-heading single 唯一
           p.list-group-item-text
@@ -91,6 +187,10 @@
           h4.list-group-item-heading startWith 前缀序列
           p.list-group-item-text
             | 返回的 Observable 会先发出作为参数指定的项，然后再发出由源 Observable 所发出的项
+        a.list-group-item([routerLink]="['/switch-map']")
+          h4.list-group-item-heading switchMap 切到最新映射
+          p.list-group-item-text
+            | 将每个源值投射成 Observable，该 Observable 会合并到输出 Observable 中， 并且只发出最新投射的 Observable 中的值。
         a.list-group-item([routerLink]="['/take']")
           h4.list-group-item-heading take 按数量截取
           p.list-group-item-text
@@ -111,6 +211,34 @@
           h4.list-group-item-heading throttleTime 按时节流阀
           p.list-group-item-text
             | 当指定的持续时间经过后发出最新值
+        a.list-group-item([routerLink]="['/throw']")
+          h4.list-group-item-heading throw 抛出错误
+          p.list-group-item-text
+            | 在订阅上发出错误
+        a.list-group-item([routerLink]="['/timer']")
+          h4.list-group-item-heading timer 延时周期序列
+          p.list-group-item-text
+            | 给定持续时间后，再按照指定间隔时间依次发出数字
+        a.list-group-item([routerLink]="['/window']")
+          h4.list-group-item-heading window 开窗
+          p.list-group-item-text
+            | 每当 windowBoundaries 发出项时，将源 Observable 的值分支成嵌套的 Observable 。
+        a.list-group-item([routerLink]="['/window-count']")
+          h4.list-group-item-heading windowCount 按数量开窗
+          p.list-group-item-text
+            | 将源 Observable 的值分支成多个嵌套的 Observable ，每个嵌套的 Observable 最多发出 windowSize 个值
+        a.list-group-item([routerLink]="['/window-time']")
+          h4.list-group-item-heading windowTime 按时间开窗
+          p.list-group-item-text
+            | 在每个提供的时间跨度内，收集源 obsercvable 中的值的 observable 。
+        a.list-group-item([routerLink]="['/window-toggle']")
+          h4.list-group-item-heading windowToggle 窗口开关
+          p.list-group-item-text
+            | 将源 Observable 的值分支成嵌套的 Observable，分支策略是以 openings 发出项为起始，以 closingSelector 发出为结束 。
+        a.list-group-item([routerLink]="['/window-when']")
+          h4.list-group-item-heading windowWhen 触发窗口
+          p.list-group-item-text
+            | 将源 Observable 的值分支成嵌套的 Observable ，通过使用关闭 Observable 的工厂函数来决定何时开启新的窗口
         a.list-group-item([routerLink]="['/with-latest-from']")
           h4.list-group-item-heading withLatestFrom 合并最新值
           p.list-group-item-text

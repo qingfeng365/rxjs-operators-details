@@ -1,24 +1,37 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>empty</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">empty(空序列立即完成) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static empty(scheduler: Scheduler): Observable</p>
+      <p>创建一个什么数据都不发出并且立马完成的 Observable</p>
+      <p>仅仅发出 complete 通知，其他什么也不做</p>
+      <p>这个静态操作符对于创建一个简单的只发出完成状态通知的 Observable 是非常有用的。 它可以被用来和 其他 Observables 进行组合, 比如在 mergeMap 中使用</p><img src="../assets/images/empty.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 马上发出 已完成 信号</pre>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-heading">示例1: empty 会立即完成</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 仅将奇数映射并打平成字母序列abc</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

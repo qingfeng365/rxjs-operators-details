@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import * as Rx from 'rxjs/Rx';
 import 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,22 +12,29 @@ import { DiffAnalysisService } from '../service/diff-analysis.service';
 export class FromEventComponent implements OnInit, OnDestroy {
   isRuning = false;
 
+  @ViewChild('demo1ref')
+  element1Ref: ElementRef;
+
   demo1subscribe: Subscription = null;
 
   demo1Info =
   `
+  const element = this.element1Ref.nativeElement;
+  Rx.Observable
+    .fromEvent(element, 'click')
+    .subscribe(v => console.log(v));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+    MouseEvent {...}
   */
   `;
 
   constructor(private dateTool: DateToolService,
     public diffAnalysisService: DiffAnalysisService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.runDemo1();
+  }
 
   ngOnDestroy(): void {
     this.unsubscribe(this.demo1subscribe);
@@ -40,12 +47,10 @@ export class FromEventComponent implements OnInit, OnDestroy {
   }
 
   runDemo1() {
-    this.isRuning = true;
-    this.demo1subscribe =
-      Rx.Observable.interval(1000)
-        .subscribe(v => console.log(v),
-        (err) => { },
-        () => this.isRuning = false);
+    const element = this.element1Ref.nativeElement;
+    Rx.Observable
+      .fromEvent(element, 'click')
+      .subscribe(v => console.log(v));
   }
   runDemo1zip() {
   }

@@ -1,20 +1,32 @@
 .container
-  h3
+  h3 empty
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading empty(空序列立即完成) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: static empty(scheduler: Scheduler): Observable
+      p 创建一个什么数据都不发出并且立马完成的 Observable
+      p 仅仅发出 complete 通知，其他什么也不做
+      p 这个静态操作符对于创建一个简单的只发出完成状态通知的 Observable 是非常有用的。 它可以被用来和 其他 Observables 进行组合, 比如在 mergeMap 中使用
+      img.img-responsive.center-block(src="../assets/images/empty.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 马上发出 已完成 信号
   .panel.panel-info
-    .panel-heading 示例1: 弹珠图示例
+    .panel-heading 示例1: empty 会立即完成
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 仅将奇数映射并打平成字母序列abc
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

@@ -1,20 +1,23 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>fromPromise</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">fromPromise(转化Promise) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static fromPromise(promise: PromiseLike, scheduler: Scheduler): Observable</p>
+      <p>将 Promise 转化为 Observable</p>
+      <p>返回一个仅仅发出 Promise resolve 过的值然后完成的 Observable</p>
+      <p>把 ES2015 的 Promise 或者兼容 Promises/A+ 规范的 Promise 转化为 Observable。 如果 Promise resolves 一个值, 输出 Observable 发出这个值然后完成。 如果 Promise 被 rejected, 输出 Observable 会发出相应的 错误</p>
+      <p>注意: 该操作符已推荐用 from 取代</p>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-heading">示例1: promise 转换而来的 observable</div>
     <div class="panel-body">
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>

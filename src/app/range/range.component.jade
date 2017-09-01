@@ -1,15 +1,20 @@
 .container
-  h3
+  h3 range
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading range(整数序列) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: static range(start: number, count: number, scheduler: Scheduler): Observable
+      p 创建一个 Observable ，它发出指定范围内的数字序列
+      p start: 可选的,默认值: 0,序列中的第一个整数值
+      p count: 可选的,默认值: 0,要生成序列的长度
+      p range 操作符顺序发出一个区间范围内的连续整数, 你可以决定区间的开始和长度。 默认情况下, 不使用 调度器仅仅同步的发送通知, 但是也可以可选的使用可选的调度器来控制发送
+      img.img-responsive.center-block(src="../assets/images/range.png")
       pre.pre-scrollable.
         弹珠图解析:
+        略
   .panel.panel-info
     .panel-heading 示例1: 弹珠图示例
     .panel-body

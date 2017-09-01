@@ -1,15 +1,20 @@
 .container
-  h3
+  h3 from
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading from(转化集合) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: static from(ish: ObservableInput, scheduler: Scheduler): Observable
+      p 从一个数组、类数组对象、Promise、类 Observable 对象创建一个 Observable
+      p 几乎可以把任何东西都能转化为Observable
+      p 将各种其他对象和数据类型转化为 Observables。 from将 Promise、类数组对象转化为 Observable ，该 Observable 发出 promise、数组。 字符串，在这种上下文里，会被当做字符数组。
+      img.img-responsive.center-block(src="../assets/images/from.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 将数组作为值的序列发出
+        - 依次输出 10 20 30
   .panel.panel-info
     .panel-heading 示例1: 弹珠图示例
     .panel-body
@@ -18,3 +23,19 @@
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: promise 转换而来的 observable
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 字符串转换而来的 observable
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行

@@ -1,15 +1,18 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>of</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">of(参数转化) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
+      <p>签名:  static of(values: ...T, scheduler: Scheduler): Observable</p>
+      <p>创建一个 Observable，它会依次发出由你提供的参数，最后发出完成通知</p>
+      <p>发出你提供的参数，然后完成</p>
+      <p>这个静态操作符适用于创建简单的 Observable ，该 Observable 只发出给定的参数， 在发送完这些参数后发出完成通知。它可以用来和其他 Observables 组合比如说concat。 默认情况下，它使用null调度器，这意味着next通知是同步发出的, 尽管使用不同的调度器可以决定这些通知何时送到</p><img src="../assets/images/of.png" class="img-responsive center-block"/>
       <pre class="pre-scrollable">弹珠图解析:</pre>
     </div>
   </div>
@@ -19,6 +22,15 @@
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 发出对象、数组和函数</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

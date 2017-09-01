@@ -16,11 +16,19 @@ export class FromPromiseComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  const getPromise = function (v): Promise<string> {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        resolve('promise resolve:' + (v * 10));
+      }, 500);
+    });
+  };
+  Rx.Observable
+    .fromPromise(getPromise(1))
+    .subscribe(v => console.log(v));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+    promise resolve: 10
   */
   `;
 
@@ -40,14 +48,32 @@ export class FromPromiseComponent implements OnInit, OnDestroy {
   }
 
   runDemo1() {
+    const getPromise = function (v): Promise<string> {
+      return new Promise(resolve => {
+        setTimeout(function () {
+          resolve('promise resolve:' + (v * 10));
+        }, 500);
+      });
+    };
     this.isRuning = true;
     this.demo1subscribe =
-      Rx.Observable.interval(1000)
+      Rx.Observable
+        .fromPromise(getPromise(1))
         .subscribe(v => console.log(v),
         (err) => { },
         () => this.isRuning = false);
   }
   runDemo1zip() {
+    const getPromise = function (v): Promise<string> {
+      return new Promise(resolve => {
+        setTimeout(function () {
+          resolve('promise resolve:' + (v * 10));
+        }, 500);
+      });
+    };
+    Rx.Observable
+      .fromPromise(getPromise(1))
+      .subscribe(v => console.log(v));
   }
 
 }

@@ -1,16 +1,20 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>interval</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">interval(周期序列) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static interval(period: number, scheduler: Scheduler): Observable</p>
+      <p>创建一个 Observable ，以指定时间间隔发出连续的数字</p>
+      <p>定期发出自增的数字</p>
+      <p>interval 返回一个发出无限自增的序列整数, 你可以选择固定的时间间隔进行发送。 第一次并没有立马去发送, 而是第一个时间段过后才发出。</p><img src="../assets/images/interval.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+略</pre>
     </div>
   </div>
   <div class="panel panel-info">

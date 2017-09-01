@@ -13,17 +13,41 @@ export class EmptyComponent implements OnInit, OnDestroy {
   isRuning = false;
 
   demo1subscribe: Subscription = null;
+  demo2subscribe: Subscription = null;
 
   demo1Info =
   `
+  Rx.Observable.empty()
+    .subscribe(v => console.log('输出:' + v),
+    (err) => { },
+    () => console.log('已完成'));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+      已完成
   */
   `;
-
+  demo2Info =
+  `
+  Rx.Observable.interval(1000)
+  .take(6)
+  .mergeMap(x =>
+    x % 2 === 1
+      ? Rx.Observable.of('a', 'b', 'c')
+      : Rx.Observable.empty())
+  .subscribe(v => console.log(v));
+  /*
+    输出:
+      a
+      b
+      c
+      a
+      b
+      c
+      a
+      b
+      c
+  */
+  `;
   constructor(private dateTool: DateToolService,
     public diffAnalysisService: DiffAnalysisService) { }
 
@@ -31,6 +55,7 @@ export class EmptyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe(this.demo1subscribe);
+    this.unsubscribe(this.demo2subscribe);
   }
 
   unsubscribe(subscribe: any) {
@@ -42,12 +67,40 @@ export class EmptyComponent implements OnInit, OnDestroy {
   runDemo1() {
     this.isRuning = true;
     this.demo1subscribe =
+      Rx.Observable.empty()
+        .subscribe(v => console.log('输出:' + v),
+        (err) => { },
+        () => {
+          console.log('已完成');
+          this.isRuning = false;
+        });
+  }
+  runDemo1zip() {
+    Rx.Observable.empty()
+      .subscribe(v => console.log('输出:' + v),
+      (err) => { },
+      () => console.log('已完成'));
+  }
+  runDemo2() {
+    this.isRuning = true;
+    this.demo2subscribe =
       Rx.Observable.interval(1000)
+        .take(6)
+        .mergeMap(x =>
+          x % 2 === 1
+            ? Rx.Observable.of('a', 'b', 'c')
+            : Rx.Observable.empty())
         .subscribe(v => console.log(v),
         (err) => { },
         () => this.isRuning = false);
   }
-  runDemo1zip() {
+  runDemo2zip() {
+    Rx.Observable.interval(1000)
+      .take(6)
+      .mergeMap(x =>
+        x % 2 === 1
+          ? Rx.Observable.of('a', 'b', 'c')
+          : Rx.Observable.empty())
+      .subscribe(v => console.log(v));
   }
-
 }

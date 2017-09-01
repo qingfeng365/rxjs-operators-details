@@ -1,16 +1,21 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>range</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">range(整数序列) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static range(start: number, count: number, scheduler: Scheduler): Observable</p>
+      <p>创建一个 Observable ，它发出指定范围内的数字序列</p>
+      <p>start: 可选的,默认值: 0,序列中的第一个整数值</p>
+      <p>count: 可选的,默认值: 0,要生成序列的长度</p>
+      <p>range 操作符顺序发出一个区间范围内的连续整数, 你可以决定区间的开始和长度。 默认情况下, 不使用 调度器仅仅同步的发送通知, 但是也可以可选的使用可选的调度器来控制发送</p><img src="../assets/images/range.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+略</pre>
     </div>
   </div>
   <div class="panel panel-info">

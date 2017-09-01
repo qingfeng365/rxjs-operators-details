@@ -16,11 +16,17 @@ export class IntervalComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable.interval(1000)
+    .take(6)
+    .subscribe(v => console.log(v));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+      0
+      1
+      2
+      3
+      4
+      5
   */
   `;
 
@@ -40,14 +46,19 @@ export class IntervalComponent implements OnInit, OnDestroy {
   }
 
   runDemo1() {
+    console.log(this.dateTool.getNowBymmsszz());
     this.isRuning = true;
     this.demo1subscribe =
       Rx.Observable.interval(1000)
-        .subscribe(v => console.log(v),
+        .take(6)
+        .subscribe(v => console.log(this.dateTool.getNowBymmsszz() + ' 输出:'+v),
         (err) => { },
         () => this.isRuning = false);
   }
   runDemo1zip() {
+    Rx.Observable.interval(1000)
+      .take(6)
+      .subscribe(v => console.log(v));
   }
 
 }

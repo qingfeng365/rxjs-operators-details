@@ -17,11 +17,20 @@ export class RangeComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable.range(1, 10)
+    .subscribe(v => console.log(v));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      8
+      9
+      10
   */
   `;
 
@@ -43,12 +52,14 @@ export class RangeComponent implements OnInit, OnDestroy {
   runDemo1() {
     this.isRuning = true;
     this.demo1subscribe =
-      Rx.Observable.interval(1000)
+      Rx.Observable.range(1, 10)
         .subscribe(v => console.log(v),
         (err) => { },
         () => this.isRuning = false);
   }
   runDemo1zip() {
+    Rx.Observable.range(1, 10)
+      .subscribe(v => console.log(v));
   }
 
 }

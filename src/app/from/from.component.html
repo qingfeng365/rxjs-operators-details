@@ -1,16 +1,21 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>from</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">from(转化集合) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static from(ish: ObservableInput, scheduler: Scheduler): Observable</p>
+      <p>从一个数组、类数组对象、Promise、类 Observable 对象创建一个 Observable</p>
+      <p>几乎可以把任何东西都能转化为Observable</p>
+      <p>将各种其他对象和数据类型转化为 Observables。 from将 Promise、类数组对象转化为 Observable ，该 Observable 发出 promise、数组。 字符串，在这种上下文里，会被当做字符数组。</p><img src="../assets/images/from.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 将数组作为值的序列发出
+- 依次输出 10 20 30</pre>
     </div>
   </div>
   <div class="panel panel-info">
@@ -19,6 +24,24 @@
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: promise 转换而来的 observable</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 字符串转换而来的 observable</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>
