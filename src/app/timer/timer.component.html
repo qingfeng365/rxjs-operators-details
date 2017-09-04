@@ -1,16 +1,24 @@
 
 <div class="container">
-  <h3></h3>
+  <h3>timer</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">timer(延时周期序列) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: static timer(initialDelay: number | Date, period: number, scheduler: Scheduler): Observable</p>
+      <p>创建一个 Observable，该 Observable 在初始延时（initialDelay）之后开始发送并且在每个时间周期（ period）后发出自增的数字</p>
+      <p>就像是interval, 但是你可以指定什么时候开始发送</p>
+      <p>timer 返回一个发出无限自增数列的 Observable, 具有一定的时间间隔，这个间隔由你来选择。 第一个发送发生在 初始延时之后. 初始延时就像是Date。 如果时间周期没有被指定, 输出 Observable 只发出0。 否则,会发送一个无限数列</p><img src="../assets/images/timer.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 第3秒(第1个参数) 输出值 0
+- 之后每隔1秒(第2个参数)输出序列
+- 第4秒 输出 1
+- 第5秒 输出 2
+- 以此类推</pre>
     </div>
   </div>
   <div class="panel panel-info">
@@ -19,6 +27,15 @@
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 当 timer 结束时发出一个值</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>

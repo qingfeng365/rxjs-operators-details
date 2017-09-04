@@ -1,0 +1,29 @@
+
+<div class="container">
+  <h3>delay</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">delay(延时) 说明</div>
+    <div class="panel-body">
+      <p>签名: delay(delay: number | Date, scheduler: Scheduler): Observable</p>
+      <p>通过给定的超时或者直到一个给定的时间来延迟源 Observable 的发送</p>
+      <p>每个数据项的发出时间都往后推移固定的毫秒数</p>
+      <p>如果延时参数是数字, 这个操作符会将源 Observable 的发出时间都往后推移固定的毫秒数。 保存值之间的相对时间间隔. 如果延迟参数是日期类型, 这个操作符会延时Observable的执行直到到了给定的时间</p><img src="../assets/images/delay.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 源 Observable 每次发出值, 都要延时 20 毫秒才输出</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

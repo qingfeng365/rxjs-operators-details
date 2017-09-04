@@ -1,0 +1,56 @@
+
+<div class="container">
+  <h3>delayWhen</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">delayWhen(延时触发) 说明</div>
+    <div class="panel-body">
+      <p>签名: delayWhen(delayDurationSelector: function(value: T): Observable, subscriptionDelay: Observable): Observable</p>
+      <p>延迟发出值，延迟时间由第二个 Observable 决定</p>
+      <p>就像是delay, 但是延时的时间间隔由第二个 Observable 决定</p>
+      <p>delayWhen 通过由另一个 Observable 决定的时间段来延迟源 Observable 的每个发出值。 当源发出一个数据，delayDurationSelector 函数将该源值当做参数, 返回一个被称为“持续”的 Observable。 当且仅当持续的 Observable 发出或完成时，源值才会在输出 Observable 上发出</p>
+      <p>delayWhen 接受第二个参数, subscriptionDelay，它是一个 Observable。 当 subscriptionDelay 发出第一个值或者完成，源 Observable 被订阅并且开始像前一段描 述的一样。 如果 subscriptionDelay 没有提供，delayWhen 将会订阅源 Observable 只 要输出 Observable 被订阅</p><img src="../assets/images/delayWhen.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符上方的第一条线为 源 Observable,
+- 其它三条线为 delayDuration Observable, 即起辅助通知作用的 Observable
+- 当 delayDuration Observable 发出值或发出已完成信号, 就会触发通知
+  当 delayDuration Observable 一触发通知, 就会取消订阅该 delayDuration Observable
+- 源 Observable 每次发出值时,
+  就会创建与该值对应的 delayDuration Observable,
+  当对应的 delayDuration Observable 触发通知时, 该值才会被输出
+- 源 Observable 发出值 'a', 创建 delayDuration Observable-a,
+  等待 delayDuration Observable-a 触发通知,
+  此时有两个 Observable 在订阅中, 即源 Observable , delayDuration Observable-a
+- delayDuration Observable-a 触发通知, 输出值 'a',
+  并取消订阅 delayDuration Observable-a,
+  此时有一个 Observable 在订阅中,即源 Observable
+- 源 Observable 发出值 'b', 创建 delayDuration Observable-b,
+  等待 delayDuration Observable-b 触发通知,
+  此时有两个 Observable 在订阅中, 即源 Observable , delayDuration Observable-b
+- 源 Observable 发出值 'c', 创建 delayDuration Observable-c,
+  等待 delayDuration Observable-c 触发通知,
+  此时有三个 Observable 在订阅中, 即源 Observable , delayDuration Observable-b, delayDuration Observable-c
+- delayDuration Observable-c 触发通知, 输出值 'c',
+  并取消订阅 delayDuration Observable-c,
+  此时有两个 Observable 在订阅中,即源 Observable, delayDuration Observable-b
+- 源 Observable 发出已完成信号
+- 此时有一个 Observable 在订阅中,即delayDuration Observable-b
+- delayDuration Observable-b 触发通知, 输出值 'b',
+  并取消订阅 delayDuration Observable-b
+- 当前已没有 Observable 在订阅中, 结束</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.container
+  h3 defaultIfEmpty
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading defaultIfEmpty(缺省) 说明
+    .panel-body
+      p 签名: defaultIfEmpty(defaultValue: any): Observable
+      p 如果源 Observable 在完成之前没有发出任何 next 值，则发出给定的值，否则返回 Observable 的镜像
+      p 如果源Observable本来就是空的,那么这个操作符会发出一个默认值
+      img.img-responsive.center-block(src="../assets/images/defaultIfEmpty.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 上游操作符没有发出任何值,且发出已完成信号
+        - 则输出缺省值 42
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: Observable.empty 的默认值
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

@@ -1,0 +1,30 @@
+
+<div class="container">
+  <h3>do</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">do(执行) 说明</div>
+    <div class="panel-body">
+      <p>签名: do(nextOrObserver: Observer | function, error: function, complete: function): Observable</p>
+      <p>为源 Observable 上的每次发送执行副作用，但返回的 Observable 与源 Observable 是相同的</p>
+      <p>拦截源 Observable 上的每次发送并且运行一个函数，但返回的输出 Observable 与 源 Observable 是相同的，只要不发生错误即可</p>
+      <p>此操作符适用于调试 Observables 以查看值是否正确，或者执行一些其他的副作用操作</p>
+      <p>此操作符不同于 Observable 的 subscribe。如果 do 返回的 Observable 没有被订阅， 那么观察者指定的副作用永远不会执行。因此 do 只是侦查已存在的执行，它不会像 subscribe 那样触发执行的发生</p><img src="../assets/images/do.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 不会影响 源 Observables 的输出, 只是打印日志</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

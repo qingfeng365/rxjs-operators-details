@@ -16,11 +16,13 @@ export class ThrowComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable
+    .throw(new Error('错误信息...'))
+    .subscribe(v => console.log(v),
+    err => console.log('出现错误:' + err.message));
   /*
     输出:
-      [a,b,c]
-      [d,e,f]
-      [g,h,i]
+      出现错误:错误信息...
   */
   `;
 
@@ -42,12 +44,17 @@ export class ThrowComponent implements OnInit, OnDestroy {
   runDemo1() {
     this.isRuning = true;
     this.demo1subscribe =
-      Rx.Observable.interval(1000)
+      Rx.Observable
+        .throw(new Error('错误信息...'))
         .subscribe(v => console.log(v),
-        (err) => { },
+        err => console.log('出现错误:' + err.message),
         () => this.isRuning = false);
   }
   runDemo1zip() {
+    Rx.Observable
+      .throw(new Error('错误信息...'))
+      .subscribe(v => console.log(v),
+      err => console.log('出现错误:' + err.message));
   }
 
 }

@@ -72,6 +72,16 @@ import { OfComponent } from './of/of.component';
 import { RangeComponent } from './range/range.component';
 import { ThrowComponent } from './throw/throw.component';
 import { TimerComponent } from './timer/timer.component';
+import { DefaultIfEmptyComponent } from './default-if-empty/default-if-empty.component';
+import { EveryComponent } from './every/every.component';
+import { DoComponent } from './do/do.component';
+import { DelayComponent } from './delay/delay.component';
+import { DelayWhenComponent } from './delay-when/delay-when.component';
+import { DematerializeComponent } from './dematerialize/dematerialize.component';
+import { LetComponent } from './let/let.component';
+import { MaterializeComponent } from './materialize/materialize.component';
+import { ObserveOnComponent } from './observe-on/observe-on.component';
+import { ToPromiseComponent } from './to-promise/to-promise.component';
 
 
 @NgModule({
@@ -141,7 +151,17 @@ import { TimerComponent } from './timer/timer.component';
     OfComponent,
     RangeComponent,
     ThrowComponent,
-    TimerComponent
+    TimerComponent,
+    DefaultIfEmptyComponent,
+    EveryComponent,
+    DoComponent,
+    DelayComponent,
+    DelayWhenComponent,
+    DematerializeComponent,
+    LetComponent,
+    MaterializeComponent,
+    ObserveOnComponent,
+    ToPromiseComponent
   ],
   imports: [
     BrowserModule,

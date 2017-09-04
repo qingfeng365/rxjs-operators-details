@@ -1,6 +1,38 @@
 
 <div class="container">
   <div class="panel panel-info">
+    <div class="panel-heading">条件</div>
+    <div class="panel-body">
+      <div class="list-group"><a [routerLink]="['/default-if-empty']" class="list-group-item">
+          <h4 class="list-group-item-heading">defaultIfEmpty 缺省</h4>
+          <p class="list-group-item-text">如果源 Observable 在完成之前没有发出任何 next 值，则发出给定的值，否则返回 Observable 的镜像</p></a><a [routerLink]="['/every']" class="list-group-item">
+          <h4 class="list-group-item-heading">every 全部符合</h4>
+          <p class="list-group-item-text">如果完成时所有的值都能通过断言，那么发出 true，否则发出 false</p></a></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">工具</div>
+    <div class="panel-body">
+      <div class="list-group"><a [routerLink]="['/do']" class="list-group-item">
+          <h4 class="list-group-item-heading">do 执行</h4>
+          <p class="list-group-item-text">为源 Observable 上的每次发送执行副作用，但返回的 Observable 与源 Observable 是相同的</p></a><a [routerLink]="['/delay']" class="list-group-item">
+          <h4 class="list-group-item-heading">delay 延时</h4>
+          <p class="list-group-item-text">通过给定的超时或者直到一个给定的时间来延迟源 Observable 的发送</p></a><a [routerLink]="['/delay-when']" class="list-group-item">
+          <h4 class="list-group-item-heading">delayWhen 延时触发</h4>
+          <p class="list-group-item-text">在给定的时间范围内，延迟源 Observable 所有数据项的发送，该时间段由另一个 Observable 的发送决定</p></a><a [routerLink]="['/dematerialize']" class="list-group-item">
+          <h4 class="list-group-item-heading">dematerialize 通知反序列化</h4>
+          <p class="list-group-item-text">将 notification 对象转换成 notification 值</p></a><a [routerLink]="['/let']" class="list-group-item">
+          <h4 class="list-group-item-heading">let</h4>
+          <p class="list-group-item-text">获得源Observable,返回 源Observable 或其镜象</p></a><a [routerLink]="['/materialize']" class="list-group-item">
+          <h4 class="list-group-item-heading">materialize 通知序列化</h4>
+          <p class="list-group-item-text">表示源 Observable 中的所有通知，每个通知都会在 Notification 对象中标记为 它们原始的通知类型，并会作为输出 Observable 的 next 通知</p></a><a [routerLink]="['/observe-on']" class="list-group-item">
+          <h4 class="list-group-item-heading">observeOn 指定调度</h4>
+          <p class="list-group-item-text">使用指定的调度器来重新发出源 Observable 的所有通知</p></a><a [routerLink]="['/to-promise']" class="list-group-item">
+          <h4 class="list-group-item-heading">toPromise</h4>
+          <p class="list-group-item-text">将 Observable 序列转换为符合 ES2015 标准的 Promise</p></a></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
     <div class="panel-heading">创建</div>
     <div class="panel-body">
       <div class="list-group"><a [routerLink]="['/create']" class="list-group-item">
@@ -21,7 +53,7 @@
           <h4 class="list-group-item-heading">range 整数序列</h4>
           <p class="list-group-item-text">依次发出给定区间内的数字</p></a><a [routerLink]="['/throw']" class="list-group-item">
           <h4 class="list-group-item-heading">throw 抛出错误</h4>
-          <p class="list-group-item-text">在订阅上发出错误</p></a><a [routerLink]="['/timer']" class="list-group-item">
+          <p class="list-group-item-text">创建一个不发送数据给观察者并且立马发出错误通知的 Observable</p></a><a [routerLink]="['/timer']" class="list-group-item">
           <h4 class="list-group-item-heading">timer 延时周期序列</h4>
           <p class="list-group-item-text">给定持续时间后，再按照指定间隔时间依次发出数字</p></a></div>
     </div>
