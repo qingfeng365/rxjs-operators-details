@@ -1,16 +1,42 @@
 
 <div class="container">
-  <h3>.</h3>
+  <h3>dematerialize</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">dematerialize(通知反序列化) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/debounceTime.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: dematerialize(): Observable</p>
+      <p>将 Notification 对象的 Observable 转换成它们所代表的发送</p>
+      <p>将 Notification 对象拆开成实际的 next、 error 和 complete 发送。它与 materialize 是相反的</p>
+      <p><span class="label label-success">注意</span>&nbsp;dematerialize 仅处理 Notification 对象, 对不是  Notification 对象的值会跳过不处理, 也不会输出</p><img src="../assets/images/dematerialize.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 学习该操作符前, 要先了解 materialize 操作符,
+  并且要了解 Notification 对象,
+  以及何时会产生嵌套的 Notification 对象
+- 上游 Observable 输出时, 不是输出实际值,
+  而是 Rx 自动封装成的 Notification 对象,
+  Notification 对象 包含 实际值
+- 下游接收时, Rx 会自动从 Notification 对象解析出实际的值
+- 但是如果此时接收是 嵌套的 Notification 对象,
+  Rx 自动解析了外层 Notification 对象,
+  而实际值 本身又是 Notification 对象
+- dematerialize 就是对 值本身又是 Notification 对象时的再次解析
+- Notification 对象的格式为:
+  {{'{'}}
+    kind: string,
+    value: T,
+    error: any,
+    hasValue: boolean,
+  {{'}'}}
+- kind: 值为 'N' (next) 'C' (已完成) 'E' (错误)
+- 当 kind = 'N', 将调用 next(Notification.value)
+- 当 kind = 'C', 将调用 complete()
+- 当 kind = 'E', 将调用 error(Notification.error)
+- 上述解析过程, 需要了解 create 操作符的示例</pre>
     </div>
   </div>
   <div class="panel panel-info">

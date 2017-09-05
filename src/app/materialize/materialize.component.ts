@@ -4,6 +4,8 @@ import 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { DateToolService } from '../util/date-tool.service';
 import { DiffAnalysisService } from '../service/diff-analysis.service';
+import { Notification } from 'rxjs/Notification';
+
 @Component({
   selector: 'app-materialize',
   templateUrl: './materialize.component.html',
@@ -16,8 +18,17 @@ export class MaterializeComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable.of('x', 'y', 'z')
+    .materialize()
+    .subscribe((v: Notification<any>) => {
+      console.log(v);
+    });
   /*
     输出:
+    Notification {kind: "N", value: "x", error: undefined, hasValue: true}
+    Notification {kind: "N", value: "y", error: undefined, hasValue: true}
+    Notification {kind: "N", value: "z", error: undefined, hasValue: true}
+    Notification {kind: "C", value: undefined, error: undefined, hasValue: false}
   */
   `;
   constructor(private dateTool: DateToolService,
@@ -37,13 +48,25 @@ export class MaterializeComponent implements OnInit, OnDestroy {
   runDemo1() {
     this.isRuning = true;
     this.demo1subscribe =
-      Rx.Observable.interval(1000)
-        .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 源发出值:' + v))
-        .subscribe(v => console.log(v),
+      Rx.Observable.of('x', 'y', 'z')
+        .do(
+        v => console.log('源:' + v),
+        (err) => { },
+        () => console.log('源完成.'))
+        .materialize()
+        .subscribe((v: Notification<any>) => {
+          console.log('输出:');
+          console.log(v);
+        },
         (err) => { },
         () => this.isRuning = false);
   }
   runDemo1zip() {
+    Rx.Observable.of('x', 'y', 'z')
+      .materialize()
+      .subscribe((v: Notification<any>) => {
+        console.log(v);
+      });
   }
 
 }

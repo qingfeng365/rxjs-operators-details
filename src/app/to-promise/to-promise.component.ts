@@ -16,8 +16,25 @@ export class ToPromiseComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable
+    .of(1, 2, 3)
+    .toPromise()
+    .then(e => console.log(e));
   /*
     输出:
+    3
+  */
+  `;
+  demo2Info =
+  `
+  Rx.Observable
+    .throw(new Error('failed'))
+    .toPromise()
+    .then(e => console.log('Promise resolve:' + e))
+    .catch(err => console.log('Promise reject:' + err.message));
+  /*
+    输出:
+    Promise reject:failed
   */
   `;
   constructor(private dateTool: DateToolService,
@@ -35,16 +52,31 @@ export class ToPromiseComponent implements OnInit, OnDestroy {
     }
   }
   runDemo1() {
-    this.isRuning = true;
-    this.demo1subscribe =
-      Rx.Observable.interval(1000)
-        .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 源发出值:' + v))
-        .subscribe(v => console.log(v),
-        (err) => { },
-        () => this.isRuning = false);
+    Rx.Observable
+      .of(1, 2, 3)
+      .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 源发出值:' + v))
+      .toPromise()
+      .then(e => console.log('Promise resolve:' + e));
   }
   runDemo1zip() {
+    Rx.Observable
+      .of(1, 2, 3)
+      .toPromise()
+      .then(e => console.log(e));
   }
-
+  runDemo2() {
+    Rx.Observable
+      .throw(new Error('failed'))
+      .toPromise()
+      .then(e => console.log('Promise resolve:' + e))
+      .catch(err => console.log('Promise reject:' + err.message));
+  }
+  runDemo2zip() {
+    Rx.Observable
+      .throw(new Error('failed'))
+      .toPromise()
+      .then(e => console.log('Promise resolve:' + e))
+      .catch(err => console.log('Promise reject:' + err.message));
+  }
 }
 

@@ -59,14 +59,38 @@
           h4.list-group-item-heading debounceTime 按时防抖
           p.list-group-item-text
             | 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值
+        a.list-group-item([routerLink]="['/default-if-empty']")
+          h4.list-group-item-heading defaultIfEmpty 缺省
+          p.list-group-item-text
+            | 如果源 Observable 在完成之前没有发出任何 next 值，则发出给定的值，否则返回 Observable 的镜像
+        a.list-group-item([routerLink]="['/delay']")
+          h4.list-group-item-heading delay 延时
+          p.list-group-item-text
+            | 通过给定的超时或者直到一个给定的时间来延迟源 Observable 的发送
+        a.list-group-item([routerLink]="['/delay-when']")
+          h4.list-group-item-heading delayWhen 延时触发
+          p.list-group-item-text
+            | 在给定的时间范围内，延迟源 Observable 所有数据项的发送，该时间段由另一个 Observable 的发送决定
+        a.list-group-item([routerLink]="['/dematerialize']")
+          h4.list-group-item-heading dematerialize 通知反序列化
+          p.list-group-item-text
+            | 将 notification 对象转换成 notification 值
         a.list-group-item([routerLink]="['/distinct-until-changed']")
           h4.list-group-item-heading distinctUntilChanged 剔除重复前值
           p.list-group-item-text
             | 只在当前值与之前最后一个值不同时才将其发出
+        a.list-group-item([routerLink]="['/do']")
+          h4.list-group-item-heading do 执行
+          p.list-group-item-text
+            | 为源 Observable 上的每次发送执行副作用，但返回的 Observable 与源 Observable 是相同的
         a.list-group-item([routerLink]="['/empty']")
           h4.list-group-item-heading empty 空序列立即完成
           p.list-group-item-text
             | 创建一个什么数据都不发出并且立马完成的 Observable
+        a.list-group-item([routerLink]="['/every']")
+          h4.list-group-item-heading every 全部符合
+          p.list-group-item-text
+            | 如果完成时所有的值都能通过断言，那么发出 true，否则发出 false
         a.list-group-item([routerLink]="['/exhaust-map']")
           h4.list-group-item-heading exhaustMap 空闲映射
           p.list-group-item-text
@@ -115,6 +139,10 @@
           h4.list-group-item-heading last 查找最后一个
           p.list-group-item-text
             | 根据提供的表达式，在源 observable 完成时发出它的最后一个值
+        a.list-group-item([routerLink]="['/let']")
+          h4.list-group-item-heading let 获得源
+          p.list-group-item-text
+            | 获得源Observable,返回 源Observable 或其镜象
         a.list-group-item([routerLink]="['/map']")
           h4.list-group-item-heading map 映射
           p.list-group-item-text
@@ -123,6 +151,10 @@
           h4.list-group-item-heading mapTo 映射为
           p.list-group-item-text
             | 将每个发出值映射成常量。
+        a.list-group-item([routerLink]="['/materialize']")
+          h4.list-group-item-heading materialize 通知序列化
+          p.list-group-item-text
+            | 表示源 Observable 中的所有通知，每个通知都会在 Notification 对象中标记为 它们原始的通知类型，并会作为输出 Observable 的 next 通知
         a.list-group-item([routerLink]="['/merge']")
           h4.list-group-item-heading merge 序列融合
           p.list-group-item-text
@@ -219,6 +251,10 @@
           h4.list-group-item-heading timer 延时周期序列
           p.list-group-item-text
             | 给定持续时间后，再按照指定间隔时间依次发出数字
+        a.list-group-item([routerLink]="['/to-promise']")
+          h4.list-group-item-heading toPromise 转为Promise
+          p.list-group-item-text
+            | 将 Observable 序列转换为符合 ES2015 标准的 Promise
         a.list-group-item([routerLink]="['/window']")
           h4.list-group-item-heading window 开窗
           p.list-group-item-text

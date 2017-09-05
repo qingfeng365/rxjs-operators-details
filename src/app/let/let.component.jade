@@ -1,20 +1,30 @@
 .container
-  h3 .
+  h3 let
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading let(获得源) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/debounceTime.png")
-      pre.pre-scrollable.
-        弹珠图解析:
-  .panel.panel-info
-    .panel-heading 示例1: 弹珠图示例
+      p 签名: let(function): Observable
+      p 获得源Observable,返回 源Observable 或其镜象
+      p
+        span.label.label-success 注意
+        | &nbsp;该操作符官网暂时没有说明
+      p
+        span.label.label-success 注意
+        | &nbsp;let 主要用于要对 源Observable 附加操作符, 而这些操作符来自其它函数,见示例2
+    .panel-heading 示例1: 使用 let 应用于多个操作符
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 通过函数应用于操作符
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行

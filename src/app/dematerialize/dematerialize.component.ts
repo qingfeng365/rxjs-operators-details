@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { DateToolService } from '../util/date-tool.service';
 import { DiffAnalysisService } from '../service/diff-analysis.service';
+import { Notification } from 'rxjs/Notification';
 @Component({
   selector: 'app-dematerialize',
   templateUrl: './dematerialize.component.html',
@@ -16,8 +17,23 @@ export class DematerializeComponent implements OnInit, OnDestroy {
 
   demo1Info =
   `
+  Rx.Observable
+    .of(
+      new Rx.Notification('N', 'x'),
+      new Rx.Notification('N', 'y'),
+      new Rx.Notification('N', 'z'),
+      new Rx.Notification('C')
+    )
+    .dematerialize()
+    .subscribe(v => console.log(v),
+    (err) => { },
+    () => console.log('已完成.'));
   /*
     输出:
+      x
+      y
+      z
+      已完成.
   */
   `;
   constructor(private dateTool: DateToolService,
@@ -37,13 +53,37 @@ export class DematerializeComponent implements OnInit, OnDestroy {
   runDemo1() {
     this.isRuning = true;
     this.demo1subscribe =
-      Rx.Observable.interval(1000)
-        .do(v => console.log(this.dateTool.getNowBymmsszz() + ' 源发出值:' + v))
-        .subscribe(v => console.log(v),
+      Rx.Observable
+        .of<any>(
+        new Rx.Notification('N', 'x'),
+        new Rx.Notification('N', 'y'),
+        new Rx.Notification('N', 'z'),
+        new Rx.Notification('C'),
+        )
+        .do(v => {
+          console.log('源:');
+          console.log(v);
+        })
+        .dematerialize()
+        .subscribe(v => console.log('最终输出:' + v),
         (err) => { },
-        () => this.isRuning = false);
+        () => {
+          console.log('已完成.');
+          this.isRuning = false;
+        });
   }
   runDemo1zip() {
+    Rx.Observable
+      .of(
+      new Rx.Notification('N', 'x'),
+      new Rx.Notification('N', 'y'),
+      new Rx.Notification('N', 'z'),
+      new Rx.Notification('C')
+      )
+      .dematerialize()
+      .subscribe(v => console.log(v),
+      (err) => { },
+      () => console.log('已完成.'));
   }
 
 }

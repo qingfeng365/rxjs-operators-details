@@ -1,15 +1,53 @@
 .container
-  h3 .
+  h3 materialize
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading materialize(通知序列化) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/debounceTime.png")
+      p 签名: materialize(): Observable&lt;Notification&lt;T&gt;&gt;
+      p 表示源 Observable 中的所有通知，每个通知都会在 Notification 对象中标记为 它们原始的通知类型，并会作为输出 Observable 的 next 通知
+      p 在 Notification 对象中包装 next、error 和 complete 发送, 并在输出 Observable 上作为 next 发送出去
+      p materialize 返回一个 Observable，这个 Observable 会为每个源 Observable 的 next、error 或 complete 通知发出 next 通知。当源 Observable 发出 complete 时， 输出 Observable 会发出 next 并且 Notification 类型为 "complete"，然后它也发出 complete 。当源 Observable 发出 error 时，输出 Observable 会发出 next 并且 Notification 类型为 "error"，然后发出 complete
+      p 该操作符对于生成源 Observable 的元数据很有用，并作为 next 发送使用掉。 与 dematerialize 结合使用
+      img.img-responsive.center-block(src="../assets/images/materialize.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 学习该操作符前, 要先了解 create 操作符的示例
+        - Observable 在发出值时, 并不是直接向下游传递值,
+          而是先将值封装成 Notification 对象, 再将 Notification 对象输出
+        - Notification 对象的格式为:
+          {{'{'}}
+            kind: string,
+            value: T,
+            error: any,
+            hasValue: boolean,
+          {{'}'}}
+        - kind: 值为 'N' (next) 'C' (已完成) 'E' (错误)
+        - Notification 对象一般不需要使用, Rx 会自动封装和解析
+          即上游输出时, 会自动封装成 Notification 对象,
+          而下游接收时, 会自动从 Notification 对象解析出实际的值
+        - materialize 操作符 相当于跳过 从 Notification 对象解析出实际的值的过程,
+          即 直接用 Notification 对象 当做值向下游输出,
+          输出时, Rx 又会再次自动封装成 Notification 对象,
+          此时 Notification 对象实际上是一个嵌套的 Notification 对象,
+          即如下面所示
+          {{'{'}}
+            kind: 'N',
+            [value: Notification]:
+               {{'{'}}
+                  kind: 'N',
+                  value: 'x',
+                  error: undefined,
+                  hasValue: true
+               {{'}'}}
+            error: undefined,
+            hasValue: true
+          {{'}'}}
+        - 当下游接收时, Rx 会自动从 Notification 对象解析,
+          此时, 实际解析的是外层的 Notification,
+          实际得到值, 就为 内层的 Notification 对象
   .panel.panel-info
     .panel-heading 示例1: 弹珠图示例
     .panel-body

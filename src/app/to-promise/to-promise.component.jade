@@ -1,20 +1,27 @@
 .container
-  h3 .
+  h3 toPromise
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading toPromise(转为Promise) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/debounceTime.png")
-      pre.pre-scrollable.
-        弹珠图解析:
+      p 签名: toPromise() : Promise
+      p 将 Observable 序列转换为符合 ES2015 标准的 Promise
+      p 返回符合 ES2015 标准的 Promise，它使用 Observable 序列的最后一个值
   .panel.panel-info
-    .panel-heading 示例1: 弹珠图示例
+    .panel-heading 示例1: 普通的Promise
     .panel-body
       pre.pre-scrollable([innerHtml]="demo1Info")
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 被拒的 Promise
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
