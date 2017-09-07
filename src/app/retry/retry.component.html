@@ -1,0 +1,35 @@
+
+<div class="container">
+  <h3>retry</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">retry(按次数重试) 说明</div>
+    <div class="panel-body">
+      <p>签名: retry(count: number): Observable</p>
+      <p>如果发生错误，以指定次数重试 observable 序列</p>
+      <p>返回一个 Observable， 该 Observable 是源 Observable 不包含错误异常的镜像。 如果源 Observable 发生错误, 这个方法不会传播错误而是会不断的重新订阅源 Observable 直到达到最大重试次数 (由数字参数指定)</p><img src="../assets/images/retry.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 源 Observable，正常发出 1 2 3, 输出 1 2 3
+- 源 Observable 出现错误, retry 重新订阅 源 Observable1,
+  原来的 源 Observable 因出现错误, 已经结束了
+- 源 Observable1，正常发出 1 2 3, 输出 1 2 3
+- 源 Observable1 出现错误, retry 重新订阅 源 Observable2,
+  源 Observable1 因出现错误, 也结束了
+- 源 Observable2，正常发出 1 2 3, 输出 1 2 3,
+- 源 Observable2 出现错误, retry 已达到最大重试次数,不再处理</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

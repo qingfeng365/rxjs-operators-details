@@ -82,6 +82,12 @@ import { LetComponent } from './let/let.component';
 import { MaterializeComponent } from './materialize/materialize.component';
 import { ObserveOnComponent } from './observe-on/observe-on.component';
 import { ToPromiseComponent } from './to-promise/to-promise.component';
+import { CatchComponent } from './catch/catch.component';
+import { RetryComponent } from './retry/retry.component';
+import { RetryWhenComponent } from './retry-when/retry-when.component';
+import { PublishComponent } from './publish/publish.component';
+import { MulticastComponent } from './multicast/multicast.component';
+import { ShareComponent } from './share/share.component';
 
 
 @NgModule({
@@ -161,7 +167,13 @@ import { ToPromiseComponent } from './to-promise/to-promise.component';
     LetComponent,
     MaterializeComponent,
     ObserveOnComponent,
-    ToPromiseComponent
+    ToPromiseComponent,
+    CatchComponent,
+    RetryComponent,
+    RetryWhenComponent,
+    PublishComponent,
+    MulticastComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,82 @@
+
+<div class="container">
+  <h3>retryWhen</h3>
+  <div class="panel panel-success">
+    <div class="panel-heading">对比分析
+      <div class="list-group"></div>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">retryWhen(重试触发) 说明</div>
+    <div class="panel-body">
+      <p>签名: retryWhen(notifier: function(errors: Observable): Observable): Observable</p>
+      <p>返回一个 Observable， 该 Observable 是源 Observable 不包含错误异常的镜像。 如果源头 Observable 触发 error， 这个方法会发出引起错误的 Throwable 给 notifier 返回的 Observable。 如果该 Observable 触发 complete 或者 error 则该方法会使子订阅触发 complete 和 error。 否则该方法会重新订阅源 Observable。</p>
+      <p><span class="label label-success">
+          注意
+          &nbsp;官网的说明并不确切, 请见 弹珠图解析 的说明</span></p><img src="../assets/images/retryWhen.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- retryWhen 会先创建 error Observable, 这个 Observable 是用来
+  存储错误的, 当 retryWhen 捕捉到错误后,会将 error:any
+  做为 error Observable 的值
+- 在 retryWhen 的回调函数 (notifier) 中, 会将 error Observable 做为
+  参数传递, 而回调函数返回时, 就有两种选择:
+  一种是, 直接用 error Observable 返回, 这就是弹珠图所示的方法,
+  这时, notifier Observable = error Observable
+  另一种, 重新创建新的 notifier Observable, 见示例3,
+  这种情况实际上就有三种 Observable, 即 源 Observable, error Observable,
+  notifier Observable
+- retryWhen 只会在首次出错时, 调用回调函数, 以后再出现错误,不会调用回调函数
+- 操作符上方的第二条线为 源 Observable,
+- 第一条线为 notifier Observable = error Observable (见上面说明), 即起辅助通知作用的 Observable
+- 当 notifier Observable 发出值, 就会触发通知
+  当 notifier Observable 一触发通知, 就会重新订阅源 Observable
+  当 notifier Observable 发出已完成信号, 就会结束整个订阅
+
+节点说明:
+- 源 Observable 发出值 1 2 , 输出 1 2
+- 源 Observable 出现错误, retryWhen 捕捉错误, 调用回调函数,
+  同时将error Observable 做为参数传递进来,
+  并将错误对象做为 error Observable 的值,
+  回调函数把 error Observable (进行延时处理后) 当做 notifier Observable 返回
+  等待 notifier Observable 触发通知
+  此时 源 Observable 因出现错误, 已结束
+- notifier Observable 触发通知 'r',
+  重新订阅 源 Observable1
+- 源 Observable1 发出值 1 2 , 输出 1 2
+  源 Observable1 出现错误, retryWhen 捕捉错误, 此时不会调用回调函数,
+  等待 notifier Observable 触发通知
+  此时 源 Observable1 因出现错误, 已结束
+- notifier Observable 触发通知 'r',
+  重新订阅 源 Observable2
+- 源 Observable1 发出值 1 , 输出 1
+- notifier Observable 触发已完成信号, 结束</pre>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例1: 弹珠图示例</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 弹珠图示例只控制重试次数的写法</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 新建 notifier Observable 的弹珠图示例写法</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+</div>

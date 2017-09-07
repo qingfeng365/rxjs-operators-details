@@ -1,0 +1,64 @@
+.container
+  h3 catch
+  .panel.panel-success
+    .panel-heading 对比分析
+      .list-group
+  .panel.panel-info
+    .panel-heading catch(捕获错误) 说明
+    .panel-body
+      p 签名: catch(selector: function): Observable
+      p 捕获 observable 中的错误，可以通过返回一个新的 observable 或者抛出错误对象来处理
+      p selector:该函数接受 err 参数，即错误对象，还接受 catch 参数，即源 Observable， 当你想“重试”的时候返回它即可。 任何被selector返回的 observable 都会被用来代替源 observable
+      p 记住要在 catch 函数中返回一个 observable
+      p span.label.label-success 注意
+        | &nbsp; 源 observable 如果没有触发错误, 则 catch 不会调用 selector 函数,直接返回源 observable 不处理, 只有源 observable 触发了错误, catch 才会调用 selector 函数, selector 函数如果 返回的是源 observable, 则相当于重新执行源 observable, 如果返回的是新的 observable, 则相当于出错后,跳过错误和源 observable,继续执行新的 observable
+      img.img-responsive.center-block(src="../assets/images/catch.png")
+      pre.pre-scrollable.
+        弹珠图解析:
+        - 源 observable 发出 'a' 'b', 没有触发错误, 则 catch 不会调用 selector 函数,
+          输出 'a' 'b'
+        - 源 observable 触发错误, catch 调用 selector 函数,
+          selector 函数 返回新的 observable-new,
+          源 observable 因已触发错误, 已经处于结束状态
+          处理订阅状态的是 observable-new
+        - observable-new 发出值 1 2 3, 输出 1 2 3
+  .panel.panel-info
+    .panel-heading 示例1: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo1Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 当发生错误的时候重试源 Observable, 和retry()操作符类似
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 当源 Observable 发生错误的时候，抛出一个新的错误
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例4: 捕获 observable 中的错误
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo4Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo4();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例5: 捕获拒绝的 promise
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo5Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo5();$event.stopPropagation()") 运行

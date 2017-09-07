@@ -1,3 +1,7 @@
+import { ShareComponent } from './share/share.component';
+import { RetryWhenComponent } from './retry-when/retry-when.component';
+import { RetryComponent } from './retry/retry.component';
+import { CatchComponent } from './catch/catch.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -74,6 +78,8 @@ import { LetComponent } from './let/let.component';
 import { MaterializeComponent } from './materialize/materialize.component';
 import { ObserveOnComponent } from './observe-on/observe-on.component';
 import { ToPromiseComponent } from './to-promise/to-promise.component';
+import { MulticastComponent } from './multicast/multicast.component';
+import { PublishComponent } from './publish/publish.component';
 
 const routes: Routes = [
   {
@@ -113,6 +119,10 @@ const routes: Routes = [
   {
     path: 'buffer-when',
     component: BufferWhenComponent
+  },
+  {
+    path: 'catch',
+    component: CatchComponent
   },
   {
     path: 'combine-all',
@@ -259,6 +269,10 @@ const routes: Routes = [
     component: MergeMapComponent
   },
   {
+    path: 'multicast',
+    component: MulticastComponent
+  },
+  {
     path: 'observe-on',
     component: ObserveOnComponent
   },
@@ -279,6 +293,10 @@ const routes: Routes = [
     component: PluckComponent
   },
   {
+    path: 'publish',
+    component: PublishComponent
+  },
+  {
     path: 'race',
     component: RaceComponent
   },
@@ -287,12 +305,24 @@ const routes: Routes = [
     component: RangeComponent
   },
   {
+    path: 'retry',
+    component: RetryComponent
+  },
+  {
+    path: 'retryWhen',
+    component: RetryWhenComponent
+  },
+  {
     path: 'sample',
     component: SampleComponent
   },
   {
     path: 'scan',
     component: ScanComponent
+  },
+  {
+    path: 'share',
+    component: ShareComponent
   },
   {
     path: 'single',

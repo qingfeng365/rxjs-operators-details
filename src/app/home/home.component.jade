@@ -1,5 +1,41 @@
 .container
   .panel.panel-info
+    .panel-heading 数学和聚合
+    .panel-body
+      .list-group
+  .panel.panel-info
+    .panel-heading 错误处理
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/catch']")
+          h4.list-group-item-heading catch 捕获错误
+          p.list-group-item-text
+            | 捕获 observable 中的错误，可以通过返回一个新的 observable 或者抛出错误对象来处理
+        a.list-group-item([routerLink]="['/retry']")
+          h4.list-group-item-heading retry 按次数重试
+          p.list-group-item-text
+            | 如果发生错误，以指定次数重试 observable 序列
+        a.list-group-item([routerLink]="['/retryWhen']")
+          h4.list-group-item-heading retryWhen 重试触发
+          p.list-group-item-text
+            | 当发生错误时，基于自定义的标准来重试 observable 序列
+  .panel.panel-info
+    .panel-heading 多播
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/multicast']")
+          h4.list-group-item-heading multicast
+          p.list-group-item-text
+            | 使用提供 的 Subject 来共享源 observable
+        a.list-group-item([routerLink]="['/publish']")
+          h4.list-group-item-heading publish
+          p.list-group-item-text
+            | 共享源 observable 并通过调用 connect 方法使其变成热的
+        a.list-group-item([routerLink]="['/share']")
+          h4.list-group-item-heading share
+          p.list-group-item-text
+            | 在多个订阅者间共享源 observable
+  .panel.panel-info
     .panel-heading 条件
     .panel-body
       .list-group
