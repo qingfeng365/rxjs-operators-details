@@ -15,6 +15,23 @@
       img.img-responsive.center-block(src="../assets/images/zip.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符上方两条线,表示两个 源 observable: 数字$ 字母$
+        - 每一个 源 observable 发出值时, 均要查询其它 源 observable
+          有没有相同索引值, 有则输出数组, 没有则不处理
+        - 当 数字$ 发出值 1 时, 数字$ 的当前索引为 0,
+          查询其它 源 observable 索引为 0 的值,
+          字母$ 索引0 还没有值, 不输出
+        - 当 字母$ 发出值 A 时, 字母$ 的当前索引为 0,
+          查询 数字$ 索引0 的值 为 1,
+          将两个  源 observable 同位置的值组成数组 [1,'A'] 输出
+        - 当 数字$ 发出值 2 时, 数字$ 的当前索引为 1,
+          字母$ 索引1 还没有值, 不输出
+        - 当 字母$ 发出值 B 时, 字母$ 的当前索引为 1,
+          查询 数字$ 索引1 的值 为 2,
+          将两个 源 observable 同位置的值组成数组 [2,'B'] 输出
+        - 以此类推
+        - 字母$ 最终只发出4个值就完成, 因此最终只有4个数组输出
+        - 只要有任意一个源 observable 完成,就会结束
   .panel.panel-info
     .panel-heading 示例1: 当一个 observable 完成时，便不会再发出更多的值
     .panel-body
@@ -39,3 +56,11 @@
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo3();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例0: 弹珠图示例
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo0Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo0();$event.stopPropagation()") 运行
