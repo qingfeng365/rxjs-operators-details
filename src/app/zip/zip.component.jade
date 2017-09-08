@@ -6,12 +6,14 @@
   .panel.panel-info
     .panel-heading zip(按序组合) 说明
     .panel-body
-      p 签名: zip(observables: *): Observable
+      p 签名: zip(observables: *): Observable (官网文档签名,不太确切)
+      p 签名: zip(observables: *, project: function): Observable
       p 订阅所有 observables，然后等待每个发出一个值。一旦发生这种情况，将发出具有相应索引的所有值。这会持续进行，直到至少一个 observable 完成
       p 将多个 Observable 组合以创建一个 Observable，该 Observable 的值是由所有输入 Observables 的值按顺序计算而来的
       p 如果最后一个参数是函数, 这个函数被用来计算最终发出的值.否则, 返回一个顺序包含所有输入值的数组.
       p 与 interval 或 timer 进行组合, zip 可以用来根据另一个 observable 进行定时输出
       p 任意一个 observable 完成, 就会结束
+      p project:可选的投射函数，将所有 Observable 返回的值投射为要发出的新的值。
       img.img-responsive.center-block(src="../assets/images/zip.png")
       pre.pre-scrollable.
         弹珠图解析:

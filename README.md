@@ -1,5 +1,38 @@
 # RxjsOperatorsDetails
 
+
+## 学习路线
+
+### 第一天
+
+- `创建`类操作符 (全部)
+- do
+- toPromise
+- zip
+
+### 第二、三天
+
+- `过滤`类操作符 (全部) 
+
+### 第四、五天
+
+- `组合`类操作符 (全部) 
+
+### 第六、七、八天
+
+- `转换`类操作符 (全部) 
+
+### 第九天
+
+- `工具`类操作符(全部) 
+- `条件`类操作符(全部) 
+- `数学和聚合`类操作符(全部)
+
+### 第十天
+
+- `错误处理`类操作符(全部) 
+- `多播`类操作符(全部) 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.5.
 
 ## Development server

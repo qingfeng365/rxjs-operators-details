@@ -1,15 +1,19 @@
 .container
-  h3 .
+  h3 publish
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading publish(发布) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: publish(): ConnectableObservable
+      p 返回 ConnectableObservable，它是 Observable 的变种，它会一直等待，直到 connnect 方法被调用才会开始把值发送给那些订阅它的观察者
+      p 共享源 observable 并通过调用 connect 方法使其变成热的
+      img.img-responsive.center-block(src="../assets/images/publish.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符下方的线是蓝色的, 表示输出的 observable 是热的
+        - 热 observable 的意思是主动发送给所有订阅者
   .panel.panel-info
     .panel-heading 示例1: 弹珠图示例
     .panel-body
@@ -17,4 +21,4 @@
       p
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
-          (click)="runDemo1();$event.stopPropagation()") 运行
+          (click)="runDemo1zip();$event.stopPropagation()") 运行

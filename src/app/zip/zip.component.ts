@@ -15,6 +15,7 @@ export class ZipComponent implements OnInit, OnDestroy {
   demo1subscribe: Subscription = null;
   demo2subscribe: Subscription = null;
   demo3subscribe: Subscription = null;
+  demo0subscribe: Subscription = null;
 
   demo1Info =
   `
@@ -50,7 +51,7 @@ Rx.Observable
 */
 `;
   demo3Info =
-`
+  `
 // 如果最后一个参数是函数, 这个函数被用来计算最终发出的值.
 // 否则, 返回一个顺序包含所有输入值的数组
 Rx.Observable
@@ -69,6 +70,41 @@ Rx.Observable
     {age: 29, name: "Beer", isDev: false}
 */
 `;
+demo0Info =
+`
+const order1 = [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1];
+const order2 = [0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0];
+Rx.Observable
+  .zip(
+  Rx.Observable
+    .zip(
+    Rx.Observable
+      .of(1, 2, 3, 4, 5),
+    Rx.Observable
+      .interval(1000)
+      .filter(v => order1[v] === 1),
+    (x,y) => x
+    ),
+  Rx.Observable
+    .zip(
+    Rx.Observable
+      .of('A', 'B', 'C', 'D'),
+    Rx.Observable
+      .interval(1000)
+      .filter(v => order2[v] === 1),
+    (x,y) => x
+    )
+  )
+  .subscribe(v => console.log(v));
+  /*
+  输出:
+    [1,A]
+    [2,B]
+    [3,C]
+    [4,D]
+*/
+`
+
   constructor(private dateTool: DateToolService,
     public diffAnalysisService: DiffAnalysisService) { }
 
@@ -78,6 +114,7 @@ Rx.Observable
     this.unsubscribe(this.demo1subscribe);
     this.unsubscribe(this.demo2subscribe);
     this.unsubscribe(this.demo3subscribe);
+    this.unsubscribe(this.demo0subscribe);
   }
 
   unsubscribe(subscribe: any) {
@@ -150,6 +187,67 @@ Rx.Observable
       Rx.Observable.of(true, true, false),
       (age: number, name: string,
         isDev: boolean) => ({ age, name, isDev })
+      )
+      .subscribe(v => console.log(v));
+  }
+
+  runDemo0() {
+    const order1 = [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1];
+    const order2 = [0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0];
+    this.isRuning = true;
+    this.demo0subscribe =
+      Rx.Observable
+        .zip(
+        Rx.Observable
+          .zip(
+          Rx.Observable
+            .of(1, 2, 3, 4, 5),
+          Rx.Observable
+            .interval(1000)
+            .filter(v => order1[v] === 1),
+          x => x
+          )
+          .do(v => console.log(this.dateTool.getNowBymmsszz() +
+            ' 数字$发出: ' + v)),
+        Rx.Observable
+          .zip(
+          Rx.Observable
+            .of('A', 'B', 'C', 'D'),
+          Rx.Observable
+            .interval(1000)
+            .filter(v => order2[v] === 1),
+          x => x
+          )
+          .do(v => console.log(this.dateTool.getNowBymmsszz() +
+            ' 字母$发出: ' + v)),
+      )
+        .subscribe(v => console.log(v),
+        (err) => { },
+        () => this.isRuning = false);
+  }
+  runDemo0zip() {
+    const order1 = [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1];
+    const order2 = [0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0];
+    Rx.Observable
+      .zip(
+      Rx.Observable
+        .zip(
+        Rx.Observable
+          .of(1, 2, 3, 4, 5),
+        Rx.Observable
+          .interval(1000)
+          .filter(v => order1[v] === 1),
+        x => x
+        ),
+      Rx.Observable
+        .zip(
+        Rx.Observable
+          .of('A', 'B', 'C', 'D'),
+        Rx.Observable
+          .interval(1000)
+          .filter(v => order2[v] === 1),
+        x => x
+        )
       )
       .subscribe(v => console.log(v));
   }
