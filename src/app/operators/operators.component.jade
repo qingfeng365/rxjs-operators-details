@@ -23,6 +23,10 @@
           h4.list-group-item-heading bufferWhen 触发缓冲
           p.list-group-item-text
             | 收集值，直到关闭选择器发出值才发出缓冲的值。
+        a.list-group-item([routerLink]="['/catch']")
+          h4.list-group-item-heading catch 捕获错误
+          p.list-group-item-text
+            | 捕获 observable 中的错误，可以通过返回一个新的 observable 或者抛出错误对象来处理
         a.list-group-item([routerLink]="['/combine-all']")
           h4.list-group-item-heading combineAll 最新值合并
           p.list-group-item-text
@@ -167,6 +171,10 @@
           h4.list-group-item-heading mergeMap 融合映射
           p.list-group-item-text
             | 映射成 observable 并发出值。
+        a.list-group-item([routerLink]="['/multicast']")
+          h4.list-group-item-heading multicast 多播
+          p.list-group-item-text
+            | 使用提供 的 Subject 来共享源 observable
         a.list-group-item([routerLink]="['/of']")
           h4.list-group-item-heading of 参数转化
           p.list-group-item-text
@@ -183,6 +191,10 @@
           h4.list-group-item-heading pluck 属性映射
           p.list-group-item-text
             | 选择属性来发出。
+        a.list-group-item([routerLink]="['/publish']")
+          h4.list-group-item-heading publish 发布
+          p.list-group-item-text
+            | 共享源 observable 并通过调用 connect 方法使其变成热的
         a.list-group-item([routerLink]="['/race']")
           h4.list-group-item-heading race 竞争
           p.list-group-item-text
@@ -191,6 +203,14 @@
           h4.list-group-item-heading range 整数序列
           p.list-group-item-text
             | 依次发出给定区间内的数字
+        a.list-group-item([routerLink]="['/retry']")
+          h4.list-group-item-heading retry 按次数重试
+          p.list-group-item-text
+            | 如果发生错误，以指定次数重试 observable 序列
+        a.list-group-item([routerLink]="['/retryWhen']")
+          h4.list-group-item-heading retryWhen 重试触发
+          p.list-group-item-text
+            | 当发生错误时，基于自定义的标准来重试 observable 序列
         a.list-group-item([routerLink]="['/sample']")
           h4.list-group-item-heading sample 采集新样
           p.list-group-item-text
@@ -199,6 +219,10 @@
           h4.list-group-item-heading scan 逐项累加
           p.list-group-item-text
             | 对源 Observable 使用累加器函数， 返回生成的中间值， 可选的初始值
+        a.list-group-item([routerLink]="['/share']")
+          h4.list-group-item-heading share 共享
+          p.list-group-item-text
+            | 在多个订阅者间共享源 observable
         a.list-group-item([routerLink]="['/single']")
           h4.list-group-item-heading single 唯一
           p.list-group-item-text

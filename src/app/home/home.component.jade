@@ -1,8 +1,97 @@
 .container
   .panel.panel-info
+    .panel-heading 过滤
+    .panel-body
+      .list-group
+        a.list-group-item([routerLink]="['/debounce']")
+          h4.list-group-item-heading debounce 防抖
+          p.list-group-item-text
+            | 根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值
+        a.list-group-item([routerLink]="['/debounce-time']")
+          h4.list-group-item-heading debounceTime 按时防抖
+          p.list-group-item-text
+            | 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值
+        a.list-group-item([routerLink]="['/distinct-until-changed']")
+          h4.list-group-item-heading distinctUntilChanged 剔除重复前值
+          p.list-group-item-text
+            | 只在当前值与之前最后一个值不同时才将其发出
+        a.list-group-item([routerLink]="['/filter']")
+          h4.list-group-item-heading filter 过滤
+          p.list-group-item-text
+            | 发出符合给定条件的值
+        a.list-group-item([routerLink]="['/first']")
+          h4.list-group-item-heading first 查找第一个
+          p.list-group-item-text
+            | 只发出第一个值。或者只发出第一个通过测试的值
+        a.list-group-item([routerLink]="['/ignore-elements']")
+          h4.list-group-item-heading ignoreElements 值忽略
+          p.list-group-item-text
+            | 忽略源 Observable 所发送的所有项，只传递 complete 或 error 的调用
+        a.list-group-item([routerLink]="['/last']")
+          h4.list-group-item-heading last 查找最后一个
+          p.list-group-item-text
+            | 根据提供的表达式，在源 observable 完成时发出它的最后一个值
+        a.list-group-item([routerLink]="['/sample']")
+          h4.list-group-item-heading sample 采集新样
+          p.list-group-item-text
+            | 发出源 Observable 最新发出的值当另一个 notifier Observable发送时
+        a.list-group-item([routerLink]="['/single']")
+          h4.list-group-item-heading single 唯一
+          p.list-group-item-text
+            | 该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知
+        a.list-group-item([routerLink]="['/skip']")
+          h4.list-group-item-heading skip 按数量跳过
+          p.list-group-item-text
+            | 跳过N个(由参数提供)发出值
+        a.list-group-item([routerLink]="['/skip-until']")
+          h4.list-group-item-heading skipUntil 触发前跳过
+          p.list-group-item-text
+            | 跳过源 observable 发出的值，直到提供的 observable 发出值
+        a.list-group-item([routerLink]="['/skip-while']")
+          h4.list-group-item-heading skipWhile 按条件跳过
+          p.list-group-item-text
+            | 跳过源 observable 发出的值，直到提供的表达式结果为 false
+        a.list-group-item([routerLink]="['/take']")
+          h4.list-group-item-heading take 按数量截取
+          p.list-group-item-text
+            | 只发出源 Observable 最初发出的的N个值 (N = count)
+        a.list-group-item([routerLink]="['/take-until']")
+          h4.list-group-item-heading takeUntil 截取至触发
+          p.list-group-item-text
+            | 发出源 Observable 发出的值，直到 notifier Observable 发出值
+        a.list-group-item([routerLink]="['/take-while']")
+          h4.list-group-item-heading takeWhile 按条件截取
+          p.list-group-item-text
+            | 发出值，直到提供的表达式结果为 false
+        a.list-group-item([routerLink]="['/throttle']")
+          h4.list-group-item-heading throttle 节流阀
+          p.list-group-item-text
+            | 仅当由提供的函数所确定的持续时间已经过去时才发出值
+        a.list-group-item([routerLink]="['/throttle-time']")
+          h4.list-group-item-heading throttleTime 按时节流阀
+          p.list-group-item-text
+            | 当指定的持续时间经过后发出最新值
+
+  .panel.panel-info
     .panel-heading 数学和聚合
     .panel-body
       .list-group
+        a.list-group-item([routerLink]="['/count']")
+          h4.list-group-item-heading count 总数
+          p.list-group-item-text
+            | 计算源的发送数量，并当源完成时发出该数值
+        a.list-group-item([routerLink]="['/max']")
+          h4.list-group-item-heading max 最大值
+          p.list-group-item-text
+            | 当源 Observable 完成时它发出单一项：最大值的项
+        a.list-group-item([routerLink]="['/min']")
+          h4.list-group-item-heading min 最小值
+          p.list-group-item-text
+            | 当源 Observable 完成时它发出单一项：最小值的项
+        a.list-group-item([routerLink]="['/reduce']")
+          h4.list-group-item-heading reduce 归约
+          p.list-group-item-text
+            | 在源 Observalbe 上应用 accumulator (累加器) 函数，然后当源 Observable 完成时，返回 累加的结果，可以提供一个可选的 seed 值
   .panel.panel-info
     .panel-heading 错误处理
     .panel-body
@@ -24,7 +113,7 @@
     .panel-body
       .list-group
         a.list-group-item([routerLink]="['/multicast']")
-          h4.list-group-item-heading multicast
+          h4.list-group-item-heading multicast 多播
           p.list-group-item-text
             | 使用提供 的 Subject 来共享源 observable
         a.list-group-item([routerLink]="['/publish']")
@@ -32,7 +121,7 @@
           p.list-group-item-text
             | 共享源 observable 并通过调用 connect 方法使其变成热的
         a.list-group-item([routerLink]="['/share']")
-          h4.list-group-item-heading share
+          h4.list-group-item-heading share 共享
           p.list-group-item-text
             | 在多个订阅者间共享源 observable
   .panel.panel-info
@@ -215,78 +304,6 @@
           h4.list-group-item-heading windowWhen 触发窗口
           p.list-group-item-text
             | 将源 Observable 的值分支成嵌套的 Observable ，通过使用关闭 Observable 的工厂函数来决定何时开启新的窗口
-  .panel.panel-info
-    .panel-heading 过滤
-    .panel-body
-      .list-group
-        a.list-group-item([routerLink]="['/debounce']")
-          h4.list-group-item-heading debounce 防抖
-          p.list-group-item-text
-            | 根据一个选择器函数，舍弃掉在两次输出之间小于指定时间的发出值
-        a.list-group-item([routerLink]="['/debounce-time']")
-          h4.list-group-item-heading debounceTime 按时防抖
-          p.list-group-item-text
-            | 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值
-        a.list-group-item([routerLink]="['/distinct-until-changed']")
-          h4.list-group-item-heading distinctUntilChanged 剔除重复前值
-          p.list-group-item-text
-            | 只在当前值与之前最后一个值不同时才将其发出
-        a.list-group-item([routerLink]="['/filter']")
-          h4.list-group-item-heading filter 过滤
-          p.list-group-item-text
-            | 发出符合给定条件的值
-        a.list-group-item([routerLink]="['/first']")
-          h4.list-group-item-heading first 查找第一个
-          p.list-group-item-text
-            | 只发出第一个值。或者只发出第一个通过测试的值
-        a.list-group-item([routerLink]="['/ignore-elements']")
-          h4.list-group-item-heading ignoreElements 值忽略
-          p.list-group-item-text
-            | 忽略源 Observable 所发送的所有项，只传递 complete 或 error 的调用
-        a.list-group-item([routerLink]="['/last']")
-          h4.list-group-item-heading last 查找最后一个
-          p.list-group-item-text
-            | 根据提供的表达式，在源 observable 完成时发出它的最后一个值
-        a.list-group-item([routerLink]="['/sample']")
-          h4.list-group-item-heading sample 采集新样
-          p.list-group-item-text
-            | 发出源 Observable 最新发出的值当另一个 notifier Observable发送时
-        a.list-group-item([routerLink]="['/single']")
-          h4.list-group-item-heading single 唯一
-          p.list-group-item-text
-            | 该 Observable 发出源 Observable 所发出的值中匹配指定 predicate 函数的单个项。 如果源 Observable 发出多于1个数据项或者没有发出数据项, 分别以 IllegalArgumentException 和 NoSuchElementException 进行通知
-        a.list-group-item([routerLink]="['/skip']")
-          h4.list-group-item-heading skip 按数量跳过
-          p.list-group-item-text
-            | 跳过N个(由参数提供)发出值
-        a.list-group-item([routerLink]="['/skip-until']")
-          h4.list-group-item-heading skipUntil 触发前跳过
-          p.list-group-item-text
-            | 跳过源 observable 发出的值，直到提供的 observable 发出值
-        a.list-group-item([routerLink]="['/skip-while']")
-          h4.list-group-item-heading skipWhile 按条件跳过
-          p.list-group-item-text
-            | 跳过源 observable 发出的值，直到提供的表达式结果为 false
-        a.list-group-item([routerLink]="['/take']")
-          h4.list-group-item-heading take 按数量截取
-          p.list-group-item-text
-            | 只发出源 Observable 最初发出的的N个值 (N = count)
-        a.list-group-item([routerLink]="['/take-until']")
-          h4.list-group-item-heading takeUntil 截取至触发
-          p.list-group-item-text
-            | 发出源 Observable 发出的值，直到 notifier Observable 发出值
-        a.list-group-item([routerLink]="['/take-while']")
-          h4.list-group-item-heading takeWhile 按条件截取
-          p.list-group-item-text
-            | 发出值，直到提供的表达式结果为 false
-        a.list-group-item([routerLink]="['/throttle']")
-          h4.list-group-item-heading throttle 节流阀
-          p.list-group-item-text
-            | 仅当由提供的函数所确定的持续时间已经过去时才发出值
-        a.list-group-item([routerLink]="['/throttle-time']")
-          h4.list-group-item-heading throttleTime 按时节流阀
-          p.list-group-item-text
-            | 当指定的持续时间经过后发出最新值
   .panel.panel-info
     .panel-heading 组合
     .panel-body

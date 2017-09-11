@@ -1,15 +1,21 @@
 .container
-  h3 .
+  h3 multicast
   .panel.panel-success
     .panel-heading 对比分析
       .list-group
   .panel.panel-info
-    .panel-heading () 说明
+    .panel-heading multicast(多播) 说明
     .panel-body
-      p 签名:
-      img.img-responsive.center-block(src="../assets/images/buffer.png")
+      p 签名: multicast(subjectOrSubjectFactory: Function | Subject, selector: Function): Observable
+      p 使用提供 的 Subject 来共享源 observable
+      p 创建中间 Subject 的工厂函数，源序列的元素将通过 该 Subject 多播到 selector函数，或者将元素推入该 Subject
+      img.img-responsive.center-block(src="../assets/images/multicast.png")
       pre.pre-scrollable.
         弹珠图解析:
+        - 操作符下方的线是蓝色的, 表示输出的 observable 是热的
+        - 热 observable 的意思是主动发送给所有订阅者
+        附加说明:
+        可与 publish 示例对照, publish 是内置 Subject
   .panel.panel-info
     .panel-heading 示例1: 弹珠图示例
     .panel-body
@@ -18,3 +24,19 @@
         button.btn.btn-primary(type="button",
           [disabled]="isRuning",
           (click)="runDemo1();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例2: 第2个订阅在 connect 后3秒
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo2Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo2();$event.stopPropagation()") 运行
+  .panel.panel-info
+    .panel-heading 示例3: 使用 ReplaySubject
+    .panel-body
+      pre.pre-scrollable([innerHtml]="demo3Info")
+      p
+        button.btn.btn-primary(type="button",
+          [disabled]="isRuning",
+          (click)="runDemo3zip();$event.stopPropagation()") 运行

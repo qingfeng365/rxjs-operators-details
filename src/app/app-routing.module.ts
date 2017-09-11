@@ -1,3 +1,4 @@
+import { CountComponent } from './count/count.component';
 import { ShareComponent } from './share/share.component';
 import { RetryWhenComponent } from './retry-when/retry-when.component';
 import { RetryComponent } from './retry/retry.component';
@@ -80,6 +81,9 @@ import { ObserveOnComponent } from './observe-on/observe-on.component';
 import { ToPromiseComponent } from './to-promise/to-promise.component';
 import { MulticastComponent } from './multicast/multicast.component';
 import { PublishComponent } from './publish/publish.component';
+import { MaxComponent } from './max/max.component';
+import { MinComponent } from './min/min.component';
+import { ReduceComponent } from './reduce/reduce.component';
 
 const routes: Routes = [
   {
@@ -147,6 +151,10 @@ const routes: Routes = [
   {
     path: 'concat-map-to',
     component: ConcatMapToComponent
+  },
+  {
+    path: 'count',
+    component: CountComponent
   },
   {
     path: 'create',
@@ -257,6 +265,10 @@ const routes: Routes = [
     component: MaterializeComponent
   },
   {
+    path: 'max',
+    component: MaxComponent
+  },
+  {
     path: 'merge',
     component: MergeComponent
   },
@@ -267,6 +279,10 @@ const routes: Routes = [
   {
     path: 'merge-map',
     component: MergeMapComponent
+  },
+  {
+    path: 'min',
+    component: MinComponent
   },
   {
     path: 'multicast',
@@ -303,6 +319,10 @@ const routes: Routes = [
   {
     path: 'range',
     component: RangeComponent
+  },
+  {
+    path: 'reduce',
+    component: ReduceComponent
   },
   {
     path: 'retry',

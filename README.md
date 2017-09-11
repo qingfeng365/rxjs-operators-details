@@ -9,6 +9,7 @@
 - do
 - toPromise
 - zip
+- take
 
 ### 第二、三天
 

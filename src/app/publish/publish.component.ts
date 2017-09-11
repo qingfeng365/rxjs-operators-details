@@ -40,19 +40,19 @@ export class PublishComponent implements OnInit, OnDestroy {
     connect 开始...
     源:1
       sub1得到:1
-      psub2得到:1
+      sub2得到:1
     源:2
       sub1得到:2
-      psub2得到:2
+      sub2得到:2
     源:3
       sub1得到:3
-      psub2得到:3
+      sub2得到:3
     源:4
       sub1得到:4
       sub2得到:4
     源:5
       sub1得到:5
-      psub2得到:5
+      sub2得到:5
   */
   `;
 

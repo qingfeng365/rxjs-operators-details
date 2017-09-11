@@ -88,6 +88,10 @@ import { RetryWhenComponent } from './retry-when/retry-when.component';
 import { PublishComponent } from './publish/publish.component';
 import { MulticastComponent } from './multicast/multicast.component';
 import { ShareComponent } from './share/share.component';
+import { CountComponent } from './count/count.component';
+import { MaxComponent } from './max/max.component';
+import { MinComponent } from './min/min.component';
+import { ReduceComponent } from './reduce/reduce.component';
 
 
 @NgModule({
@@ -173,7 +177,11 @@ import { ShareComponent } from './share/share.component';
     RetryWhenComponent,
     PublishComponent,
     MulticastComponent,
-    ShareComponent
+    ShareComponent,
+    CountComponent,
+    MaxComponent,
+    MinComponent,
+    ReduceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,25 @@
 
 <div class="container">
-  <h3>.</h3>
+  <h3>share</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">share(共享) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: share(): Observable</p>
+      <p>返回一个新的 Observable，该 Observable 多播(共享)源 Observable。 至少要有一个订阅者，该 Observable 才会被订阅并发出数据。 当所有的订阅者都取消订阅了，它会取消对源 Observable 的订阅。</p><img src="../assets/images/share.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符下方的线是蓝色的, 表示输出的 observable 是热的
+- 热 observable 的意思是主动发送给所有订阅者
+附加说明:
+share publish multicast 都是通过 subject 实现多播
+从可定义的灵活度来看, multicast 灵活度最高：
+multicast > publish > share
+从使用的简便性来看, share 使用最简单：
+share >　publish　>　multicast</pre>
     </div>
   </div>
   <div class="panel panel-info">

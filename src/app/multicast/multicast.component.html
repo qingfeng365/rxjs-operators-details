@@ -1,16 +1,22 @@
 
 <div class="container">
-  <h3>.</h3>
+  <h3>multicast</h3>
   <div class="panel panel-success">
     <div class="panel-heading">对比分析
       <div class="list-group"></div>
     </div>
   </div>
   <div class="panel panel-info">
-    <div class="panel-heading">() 说明</div>
+    <div class="panel-heading">multicast(多播) 说明</div>
     <div class="panel-body">
-      <p>签名:</p><img src="../assets/images/buffer.png" class="img-responsive center-block"/>
-      <pre class="pre-scrollable">弹珠图解析:</pre>
+      <p>签名: multicast(subjectOrSubjectFactory: Function | Subject, selector: Function): Observable</p>
+      <p>使用提供 的 Subject 来共享源 observable</p>
+      <p>创建中间 Subject 的工厂函数，源序列的元素将通过 该 Subject 多播到 selector函数，或者将元素推入该 Subject</p><img src="../assets/images/multicast.png" class="img-responsive center-block"/>
+      <pre class="pre-scrollable">弹珠图解析:
+- 操作符下方的线是蓝色的, 表示输出的 observable 是热的
+- 热 observable 的意思是主动发送给所有订阅者
+附加说明:
+可与 publish 示例对照, publish 是内置 Subject</pre>
     </div>
   </div>
   <div class="panel panel-info">
@@ -19,6 +25,24 @@
       <pre [innerHtml]="demo1Info" class="pre-scrollable"></pre>
       <p>
         <button type="button" [disabled]="isRuning" (click)="runDemo1();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例2: 第2个订阅在 connect 后3秒</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo2Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo2();$event.stopPropagation()" class="btn btn-primary">运行</button>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">示例3: 使用 ReplaySubject</div>
+    <div class="panel-body">
+      <pre [innerHtml]="demo3Info" class="pre-scrollable"></pre>
+      <p>
+        <button type="button" [disabled]="isRuning" (click)="runDemo3zip();$event.stopPropagation()" class="btn btn-primary">运行</button>
       </p>
     </div>
   </div>
